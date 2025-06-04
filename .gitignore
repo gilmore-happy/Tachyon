@@ -1,0 +1,6 @@
+/target
+Cargo.lock
+.env
+/solana-wallet
+*.log
+/src/markets/cache/*.json
