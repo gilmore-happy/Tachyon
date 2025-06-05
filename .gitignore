@@ -4,3 +4,15 @@ Cargo.lock
 /solana-wallet
 *.log
 /src/markets/cache/*.json
+
+# Codex configuration files with sensitive data
+codex-env-template.txt
+config.json
+
+# Logs directory
+/logs/
+
+# Wallet files
+*.json
+/workspace/wallet/
+keypair-secret-*.txt
