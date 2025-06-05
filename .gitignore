@@ -16,3 +16,16 @@ config.json
 *.json
 /workspace/wallet/
 keypair-secret-*.txt
+
+# AWS related files
+awscliv2.zip
+aws/
+*.pem
+*.key
+*credentials*
+.aws/
+
+# Security - never commit these
+*_secret*
+*_private*
+*.secret
