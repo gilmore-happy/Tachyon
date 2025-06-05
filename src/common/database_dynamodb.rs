@@ -1,6 +1,9 @@
 use log::info;
-use aws_sdk_dynamodb::{Client, Error};
-use aws_sdk_dynamodb::model::{AttributeValue, PutItemInput};
+use aws_sdk_dynamodb::Client;
+use aws_sdk_dynamodb::types::{
+    AttributeValue, AttributeDefinition, BillingMode, 
+    KeySchemaElement, KeyType, ScalarAttributeType
+};
 use aws_config::meta::region::RegionProviderChain;
 use anyhow::Result;
 use serde_json;
@@ -150,30 +153,30 @@ impl DynamoDBClient {
             .create_table()
             .table_name("swap_path_results")
             .key_schema(
-                aws_sdk_dynamodb::model::KeySchemaElement::builder()
+                KeySchemaElement::builder()
                     .attribute_name("path_id")
-                    .key_type(aws_sdk_dynamodb::model::KeyType::Hash)
-                    .build()
+                    .key_type(KeyType::Hash)
+                    .build()?
             )
             .key_schema(
-                aws_sdk_dynamodb::model::KeySchemaElement::builder()
+                KeySchemaElement::builder()
                     .attribute_name("timestamp")
-                    .key_type(aws_sdk_dynamodb::model::KeyType::Range)
-                    .build()
+                    .key_type(KeyType::Range)
+                    .build()?
             )
             .attribute_definitions(
-                aws_sdk_dynamodb::model::AttributeDefinition::builder()
+                AttributeDefinition::builder()
                     .attribute_name("path_id")
-                    .attribute_type(aws_sdk_dynamodb::model::ScalarAttributeType::N)
-                    .build()
+                    .attribute_type(ScalarAttributeType::N)
+                    .build()?
             )
             .attribute_definitions(
-                aws_sdk_dynamodb::model::AttributeDefinition::builder()
+                AttributeDefinition::builder()
                     .attribute_name("timestamp")
-                    .attribute_type(aws_sdk_dynamodb::model::ScalarAttributeType::N)
-                    .build()
+                    .attribute_type(ScalarAttributeType::N)
+                    .build()?
             )
-            .billing_mode(aws_sdk_dynamodb::model::BillingMode::PayPerRequest)
+            .billing_mode(BillingMode::PayPerRequest)
             .send()
             .await
         {
@@ -190,30 +193,30 @@ impl DynamoDBClient {
             .create_table()
             .table_name("selected_paths")
             .key_schema(
-                aws_sdk_dynamodb::model::KeySchemaElement::builder()
+                KeySchemaElement::builder()
                     .attribute_name("selection_id")
-                    .key_type(aws_sdk_dynamodb::model::KeyType::Hash)
-                    .build()
+                    .key_type(KeyType::Hash)
+                    .build()?
             )
             .key_schema(
-                aws_sdk_dynamodb::model::KeySchemaElement::builder()
+                KeySchemaElement::builder()
                     .attribute_name("path_index")
-                    .key_type(aws_sdk_dynamodb::model::KeyType::Range)
-                    .build()
+                    .key_type(KeyType::Range)
+                    .build()?
             )
             .attribute_definitions(
-                aws_sdk_dynamodb::model::AttributeDefinition::builder()
+                AttributeDefinition::builder()
                     .attribute_name("selection_id")
-                    .attribute_type(aws_sdk_dynamodb::model::ScalarAttributeType::S)
-                    .build()
+                    .attribute_type(ScalarAttributeType::S)
+                    .build()?
             )
             .attribute_definitions(
-                aws_sdk_dynamodb::model::AttributeDefinition::builder()
+                AttributeDefinition::builder()
                     .attribute_name("path_index")
-                    .attribute_type(aws_sdk_dynamodb::model::ScalarAttributeType::N)
-                    .build()
+                    .attribute_type(ScalarAttributeType::N)
+                    .build()?
             )
-            .billing_mode(aws_sdk_dynamodb::model::BillingMode::PayPerRequest)
+            .billing_mode(BillingMode::PayPerRequest)
             .send()
             .await
         {
