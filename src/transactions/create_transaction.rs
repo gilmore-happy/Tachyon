@@ -1,5 +1,4 @@
 use anchor_spl::token::spl_token;
-use anchor_spl::token::spl_token::error;
 use anyhow::Result;
 use itertools::Itertools;
 use log::error;
@@ -10,12 +9,8 @@ use solana_client::{
     connection_cache::ConnectionCache,
     rpc_client::RpcClient,
     rpc_config::{RpcSendTransactionConfig, RpcSimulateTransactionConfig},
-    send_and_confirm_transactions_in_parallel::{
-        send_and_confirm_transactions_in_parallel, SendAndConfirmConfig,
-    },
-    tpu_client::{TpuClient, TpuClientConfig},
+    tpu_client::TpuClientConfig,
 };
-use solana_sdk::transaction::Transaction;
 use solana_sdk::{
     address_lookup_table::{
         instruction::{create_lookup_table, extend_lookup_table},
@@ -28,7 +23,6 @@ use solana_sdk::{
     message::{v0, VersionedMessage},
     pubkey::Pubkey,
     signature::{read_keypair_file, Keypair, Signer},
-    sysvar::instructions,
     transaction::VersionedTransaction,
 };
 use solana_transaction_status::UiTransactionEncoding;
@@ -36,12 +30,10 @@ use spl_associated_token_account::get_associated_token_address;
 use spl_associated_token_account::instruction::create_associated_token_account;
 use std::io::{BufWriter, Write};
 use std::{
-    fs::{File, OpenOptions},
+    fs::OpenOptions,
     io::{BufReader, Read},
     path::Path,
     sync::Arc,
-    thread::sleep,
-    time::{Duration, Instant},
 }; // Added warn
 
 use super::{
@@ -53,7 +45,7 @@ use crate::{
     arbitrage::types::SwapPathResult,
     common::{constants::Env, utils::from_str},
     markets::types::DexLabel,
-    transactions::utils::{average, check_tx_status},
+    transactions::utils::check_tx_status,
 };
 
 // Updated original function

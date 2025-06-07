@@ -1,8 +1,7 @@
 use crate::{
     common::{constants::Env, utils::from_str},
-    markets::types::{DexLabel, Market},
+    markets::types::Market,
 };
-use anyhow::Result;
 use log::info;
 use solana_client::rpc_client::RpcClient;
 use solana_sdk::pubkey::Pubkey;

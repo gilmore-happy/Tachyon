@@ -89,7 +89,7 @@ pub async fn fetch_data_raydium_clmm() -> Result<(), Box<dyn std::error::Error>>
 pub async fn stream_raydium_clmm(account: Pubkey) -> Result<()> {
     let env = Env::new();
     let url = env.wss_rpc_url.as_str();
-    let (mut account_subscription_client, account_subscription_receiver) =
+    let (account_subscription_client, account_subscription_receiver) =
         PubsubClient::account_subscribe(
             url,
             &account,

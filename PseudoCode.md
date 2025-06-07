@@ -1,1 +1,0 @@
-I have my tx infos and I decide it's an interesting paths and I can potentially create

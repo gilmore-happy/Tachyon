@@ -1,6 +1,5 @@
 use anyhow::Result;
 use log::info;
-use mongodb::bson::doc;
 use mongodb::Collection;
 use mongodb::{options::ClientOptions, Client as MongoDbCLient};
 

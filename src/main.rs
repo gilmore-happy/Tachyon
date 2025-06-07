@@ -25,8 +25,8 @@ use MEV_Bot_Solana::common::constants::Env;
 use MEV_Bot_Solana::common::database::insert_vec_swap_path_selected_collection;
 use MEV_Bot_Solana::common::types::InputVec;
 use MEV_Bot_Solana::common::utils::{get_tokens_infos, setup_logger};
-use MEV_Bot_Solana::execution::executor::{ExecutionMode, ExecutionQueue, TransactionExecutor};
-use MEV_Bot_Solana::fees::priority_fees::{FeeMode, init_global_fee_service, PriorityFeeConfig};
+use MEV_Bot_Solana::execution::executor::{ExecutionQueue, TransactionExecutor};
+use MEV_Bot_Solana::fees::priority_fees::{init_global_fee_service, PriorityFeeConfig};
 use MEV_Bot_Solana::markets::pools::load_all_pools;
 
 #[tokio::main]

@@ -4,16 +4,8 @@ use super::orca_whirpools::{fetch_data_orca_whirpools, OrcaDexWhirpools};
 use super::raydium::{fetch_data_raydium, RaydiumDEX};
 use super::raydium_clmm::{fetch_data_raydium_clmm, RaydiumClmmDEX};
 use super::types::{Dex, DexLabel};
-use crate::common::constants::Env;
 
 use log::info;
-use reqwest::get;
-use serde::{Deserialize, Serialize};
-use solana_client::rpc_client::RpcClient;
-use solana_sdk::pubkey::Pubkey;
-use std::fs::File;
-use std::io::Write;
-use strum::IntoEnumIterator;
 
 pub async fn load_all_pools(refecth_api: bool) -> Vec<Dex> {
     if refecth_api {

@@ -121,7 +121,7 @@ pub async fn fetch_data_orca() -> Result<(), Box<dyn std::error::Error>> {
 pub async fn stream_orca(account: Pubkey) -> Result<()> {
     let env = Env::new();
     let url = env.wss_rpc_url.as_str();
-    let (mut account_subscription_client, account_subscription_receiver) =
+    let (account_subscription_client, account_subscription_receiver) =
         PubsubClient::account_subscribe(
             url,
             &account,

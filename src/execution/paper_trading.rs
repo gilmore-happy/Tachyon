@@ -1,14 +1,12 @@
-use anyhow::{Context, Result};
+use anyhow::Result;
 use chrono::{DateTime, Utc};
 use log::{info, warn};
 use rand::Rng;
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
 use std::fs::{File, OpenOptions};
 use std::io::{BufReader, BufWriter, Write};
 use std::path::Path;
 use std::sync::{Arc, Mutex};
-use uuid::Uuid;
 
 use crate::{arbitrage::types::SwapPathResult, execution::executor::ExecutionResult};
 

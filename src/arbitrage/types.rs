@@ -1,5 +1,4 @@
-use mongodb::bson;
-use serde::{de::DeserializeOwned, Deserialize, Serialize};
+use serde::{Deserialize, Serialize};
 
 use crate::markets::types::{DexLabel, Market};
 

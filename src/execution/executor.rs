@@ -7,18 +7,12 @@ use crate::{
     },
 };
 use anyhow::{Context, Result};
-use log::{error, info, warn};
+use log::{error, info};
 use solana_client::nonblocking::rpc_client::RpcClient;
 use solana_sdk::{
-    commitment_config::{CommitmentConfig, CommitmentLevel},
-    compute_budget::ComputeBudgetInstruction,
-    instruction::Instruction,
-    pubkey::Pubkey,
-    signature::{Keypair, Signer},
-    transaction::Transaction,
+    commitment_config::CommitmentConfig,
+    signature::Keypair,
 };
-use solana_transaction_status::UiTransactionEncoding;
-use std::str::FromStr;
 use std::sync::Arc;
 use tokio::sync::mpsc;
 

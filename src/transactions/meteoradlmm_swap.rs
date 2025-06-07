@@ -1,10 +1,6 @@
 // //Taken here: https://github.com/MeteoraAg/dlmm-sdk/blob/main/cli/src/instructions/swap.rs
 
-use anchor_client::solana_client::rpc_config::RpcSendTransactionConfig;
 use anchor_client::{solana_sdk::pubkey::Pubkey, solana_sdk::signer::Signer};
-use anchor_client::{Client, Cluster};
-use anchor_lang::error_code;
-use anchor_lang::solana_program::msg;
 use anchor_spl::associated_token::get_associated_token_address;
 use anchor_spl::token::spl_token;
 use anyhow::*;
@@ -14,14 +10,10 @@ use num::Integer;
 use solana_client::rpc_client::RpcClient;
 use solana_program::hash;
 use solana_program::instruction::AccountMeta;
-use std::mem::size_of;
-use std::rc::Rc;
 use std::result::Result::Ok;
 
-use log::{error, info};
 use solana_sdk::instruction::Instruction;
 use solana_sdk::signature::read_keypair_file;
-use spl_associated_token_account::instruction::create_associated_token_account;
 
 use crate::common::constants::Env;
 use crate::common::utils::from_str;

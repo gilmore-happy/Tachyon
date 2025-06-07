@@ -10,9 +10,8 @@ use solana_sdk::{commitment_config::CommitmentConfig, pubkey::Pubkey, signature:
 use std::{
     borrow::Cow,
     convert::{identity, TryFrom},
-    mem::size_of,
-    thread::{self, sleep},
-    time::{self, Duration, Instant},
+    thread::{sleep},
+    time::{Duration, Instant},
 };
 
 use crate::common::constants::Env;

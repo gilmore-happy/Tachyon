@@ -1,10 +1,9 @@
 use std::cmp::Ordering;
 use std::collections::{BinaryHeap, HashMap};
-use std::sync::Arc;
 
-use log::{debug, info};
+use log::info;
 
-use crate::arbitrage::types::{Route, SwapPath, TokenInArb, TokenInfos};
+use crate::arbitrage::types::{SwapPath, TokenInArb, TokenInfos};
 use crate::markets::types::{Dex, DexLabel, Market};
 
 /// Represents a heuristic score for a potential arbitrage path

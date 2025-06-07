@@ -15,7 +15,7 @@ use crate::{
     },
     common::{
         database::{insert_swap_path_result_collection, insert_vec_swap_path_selected_collection},
-        utils::{from_str, write_file_swap_path_result},
+        utils::write_file_swap_path_result,
     },
     transactions::create_transaction::{
         create_and_send_swap_transaction, ChainType, SendOrSimulate,
@@ -27,7 +27,6 @@ use futures::future::join_all;
 use indicatif::{ProgressBar, ProgressStyle};
 use log::{error, info};
 use rust_socketio::asynchronous::Client;
-use solana_sdk::pubkey::Pubkey;
 use std::io::{BufWriter, Write};
 use std::{
     collections::HashMap,
@@ -389,7 +388,7 @@ pub async fn run_arbitrage_strategy(
         }
     }
 
-    let mut path = format!("best_paths_selected/{}.json", tokens_list);
+    let path = format!("best_paths_selected/{}.json", tokens_list);
     let _ = File::create(path.clone());
 
     let file = OpenOptions::new()
@@ -502,7 +501,7 @@ pub async fn sorted_interesting_path_strategy(
     let mut counter_sp_result = 0;
 
     let paths: Vec<SwapPathSelected> = paths_vec.value;
-    let mut route_simulation: HashMap<Vec<u32>, Vec<SwapRouteSimulation>> = HashMap::new();
+    let route_simulation: HashMap<Vec<u32>, Vec<SwapRouteSimulation>> = HashMap::new();
 
     loop {
         for (index, path) in paths.iter().enumerate() {

@@ -1,6 +1,5 @@
 use crate::fees::fee_cache::CachedFeeData;
-use anyhow::Result;
-use log::{debug, info};
+use log::debug;
 
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub enum Urgency {

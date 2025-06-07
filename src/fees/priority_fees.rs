@@ -7,7 +7,7 @@ use crate::fees::{
     },
 };
 use anyhow::{Context, Result};
-use log::{debug, info, warn};
+use log::{info, warn};
 use solana_client::nonblocking::rpc_client::RpcClient;
 use solana_sdk::commitment_config::CommitmentConfig;
 use std::sync::Arc;
