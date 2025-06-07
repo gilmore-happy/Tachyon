@@ -1,21 +1,21 @@
 use crate::common::constants::Env;
+use crate::common::utils::{from_Pubkey, from_str};
 use crate::markets::types::{Dex, DexLabel, Market, PoolItem};
-use crate::markets::utils::toPairString;
-use crate::common::utils::{from_str, from_Pubkey};
-use std::collections::HashMap;
-use std::{fs, fs::File};
-use std::io::Write;
-use serde::{Deserialize, Serialize};
-use reqwest::get;
+use crate::markets::utils::to_pair_string;
+use anyhow::Result;
 use log::info;
+use reqwest::get;
+use serde::{Deserialize, Serialize};
+use solana_account_decoder::{UiAccountData, UiAccountEncoding};
 use solana_client::rpc_client::RpcClient;
 use solana_client::rpc_config::RpcAccountInfoConfig;
 use solana_program::pubkey::Pubkey;
+use solana_pubsub_client::pubsub_client::PubsubClient;
 use solana_sdk::commitment_config::CommitmentConfig;
 use solana_sdk::program_error::ProgramError;
-use solana_account_decoder::{UiAccountData, UiAccountEncoding};
-use solana_pubsub_client::pubsub_client::PubsubClient;
-use anyhow::Result;
+use std::collections::HashMap;
+use std::io::Write;
+use std::{fs, fs::File};
 
 #[derive(Debug)]
 pub struct OrcaDex {
@@ -24,20 +24,20 @@ pub struct OrcaDex {
 }
 impl OrcaDex {
     pub fn new(mut dex: Dex) -> Self {
-
         let env = Env::new();
         let rpc_client = RpcClient::new(env.rpc_url);
 
         let mut pools_vec = Vec::new();
-        
-        let data = fs::read_to_string("src/markets/cache/orca-markets.json").expect("Error reading file");
-        let json_value: HashMap<String, Pool>  = serde_json::from_str(&data).unwrap();
+
+        let data =
+            fs::read_to_string("src/markets/cache/orca-markets.json").expect("Error reading file");
+        let json_value: HashMap<String, Pool> = serde_json::from_str(&data).unwrap();
 
         // println!("JSON Pools: {:?}", json_value);
 
         let mut pubkeys_vec: Vec<Pubkey> = Vec::new();
 
-        for (key, pool) in json_value.clone() {
+        for (_key, pool) in json_value.clone() {
             let pubkey = from_str(pool.pool_account.as_str()).unwrap();
             pubkeys_vec.push(pubkey);
         }
@@ -45,8 +45,8 @@ impl OrcaDex {
         let mut results_pools = Vec::new();
 
         for i in (0..pubkeys_vec.len()).step_by(100) {
-            let maxLength = std::cmp::min(i + 100, pubkeys_vec.len());
-            let batch = &pubkeys_vec[(i..maxLength)];
+            let max_length = std::cmp::min(i + 100, pubkeys_vec.len());
+            let batch = &pubkeys_vec[i..max_length];
 
             let batch_results = rpc_client.get_multiple_accounts(&batch).unwrap();
             for j in batch_results {
@@ -57,37 +57,37 @@ impl OrcaDex {
         }
 
         for pool in &results_pools {
-
-            let fee = (pool.trade_fee_numerator as f64 / pool.trade_fee_denominator as f64) * 10000 as f64;
+            let fee = (pool.trade_fee_numerator as f64 / pool.trade_fee_denominator as f64)
+                * 10000 as f64;
 
             let item: PoolItem = PoolItem {
-                mintA: from_Pubkey(pool.mint_a.clone()),
-                mintB: from_Pubkey(pool.mint_b.clone()),
-                vaultA: from_Pubkey(pool.token_account_a.clone()),
-                vaultB: from_Pubkey(pool.token_account_b.clone()),
-                tradeFeeRate: fee.clone() as u128,
+                mint_a: from_Pubkey(pool.mint_a.clone()),
+                mint_b: from_Pubkey(pool.mint_b.clone()),
+                vault_a: from_Pubkey(pool.token_account_a.clone()),
+                vault_b: from_Pubkey(pool.token_account_b.clone()),
+                trade_fee_rate: fee.clone() as u128,
             };
 
             pools_vec.push(item);
 
             let market: Market = Market {
-                tokenMintA: from_Pubkey(pool.mint_a.clone()),
-                tokenVaultA: from_Pubkey(pool.token_account_a.clone()),
-                tokenMintB: from_Pubkey(pool.mint_b.clone()),
-                tokenVaultB: from_Pubkey(pool.token_account_b.clone()),
+                token_mint_a: from_Pubkey(pool.mint_a.clone()),
+                token_vault_a: from_Pubkey(pool.token_account_a.clone()),
+                token_mint_b: from_Pubkey(pool.mint_b.clone()),
+                token_vault_b: from_Pubkey(pool.token_account_b.clone()),
                 fee: fee.clone() as u64,
-                dexLabel: DexLabel::ORCA,
+                dex_label: DexLabel::Orca,
                 id: from_Pubkey(pool.token_pool.clone()),
                 account_data: None,
                 liquidity: None,
             };
 
-            let pair_string = toPairString(from_Pubkey(pool.mint_a), from_Pubkey(pool.mint_b));
-            if dex.pairToMarkets.contains_key(&pair_string.clone()) {
-                let vec_market = dex.pairToMarkets.get_mut(&pair_string).unwrap();
+            let pair_string = to_pair_string(from_Pubkey(pool.mint_a), from_Pubkey(pool.mint_b));
+            if dex.pair_to_markets.contains_key(&pair_string.clone()) {
+                let vec_market = dex.pair_to_markets.get_mut(&pair_string).unwrap();
                 vec_market.push(market);
             } else {
-                dex.pairToMarkets.insert(pair_string, vec![market]);
+                dex.pair_to_markets.insert(pair_string, vec![market]);
             }
         }
 
@@ -97,20 +97,23 @@ impl OrcaDex {
             pools: pools_vec,
         }
     }
-  }
+}
 
 pub async fn fetch_data_orca() -> Result<(), Box<dyn std::error::Error>> {
     let response = get("https://api.orca.so/allPools").await?;
     // info!("response: {:?}", response);
     // info!("response-status: {:?}", response.status().is_success());
     if response.status().is_success() {
-        let json: HashMap<String, Pool> = serde_json::from_str(&response.text().await?)?;        
+        let json: HashMap<String, Pool> = serde_json::from_str(&response.text().await?)?;
         // info!("json: {:?}", json);
         let mut file = File::create("src/markets/cache/orca-markets.json")?;
         file.write_all(serde_json::to_string(&json)?.as_bytes())?;
         info!("Data written to 'orca-markets.json' successfully.");
     } else {
-        info!("Fetch of 'orca-markets.json' not successful: {}", response.status());
+        info!(
+            "Fetch of 'orca-markets.json' not successful: {}",
+            response.status()
+        );
     }
     Ok(())
 }
@@ -119,16 +122,16 @@ pub async fn stream_orca(account: Pubkey) -> Result<()> {
     let env = Env::new();
     let url = env.wss_rpc_url.as_str();
     let (mut account_subscription_client, account_subscription_receiver) =
-    PubsubClient::account_subscribe(
-        url,
-        &account,
-        Some(RpcAccountInfoConfig {
-            encoding: Some(UiAccountEncoding::JsonParsed),
-            data_slice: None,
-            commitment: Some(CommitmentConfig::confirmed()),
-            min_context_slot: None,
-        }),
-    )?;
+        PubsubClient::account_subscribe(
+            url,
+            &account,
+            Some(RpcAccountInfoConfig {
+                encoding: Some(UiAccountEncoding::JsonParsed),
+                data_slice: None,
+                commitment: Some(CommitmentConfig::confirmed()),
+                min_context_slot: None,
+            }),
+        )?;
 
     loop {
         match account_subscription_receiver.recv() {
@@ -139,7 +142,6 @@ pub async fn stream_orca(account: Pubkey) -> Result<()> {
                 let account_data = unpack_from_slice(bytes_slice.as_slice());
                 println!("Orca Pool updated: {:?}", account);
                 println!("Data: {:?}", account_data.unwrap());
-
             }
             Err(e) => {
                 println!("account subscription error: {:?}", e);
@@ -155,7 +157,7 @@ pub async fn stream_orca(account: Pubkey) -> Result<()> {
 #[serde(rename_all = "camelCase")]
 pub struct Root {
     pool: Pool,
-} 
+}
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -215,21 +217,39 @@ fn unpack_from_slice(src: &[u8]) -> Result<TokenSwapLayout, ProgramError> {
     let version = src[0];
     let is_initialized = src[1] != 0;
     let bump_seed = src[2];
-    let pool_token_program_id = Pubkey::new_from_array(<[u8; 32]>::try_from(&src[3..35]).expect("Orca pools bad unpack"));
-    let token_account_a = Pubkey::new_from_array(<[u8; 32]>::try_from(&src[35..67]).expect("Orca pools bad unpack"));
-    let token_account_b = Pubkey::new_from_array(<[u8; 32]>::try_from(&src[67..99]).expect("Orca pools bad unpack"));
-    let token_pool = Pubkey::new_from_array(<[u8; 32]>::try_from(&src[99..131]).expect("Orca pools bad unpack"));
-    let mint_a = Pubkey::new_from_array(<[u8; 32]>::try_from(&src[131..163]).expect("Orca pools bad unpack"));
-    let mint_b = Pubkey::new_from_array(<[u8; 32]>::try_from(&src[163..195]).expect("Orca pools bad unpack"));
-    let fee_account = Pubkey::new_from_array(<[u8; 32]>::try_from(&src[195..227]).expect("Orca pools bad unpack"));
-    let trade_fee_numerator = u64::from_le_bytes(<[u8; 8]>::try_from(&src[227..235]).expect("Orca pools bad unpack"));
-    let trade_fee_denominator = u64::from_le_bytes(<[u8; 8]>::try_from(&src[235..243]).expect("Orca pools bad unpack"));
-    let owner_trade_fee_numerator = u64::from_le_bytes(<[u8; 8]>::try_from(&src[243..251]).expect("Orca pools bad unpack"));
-    let owner_trade_fee_denominator = u64::from_le_bytes(<[u8; 8]>::try_from(&src[251..259]).expect("Orca pools bad unpack"));
-    let owner_withdraw_fee_numerator = u64::from_le_bytes(<[u8; 8]>::try_from(&src[259..267]).expect("Orca pools bad unpack"));
-    let owner_withdraw_fee_denominator = u64::from_le_bytes(<[u8; 8]>::try_from(&src[267..275]).expect("Orca pools bad unpack"));
-    let host_fee_numerator = u64::from_le_bytes(<[u8; 8]>::try_from(&src[275..283]).expect("Orca pools bad unpack"));
-    let host_fee_denominator = u64::from_le_bytes(<[u8; 8]>::try_from(&src[283..291]).expect("Orca pools bad unpack"));
+    let pool_token_program_id =
+        Pubkey::new_from_array(<[u8; 32]>::try_from(&src[3..35]).expect("Orca pools bad unpack"));
+    let token_account_a =
+        Pubkey::new_from_array(<[u8; 32]>::try_from(&src[35..67]).expect("Orca pools bad unpack"));
+    let token_account_b =
+        Pubkey::new_from_array(<[u8; 32]>::try_from(&src[67..99]).expect("Orca pools bad unpack"));
+    let token_pool =
+        Pubkey::new_from_array(<[u8; 32]>::try_from(&src[99..131]).expect("Orca pools bad unpack"));
+    let mint_a = Pubkey::new_from_array(
+        <[u8; 32]>::try_from(&src[131..163]).expect("Orca pools bad unpack"),
+    );
+    let mint_b = Pubkey::new_from_array(
+        <[u8; 32]>::try_from(&src[163..195]).expect("Orca pools bad unpack"),
+    );
+    let fee_account = Pubkey::new_from_array(
+        <[u8; 32]>::try_from(&src[195..227]).expect("Orca pools bad unpack"),
+    );
+    let trade_fee_numerator =
+        u64::from_le_bytes(<[u8; 8]>::try_from(&src[227..235]).expect("Orca pools bad unpack"));
+    let trade_fee_denominator =
+        u64::from_le_bytes(<[u8; 8]>::try_from(&src[235..243]).expect("Orca pools bad unpack"));
+    let owner_trade_fee_numerator =
+        u64::from_le_bytes(<[u8; 8]>::try_from(&src[243..251]).expect("Orca pools bad unpack"));
+    let owner_trade_fee_denominator =
+        u64::from_le_bytes(<[u8; 8]>::try_from(&src[251..259]).expect("Orca pools bad unpack"));
+    let owner_withdraw_fee_numerator =
+        u64::from_le_bytes(<[u8; 8]>::try_from(&src[259..267]).expect("Orca pools bad unpack"));
+    let owner_withdraw_fee_denominator =
+        u64::from_le_bytes(<[u8; 8]>::try_from(&src[267..275]).expect("Orca pools bad unpack"));
+    let host_fee_numerator =
+        u64::from_le_bytes(<[u8; 8]>::try_from(&src[275..283]).expect("Orca pools bad unpack"));
+    let host_fee_denominator =
+        u64::from_le_bytes(<[u8; 8]>::try_from(&src[283..291]).expect("Orca pools bad unpack"));
     let curve_type = src[291];
     let mut curve_parameters = [0u8; 32];
     curve_parameters.copy_from_slice(&src[292..]);

@@ -102,7 +102,45 @@ The bot follows this algorithmic flow:
    ```bash
    cargo run --release
    ```
-3. **Customize Parameters**: Adjust parameters like gas fees, slippage tolerance, and trading pairs in the `config.toml` file.
+3. **Configuration**: All bot parameters can be controlled through the `config.json` file (see Configuration section below).
+
+## ⚙️ Configuration
+The bot uses a centralized configuration system via `config.json` in the project root. This allows you to modify all aspects of the bot's behavior without modifying code.
+
+### Available Strategies
+- **Massive**: Searches for arbitrage opportunities across all DEXes
+- **BestPath**: Uses pre-defined paths to execute optimal trades
+- **Optimism**: Executes pre-built transaction files
+
+### Execution Modes
+- **Simulate**: Only simulates transactions without sending them
+- **Paper**: Simulates and logs transactions with real-time pricing
+- **Live**: Actually executes transactions on-chain
+
+### Sample Configuration
+```json
+{
+  "tokens_to_trade": [
+    { "address": "So11111111111111111111111111111111111111112", "symbol": "SOL" },
+    { "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v", "symbol": "USDC" }
+  ],
+  "active_strategies": ["Massive", "BestPath"],
+  "simulation_amount": 3500000000,
+  "min_profit_threshold": 20.0,
+  "max_slippage": 0.02,
+  "execution_mode": "Simulate"
+}
+```
+
+### Key Configuration Options
+- `active_strategies`: List of strategies to run ("Massive", "BestPath", "Optimism", or "All")
+- `simulation_amount`: Amount to use in simulations (in lamports)
+- `min_profit_threshold`: Minimum profit required to execute a trade (in USD)
+- `max_slippage`: Maximum acceptable slippage (as decimal, e.g., 0.02 = 2%)
+- `execution_mode`: Trading mode ("Simulate", "Paper", or "Live")
+- `fee_mode`: Fee strategy ("Conservative", "ProfitBased", or "Aggressive")
+
+The configuration is automatically loaded at startup and can be modified without recompiling the bot.
 
 ---
 

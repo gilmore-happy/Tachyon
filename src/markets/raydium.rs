@@ -1,27 +1,27 @@
 use crate::arbitrage::types::{Route, TokenInfos};
-use crate::markets::types::{Dex, DexLabel, Market, PoolItem, SimulationRes};
-use crate::markets::utils::toPairString;
+use crate::common::constants::Env;
 use crate::common::debug::print_json_segment;
 use crate::common::utils::{from_Pubkey, from_str, make_request};
-use crate::common::constants::Env;
+use crate::markets::types::{Dex, DexLabel, Market, PoolItem, SimulationRes};
+use crate::markets::utils::to_pair_string;
 
-use borsh::{BorshDeserialize, BorshSerialize};
-use solana_client::rpc_filter::{Memcmp, MemcmpEncodedBytes, RpcFilterType};
-use std::collections::HashMap;
-use std::fs::File;
-use std::fs;
-use serde::{Deserialize, Deserializer, de, Serialize};
-use serde_json::Value;
-use reqwest::get;
-use std::io::{BufWriter, Write};
-use log::{info, error};
-use solana_account_decoder::{UiAccountData, UiAccountEncoding};
-use solana_program::pubkey::Pubkey;
-use solana_sdk::commitment_config::CommitmentConfig;
-use solana_pubsub_client::pubsub_client::PubsubClient;
 use anyhow::Result;
+use borsh::{BorshDeserialize, BorshSerialize};
+use log::{error, info};
+use reqwest::get;
+use serde::{de, Deserialize, Deserializer, Serialize};
+use serde_json::Value;
+use solana_account_decoder::{UiAccountData, UiAccountEncoding};
 use solana_client::rpc_client::RpcClient;
 use solana_client::rpc_config::{RpcAccountInfoConfig, RpcProgramAccountsConfig};
+use solana_client::rpc_filter::{Memcmp, MemcmpEncodedBytes, RpcFilterType};
+use solana_program::pubkey::Pubkey;
+use solana_pubsub_client::pubsub_client::PubsubClient;
+use solana_sdk::commitment_config::CommitmentConfig;
+use std::collections::HashMap;
+use std::fs;
+use std::fs::File;
+use std::io::{BufWriter, Write};
 
 use super::types::SimulationError;
 
@@ -32,44 +32,43 @@ pub struct RaydiumDEX {
 }
 impl RaydiumDEX {
     pub fn new(mut dex: Dex) -> Self {
-
         let mut pools_vec = Vec::new();
-        
-        let data = fs::read_to_string("src/markets/cache/raydium-markets.json").expect("Error reading file");
-        let json_value: Root  = serde_json::from_str(&data).unwrap();
 
-        
+        let data = fs::read_to_string("src/markets/cache/raydium-markets.json")
+            .expect("Error reading file");
+        let json_value: Root = serde_json::from_str(&data).unwrap();
+
         for pool in json_value.clone() {
             //Serialization foraccount_data
             let mut serialized_person: Vec<u8> = Vec::new();
-            let result = BorshSerialize::serialize(&pool, &mut serialized_person).unwrap();
+            let _result = BorshSerialize::serialize(&pool, &mut serialized_person).unwrap();
             let item: PoolItem = PoolItem {
-                mintA: pool.base_mint.clone(),
-                mintB: pool.quote_mint.clone(),
-                vaultA: pool.base_mint.clone(),
-                vaultB: pool.quote_mint.clone(),
-                tradeFeeRate: pool.volume7d.clone() as u128,
+                mint_a: pool.base_mint.clone(),
+                mint_b: pool.quote_mint.clone(),
+                vault_a: pool.base_mint.clone(),
+                vault_b: pool.quote_mint.clone(),
+                trade_fee_rate: pool.volume7d.clone() as u128,
             };
             pools_vec.push(item);
 
             let market: Market = Market {
-                tokenMintA: pool.base_mint.clone(),
-                tokenVaultA: pool.base_mint.clone(),
-                tokenMintB: pool.quote_mint.clone(),
-                tokenVaultB: pool.quote_mint.clone(),
-                dexLabel: DexLabel::RAYDIUM,
-                fee: pool.volume7d.clone() as u64,         //Not accurate, change this
+                token_mint_a: pool.base_mint.clone(),
+                token_vault_a: pool.base_mint.clone(),
+                token_mint_b: pool.quote_mint.clone(),
+                token_vault_b: pool.quote_mint.clone(),
+                dex_label: DexLabel::Raydium,
+                fee: pool.volume7d.clone() as u64, //Not accurate, change this
                 id: pool.amm_id.clone(),
                 account_data: Some(serialized_person),
                 liquidity: Some(pool.liquidity as u64),
             };
 
-            let pair_string = toPairString(pool.base_mint, pool.quote_mint);
-            if dex.pairToMarkets.contains_key(&pair_string.clone()) {
-                let vec_market = dex.pairToMarkets.get_mut(&pair_string).unwrap();
+            let pair_string = to_pair_string(pool.base_mint, pool.quote_mint);
+            if dex.pair_to_markets.contains_key(&pair_string.clone()) {
+                let vec_market = dex.pair_to_markets.get_mut(&pair_string).unwrap();
                 vec_market.push(market);
             } else {
-                dex.pairToMarkets.insert(pair_string, vec![market]);
+                dex.pair_to_markets.insert(pair_string, vec![market]);
             }
         }
 
@@ -79,15 +78,15 @@ impl RaydiumDEX {
             pools: pools_vec,
         }
     }
-  }
+}
 
 // pub async fn fetch_data_raydium() -> Result<(), Box<dyn std::error::Error>> {
 //     let response = get("https://api.raydium.io/v2/main/pairs").await?;
 //     // info!("response: {:?}", response);
 //     // info!("response-status: {:?}", response.status().is_success());
 //     if response.status().is_success() {
-//         let json: Root = serde_json::from_str(&response.text().await?)?;        
-//         // let json = &response.text().await?;        
+//         let json: Root = serde_json::from_str(&response.text().await?)?;
+//         // let json = &response.text().await?;
 //         info!("json: {:?}", json);
 //         let mut file = File::create("src\\markets\\cache\\raydium-markets.json")?;
 //         file.write_all(serde_json::to_string(&json)?.as_bytes())?;
@@ -103,7 +102,7 @@ pub async fn fetch_data_raydium() -> Result<(), Box<dyn std::error::Error>> {
     // info!("response-status: {:?}", response.status().is_success());
     if response.status().is_success() {
         let data = response.text().await?;
-        
+
         match serde_json::from_str::<Root>(&data) {
             Ok(json) => {
                 let file = File::create("src/markets/cache/raydium-markets.json")?;
@@ -116,58 +115,67 @@ pub async fn fetch_data_raydium() -> Result<(), Box<dyn std::error::Error>> {
                 eprintln!("Failed to deserialize JSON: {:?}", e);
                 // Optionally, save the raw JSON data to inspect it manually
                 // let mut raw_file = File::create("src/markets/cache/raydium-markets-raw.json")?;
-                let result = print_json_segment("src/markets/cache/raydium-markets.json", 21174733 - 1000 as u64, 2000);
+                let result = print_json_segment(
+                    "src/markets/cache/raydium-markets.json",
+                    21174733 - 1000 as u64,
+                    2000,
+                );
                 // raw_file.write_all(data.as_bytes())?;
                 // info!("Raw data written to 'raydium-markets-raw.json' for inspection.");
             }
         }
     } else {
-        error!("Fetch of 'raydium-markets.json' not successful: {}", response.status());
+        error!(
+            "Fetch of 'raydium-markets.json' not successful: {}",
+            response.status()
+        );
     }
     Ok(())
 }
 
 // pub async fn fetch_new_raydium_pools(rpc_client: &RpcClient, token: String, on_tokena: bool ) -> Vec<(Pubkey, Market)> {
-pub async fn fetch_new_raydium_pools(rpc_client: &RpcClient, token: String, on_tokena: bool) -> Vec<(Pubkey, Market)> {
-
+pub async fn fetch_new_raydium_pools(
+    rpc_client: &RpcClient,
+    token: String,
+    on_tokena: bool,
+) -> Vec<(Pubkey, Market)> {
     let raydium_program = "675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8".to_string();
-    
-    let mut new_markets: Vec<(Pubkey, Market)> = Vec::new(); 
+
+    let mut new_markets: Vec<(Pubkey, Market)> = Vec::new();
     let filters = Some(vec![
         RpcFilterType::Memcmp(Memcmp::new(
-            if on_tokena == true {
-                400
-            } else {
-                432
-            },
-          MemcmpEncodedBytes::Base58(token.clone()),
+            if on_tokena == true { 400 } else { 432 },
+            MemcmpEncodedBytes::Base58(token.clone()),
         )),
-        RpcFilterType::DataSize(752), 
+        RpcFilterType::DataSize(752),
     ]);
-    
-    let accounts = rpc_client.get_program_accounts_with_config(
-        &from_str(&raydium_program).unwrap(),
-        RpcProgramAccountsConfig {
-            filters,
-            account_config: RpcAccountInfoConfig {
-                encoding: Some(UiAccountEncoding::Base64),
-                commitment: Some(rpc_client.commitment()),
-                ..RpcAccountInfoConfig::default()
+
+    let accounts = rpc_client
+        .get_program_accounts_with_config(
+            &from_str(&raydium_program).unwrap(),
+            RpcProgramAccountsConfig {
+                filters,
+                account_config: RpcAccountInfoConfig {
+                    encoding: Some(UiAccountEncoding::Base64),
+                    commitment: Some(rpc_client.commitment()),
+                    ..RpcAccountInfoConfig::default()
+                },
+                ..RpcProgramAccountsConfig::default()
             },
-            ..RpcProgramAccountsConfig::default()
-        },
-    ).unwrap();
+        )
+        .unwrap();
 
     for account in accounts.clone() {
         let raydium_account = AmmInfo::try_from_slice(&account.1.data).unwrap();
-        let fees: u128 = (raydium_account.fees.trade_fee_numerator / raydium_account.fees.trade_fee_denominator) as u128;
+        let fees: u128 = (raydium_account.fees.trade_fee_numerator
+            / raydium_account.fees.trade_fee_denominator) as u128;
         let market: Market = Market {
-            tokenMintA: from_Pubkey(raydium_account.coin_vault_mint.clone()),
-            tokenVaultA: from_Pubkey(raydium_account.coin_vault.clone()),
-            tokenMintB: from_Pubkey(raydium_account.pc_vault_mint.clone()),
-            tokenVaultB: from_Pubkey(raydium_account.pc_vault.clone()),
+            token_mint_a: from_Pubkey(raydium_account.coin_vault_mint.clone()),
+            token_vault_a: from_Pubkey(raydium_account.coin_vault.clone()),
+            token_mint_b: from_Pubkey(raydium_account.pc_vault_mint.clone()),
+            token_vault_b: from_Pubkey(raydium_account.pc_vault.clone()),
             fee: fees as u64,
-            dexLabel: DexLabel::RAYDIUM,
+            dex_label: DexLabel::Raydium,
             id: from_Pubkey(account.0.clone()),
             account_data: Some(account.1.data),
             liquidity: Some(666 as u64),
@@ -183,16 +191,16 @@ pub async fn stream_raydium(account: Pubkey) -> Result<()> {
     let env = Env::new();
     let url = env.wss_rpc_url.as_str();
     let (mut account_subscription_client, account_subscription_receiver) =
-    PubsubClient::account_subscribe(
-        url,
-        &account,
-        Some(RpcAccountInfoConfig {
-            encoding: Some(UiAccountEncoding::JsonParsed),
-            data_slice: None,
-            commitment: Some(CommitmentConfig::confirmed()),
-            min_context_slot: None,
-        }),
-    )?;
+        PubsubClient::account_subscribe(
+            url,
+            &account,
+            Some(RpcAccountInfoConfig {
+                encoding: Some(UiAccountEncoding::JsonParsed),
+                data_slice: None,
+                commitment: Some(CommitmentConfig::confirmed()),
+                min_context_slot: None,
+            }),
+        )?;
 
     loop {
         match account_subscription_receiver.recv() {
@@ -203,7 +211,6 @@ pub async fn stream_raydium(account: Pubkey) -> Result<()> {
                 // let account_data = unpack_from_slice(bytes_slice.as_slice());
                 // println!("Raydium CLMM Pool updated: {:?}", account);
                 // println!("Data: {:?}", account_data.unwrap());
-
             }
             Err(e) => {
                 println!("account subscription error: {:?}", e);
@@ -215,15 +222,21 @@ pub async fn stream_raydium(account: Pubkey) -> Result<()> {
     Ok(())
 }
 
-// Simulate one route 
+// Simulate one route
 // I want to get the data of the market i'm interested in this route
-pub async fn simulate_route_raydium(printing_amt: bool, amount_in: u64, route: Route, market: Market, tokens_infos: HashMap<String, TokenInfos>) -> Result<(String, String), Box<dyn std::error::Error>> {
+pub async fn simulate_route_raydium(
+    printing_amt: bool,
+    amount_in: u64,
+    route: Route,
+    market: Market,
+    tokens_infos: HashMap<String, TokenInfos>,
+) -> Result<(String, String), Box<dyn std::error::Error>> {
     // println!("account_data: {:?}", &market.account_data.clone().unwrap());
     // println!("market: {:?}", market.clone());
     // let raydium_data = AmmInfo::try_from_slice(&market.account_data.unwrap()).unwrap();
     // println!("raydium_data: {:?}", raydium_data);
-    let token0 = tokens_infos.get(&market.tokenMintA).unwrap();
-    let token1 = tokens_infos.get(&market.tokenMintB).unwrap();
+    let token0 = tokens_infos.get(&market.token_mint_a).unwrap();
+    let token1 = tokens_infos.get(&market.token_mint_b).unwrap();
     let mut params: String = String::new();
 
     let amount_in_uint = amount_in as u64;
@@ -232,10 +245,10 @@ pub async fn simulate_route_raydium(printing_amt: bool, amount_in: u64, route: R
             "poolKeys={}&amountIn={}&currencyIn={}&decimalsIn={}&symbolTokenIn={}&currencyOut={}&decimalsOut={}&symbolTokenOut={}",
             market.id,
             amount_in_uint,
-            market.tokenMintA,
+            market.token_mint_a,
             token0.decimals,
             token0.symbol,
-            market.tokenMintB,
+            market.token_mint_b,
             token1.decimals,
             token1.symbol
         );
@@ -244,10 +257,10 @@ pub async fn simulate_route_raydium(printing_amt: bool, amount_in: u64, route: R
             "poolKeys={}&amountIn={}&currencyIn={}&decimalsIn={}&symbolTokenIn={}&currencyOut={}&decimalsOut={}&symbolTokenOut={}",
             market.id,
             amount_in_uint,
-            market.tokenMintB,
+            market.token_mint_b,
             token1.decimals,
             token1.symbol,
-            market.tokenMintA,
+            market.token_mint_a,
             token0.decimals,
             token0.symbol
         );
@@ -257,17 +270,44 @@ pub async fn simulate_route_raydium(printing_amt: bool, amount_in: u64, route: R
     let domain = env.simulator_url;
 
     let req_url = format!("{}raydium_quote?{}", domain, params);
-    
+
     let res = make_request(req_url).await?;
     let res_text = res.text().await?;
 
     if let Ok(json_value) = serde_json::from_str::<SimulationRes>(&res_text) {
         if printing_amt {
-            println!("estimatedAmountIn: {:?} {:?}", json_value.amountIn, if route.token_0to1 == true { token0.clone().symbol } else { token1.clone().symbol });
-            println!("estimatedAmountOut: {:?} {:?}", json_value.estimatedAmountOut, if route.token_0to1 == true { token1.clone().symbol } else { token0.clone().symbol });
-            println!("estimatedMinAmountOut: {:?} {:?}", json_value.estimatedMinAmountOut.clone().unwrap(), if route.token_0to1 == true { token1.clone().symbol } else { token0.clone().symbol });
+            println!(
+                "estimatedAmountIn: {:?} {:?}",
+                json_value.amount_in,
+                if route.token_0to1 == true {
+                    token0.clone().symbol
+                } else {
+                    token1.clone().symbol
+                }
+            );
+            println!(
+                "estimatedAmountOut: {:?} {:?}",
+                json_value.estimated_amount_out,
+                if route.token_0to1 == true {
+                    token1.clone().symbol
+                } else {
+                    token0.clone().symbol
+                }
+            );
+            println!(
+                "estimatedMinAmountOut: {:?} {:?}",
+                json_value.estimated_min_amount_out.clone().unwrap_or_default(),
+                if route.token_0to1 == true {
+                    token1.clone().symbol
+                } else {
+                    token0.clone().symbol
+                }
+            );
         }
-        Ok((json_value.estimatedAmountOut,json_value.estimatedMinAmountOut.unwrap_or_default()))
+        Ok((
+            json_value.estimated_amount_out,
+            json_value.estimated_min_amount_out.unwrap_or_default(),
+        ))
     } else if let Ok(error_value) = serde_json::from_str::<SimulationError>(&res_text) {
         // println!("ERROR Value: {:?}", error_value.error);
         Err(Box::new(std::io::Error::new(
@@ -280,8 +320,6 @@ pub async fn simulate_route_raydium(printing_amt: bool, amount_in: u64, route: R
             "Unexpected response format",
         )))
     }
-
-
 }
 
 fn de_rating<'de, D: Deserializer<'de>>(deserializer: D) -> Result<f64, D::Error> {
@@ -289,13 +327,15 @@ fn de_rating<'de, D: Deserializer<'de>>(deserializer: D) -> Result<f64, D::Error
         Value::String(s) => s.parse().map_err(de::Error::custom)?,
         Value::Number(num) => num.as_f64().ok_or(de::Error::custom("Invalid number"))? as f64,
         Value::Null => 0.0,
-        _ => return Err(de::Error::custom("wrong type"))
+        _ => return Err(de::Error::custom("wrong type")),
     })
 }
 
 pub type Root = Vec<RaydiumPool>;
 
-#[derive(Default, BorshDeserialize, BorshSerialize, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(
+    Default, BorshDeserialize, BorshSerialize, Debug, Clone, PartialEq, Serialize, Deserialize,
+)]
 #[serde(rename_all = "camelCase")]
 pub struct RaydiumPool {
     pub name: String,
@@ -348,7 +388,9 @@ pub struct RaydiumPool {
     pub apr30d: f64,
 }
 
-#[derive(Default, BorshDeserialize, BorshSerialize, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(
+    Default, BorshDeserialize, BorshSerialize, Debug, Clone, PartialEq, Serialize, Deserialize,
+)]
 #[serde(rename_all = "camelCase")]
 pub struct MarketStateLayoutV3 {
     pub func_signature: [u8; 5],

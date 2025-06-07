@@ -1,13 +1,13 @@
 // //Taken here: https://github.com/MeteoraAg/dlmm-sdk/blob/main/cli/src/instructions/swap.rs
 
 use anchor_client::solana_client::rpc_config::RpcSendTransactionConfig;
-use anchor_client::{Client, Cluster};
 use anchor_client::{solana_sdk::pubkey::Pubkey, solana_sdk::signer::Signer};
+use anchor_client::{Client, Cluster};
 use anchor_lang::error_code;
+use anchor_lang::solana_program::msg;
 use anchor_spl::associated_token::get_associated_token_address;
 use anchor_spl::token::spl_token;
 use anyhow::*;
-use anchor_lang::solana_program::msg;
 
 use borsh::{BorshDeserialize, BorshSerialize};
 use num::FromPrimitive;
@@ -17,9 +17,9 @@ use serde::{Deserialize, Serialize};
 use solana_client::rpc_client::RpcClient;
 use solana_program::hash;
 use solana_program::instruction::AccountMeta;
+use std::mem::size_of;
 use std::rc::Rc;
 use std::result::Result::Ok;
-use std::mem::size_of;
 use std::str::FromStr;
 
 use log::{error, info};
@@ -34,7 +34,6 @@ use crate::markets::orca_whirpools::WhirlpoolAccountState;
 use crate::markets::types::DexLabel;
 use crate::transactions::create_transaction::{InstructionDetails, MarketInfos};
 
-
 #[derive(Debug, Clone)]
 pub struct SwapParametersOrcaWhirpools {
     pub whirpools: Pubkey,
@@ -43,8 +42,10 @@ pub struct SwapParametersOrcaWhirpools {
     pub output_token: Pubkey,
     pub minimum_amount_out: u64,
 }
-// 
-pub async fn construct_orca_whirpools_instructions(params: SwapParametersOrcaWhirpools) -> Vec<InstructionDetails> {
+//
+pub async fn construct_orca_whirpools_instructions(
+    params: SwapParametersOrcaWhirpools,
+) -> Vec<InstructionDetails> {
     let SwapParametersOrcaWhirpools {
         whirpools,
         amount_in,
@@ -58,9 +59,9 @@ pub async fn construct_orca_whirpools_instructions(params: SwapParametersOrcaWhi
     let mut swap_instructions: Vec<InstructionDetails> = Vec::new();
     let env = Env::new();
     let payer = read_keypair_file(env.payer_keypair_path).expect("Wallet keypair file not found");
-    
+
     let amm_program = from_str("whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc").unwrap();
-    
+
     let rpc_client: RpcClient = RpcClient::new(env.rpc_url);
     let pool_account: solana_sdk::account::Account = rpc_client.get_account(&whirpools).unwrap();
     // println!("Params: {:?}", pool_account);
@@ -69,23 +70,24 @@ pub async fn construct_orca_whirpools_instructions(params: SwapParametersOrcaWhi
     let pool_state = WhirlpoolAccountState::try_from_slice(&pool_account.data).unwrap();
 
     // println!("Pool State: {:#?}", pool_state);
-    
+
     if input_token != pool_state.token_mint_a && input_token != pool_state.token_mint_b {
         error!("TokenIn don't match with any token on the pool");
-        return swap_instructions
+        return swap_instructions;
     }
     if output_token != pool_state.token_mint_a && output_token != pool_state.token_mint_b {
         error!("TokenOut don't match with any token on the pool");
-        return swap_instructions
+        return swap_instructions;
     }
-    
-    let a_to_b: bool = if input_token == pool_state.token_mint_a { true } else { false };
+
+    let a_to_b: bool = if input_token == pool_state.token_mint_a {
+        true
+    } else {
+        false
+    };
 
     //Get PDA
-    let pda_user_source = get_associated_token_address(
-        &payer.pubkey(),
-        &input_token,
-    );
+    let pda_user_source = get_associated_token_address(&payer.pubkey(), &input_token);
     match rpc_client.get_account(&pda_user_source) {
         Ok(account) => {}
         Err(error) => {
@@ -93,10 +95,7 @@ pub async fn construct_orca_whirpools_instructions(params: SwapParametersOrcaWhi
         }
     }
 
-    let pda_user_destination = get_associated_token_address(
-        &payer.pubkey(),
-        &output_token,
-    );
+    let pda_user_destination = get_associated_token_address(&payer.pubkey(), &output_token);
 
     match rpc_client.get_account(&pda_user_destination) {
         Ok(account) => {}
@@ -107,27 +106,29 @@ pub async fn construct_orca_whirpools_instructions(params: SwapParametersOrcaWhi
 
     let params = format!(
         "tickCurrentIndex={}&tickSpacing={}&aToB={}&programId={}&whirlpoolAddress={}",
-        pool_state.tick_current_index,
-        pool_state.tick_spacing,
-        a_to_b,
-        amm_program,
-        whirpools
+        pool_state.tick_current_index, pool_state.tick_spacing, a_to_b, amm_program, whirpools
     );
 
     let domain = env.simulator_url;
 
     let req_url = format!("{}whirpools_tick_arrays?{}", domain, params);
     // println!("req_url: {:?}", req_url);
-    
-    let res = make_request(req_url).await.expect("Error in request to simulator for tick arrays");
-    let res_text = res.text().await.expect("Error in request to simulator for tick arrays");
-    
-    let tick_arrays = serde_json::from_str::<TickArraysRes>(&res_text).expect("Unwrap error in tick arrays");
+
+    let res = make_request(req_url)
+        .await
+        .expect("Error in request to simulator for tick arrays");
+    let res_text = res
+        .text()
+        .await
+        .expect("Error in request to simulator for tick arrays");
+
+    let tick_arrays =
+        serde_json::from_str::<TickArraysRes>(&res_text).expect("Unwrap error in tick arrays");
 
     let accounts = vec![
         // TokenProgram
         AccountMeta::new_readonly(spl_token::id(), false),
-        //Token Authority / User ? 
+        //Token Authority / User ?
         AccountMeta::new(payer.pubkey(), true),
         AccountMeta::new(whirpools, false),
         AccountMeta::new(
@@ -135,8 +136,8 @@ pub async fn construct_orca_whirpools_instructions(params: SwapParametersOrcaWhi
                 pda_user_source
             } else {
                 pda_user_destination
-            }
-            , false
+            },
+            false,
         ),
         AccountMeta::new(pool_state.token_vault_a, false),
         AccountMeta::new(
@@ -144,8 +145,8 @@ pub async fn construct_orca_whirpools_instructions(params: SwapParametersOrcaWhi
                 pda_user_destination
             } else {
                 pda_user_source
-            }
-            , false
+            },
+            false,
         ),
         AccountMeta::new(pool_state.token_vault_b, false),
         //Tick arrays
@@ -171,29 +172,27 @@ pub async fn construct_orca_whirpools_instructions(params: SwapParametersOrcaWhi
     data.extend_from_slice(&amount_in.to_le_bytes());
     data.extend_from_slice(&other_amount_threshold.to_le_bytes());
     data.extend_from_slice(&sqrt_price_limit.to_le_bytes());
-    data.extend_from_slice(&[1]);   //True
-    data.extend_from_slice(&[1]);   //True
-        
-    let instruction = Instruction{
+    data.extend_from_slice(&[1]); //True
+    data.extend_from_slice(&[1]); //True
+
+    let instruction = Instruction {
         program_id: amm_program,
         accounts,
         data,
     };
     // println!("Instruction: {:?}", instruction);
 
-    swap_instructions.push(InstructionDetails{
-        instruction: instruction, 
+    swap_instructions.push(InstructionDetails {
+        instruction: instruction,
         details: "Orca Whirpool Swap Instruction".to_string(),
-        market: Some(MarketInfos{dex_label: DexLabel::ORCA_WHIRLPOOLS, address: whirpools })
+        market: Some(MarketInfos {
+            dex_label: DexLabel::OrcaWhirlpools,
+            address: whirpools,
+        }),
     });
 
     return swap_instructions;
-
 }
-
-
-
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////   UTILS   ///////////////////////////////////////////////////
@@ -261,7 +260,6 @@ pub struct TickArraysRes {
 //     }).collect()
 // }
 
-
 // // https://github.com/orca-so/whirlpools/blob/3dc98d0/sdk/src/utils/public/swap-utils.ts#L93
 // pub fn get_tick_array_public_keys(
 //         tick_current_index: i32,
@@ -297,7 +295,7 @@ pub struct TickArraysRes {
 
 //     let ticks_in_array = TICK_ARRAY_SIZE * tick_spacing;
 //     let min_tick_index = MIN_TICK_INDEX - ((MIN_TICK_INDEX % ticks_in_array) + ticks_in_array);
-    
+
 //     if start_tick_index < min_tick_index {
 //         error!("startTickIndex is too small - {}", start_tick_index);
 //         return 0    //Assumtion that 0 is not a good value
@@ -317,11 +315,11 @@ pub struct TickArraysRes {
 //     let start_tick_buffer = start_tick_str.as_bytes();
 
 //     let seeds = [&seed[..], &whirlpool_buffer[..], &start_tick_buffer[..]];
-    
+
 //     Pubkey::find_program_address(&seeds, program_id)
 // }
 
 fn to_x64(num: u128) -> u128 {
     let result = num * 2_u128.pow(64);
-    return result
+    return result;
 }

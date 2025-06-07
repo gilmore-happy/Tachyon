@@ -25,9 +25,9 @@ pub struct SwapParametersRaydium {
     pub output_token_mint: Pubkey,
     pub amount_in: u64,
     pub swap_for_y: bool,
-    pub min_amount_out: u64
+    pub min_amount_out: u64,
 }
-// Function are imported from Raydium library, you can see here: 
+// Function are imported from Raydium library, you can see here:
 // https://github.com/raydium-io/raydium-library
 pub fn construct_raydium_instructions(params: SwapParametersRaydium) -> Vec<InstructionDetails> {
     let SwapParametersRaydium {
@@ -35,19 +35,19 @@ pub fn construct_raydium_instructions(params: SwapParametersRaydium) -> Vec<Inst
         input_token_mint,
         output_token_mint,
         amount_in,
-        swap_for_y,
-        min_amount_out
+        swap_for_y: _,
+        min_amount_out,
     } = params;
     // info!("RAYDIUM CRAFT SWAP INSTRUCTION !");
 
     let mut swap_instructions: Vec<InstructionDetails> = Vec::new();
     let env = Env::new();
     let payer = read_keypair_file(env.payer_keypair_path).expect("Wallet keypair file not found");
-    
+
     let amm_program = from_str("675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8").unwrap();
     //Devnet : HWy1jotHpo6UqeQxx49dpYYdQB8wj9Qk9MdxwjLvDHB8
     //Mainnet : 675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8
-    
+
     let rpc_client: RpcClient = RpcClient::new(env.rpc_url);
     let pool_account: solana_sdk::account::Account = rpc_client.get_account(&pool).unwrap();
     // println!("Params data length: {:?}", pool_account.data.len());
@@ -60,34 +60,26 @@ pub fn construct_raydium_instructions(params: SwapParametersRaydium) -> Vec<Inst
         &amm_program,
         raydium_amm::processor::AUTHORITY_AMM,
         pool_state.nonce as u8,
-    ).unwrap();
+    )
+    .unwrap();
 
     // load market keys
-    let market_keys = get_keys_for_market(
-        &rpc_client,
-        &pool_state.market_program,
-        &pool_state.market,
-    ).unwrap();
+    let market_keys =
+        get_keys_for_market(&rpc_client, &pool_state.market_program, &pool_state.market).unwrap();
 
-    let pda_user_source = get_associated_token_address(
-        &payer.pubkey(),
-        &input_token_mint,
-    );
+    let pda_user_source = get_associated_token_address(&payer.pubkey(), &input_token_mint);
     match rpc_client.get_account(&pda_user_source) {
-        Ok(account) => {}
-        Err(error) => {
+        Ok(_account) => {}
+        Err(_error) => {
             // error!("❌ PDA not exist for {}", input_token_mint);
         }
     }
 
-    let pda_user_destination = get_associated_token_address(
-        &payer.pubkey(),
-        &output_token_mint,
-    );
+    let pda_user_destination = get_associated_token_address(&payer.pubkey(), &output_token_mint);
 
     match rpc_client.get_account(&pda_user_destination) {
-        Ok(account) => {}
-        Err(error) => {
+        Ok(_account) => {}
+        Err(_error) => {
             // error!("❌ PDA not exist for {}", output_token_mint);
         }
     }
@@ -115,13 +107,17 @@ pub fn construct_raydium_instructions(params: SwapParametersRaydium) -> Vec<Inst
         &payer.pubkey(),
         amount_in,
         min_amount_out,
-    ).expect("Error in Raydium swap instruction construction");
+    )
+    .expect("Error in Raydium swap instruction construction");
 
     // println!("DATA: {:?}", swap_instruction.data);
-    swap_instructions.push(InstructionDetails{ 
-        instruction: swap_instruction, 
-        details: "Raydium Swap Instruction".to_string(), 
-        market: Some(MarketInfos{dex_label: DexLabel::RAYDIUM, address: pool })
+    swap_instructions.push(InstructionDetails {
+        instruction: swap_instruction,
+        details: "Raydium Swap Instruction".to_string(),
+        market: Some(MarketInfos {
+            dex_label: DexLabel::Raydium,
+            address: pool,
+        }),
     });
 
     return swap_instructions;

@@ -1,22 +1,19 @@
-use std::{collections::HashMap, fs::{File, OpenOptions}, thread::sleep, time::{self, SystemTime}};
-use borsh::error;
+use std::{collections::HashMap, fs::{File, OpenOptions}, thread::sleep, time};
 use chrono::{Datelike, Utc};
 use indicatif::{ProgressBar, ProgressStyle};
-use itertools::enumerate;
-use mongodb::bson::doc;
 use rust_socketio::{asynchronous::{Client}};
 use solana_sdk::pubkey::Pubkey;
 use std::io::{BufWriter, Write};
 use crate::{arbitrage::{
     calc_arb::{calculate_arb, get_markets_arb}, simulate::simulate_path, streams::get_fresh_accounts_states, types::{SwapPathResult, SwapPathSelected, SwapRouteSimulation, VecSwapPathResult, VecSwapPathSelected}
-}, common::{database::{insert_vec_swap_path_selected_collection, insert_swap_path_result_collection}, utils::{from_str, write_file_swap_path_result}}, transactions::create_transaction::{self, create_and_send_swap_transaction, create_ata_extendlut_transaction, ChainType, SendOrSimulate}};
+}, common::{database::{insert_vec_swap_path_selected_collection, insert_swap_path_result_collection}, utils::{from_str, write_file_swap_path_result}}, transactions::create_transaction::{create_and_send_swap_transaction, ChainType, SendOrSimulate}};
 use crate::markets::types::{Dex,Market};
 use super::{simulate::simulate_path_precision, types::{SwapPath, TokenInArb, TokenInfos}};
-use log::{debug, error, info};
+use log::{error, info};
 use anyhow::Result;
 
 use tokio::net::TcpStream;
-use tokio::io::{AsyncReadExt, AsyncWriteExt};
+// use tokio::io::{AsyncReadExt, AsyncWriteExt}; // Commented out as read is not used
 
 pub async fn run_arbitrage_strategy(simulation_amount: u64, get_fresh_pools_bool: bool, restrict_sol_usdc: bool, include_1hop: bool, include_2hop: bool, numbers_of_best_paths: usize, dexs: Vec<Dex>, tokens: Vec<TokenInArb>, tokens_infos: HashMap<String, TokenInfos>) -> Result<(String, VecSwapPathSelected)> {
     info!("👀 Run Arbitrage Strategies...");
@@ -253,7 +250,7 @@ pub async fn precision_strategy(socket: Client, path: SwapPath, markets: Vec<Mar
     ];
     
     let mut result_amt = 0.0;
-    let mut sp_to_tx: Option<SwapPathResult> = None;
+    let mut _sp_to_tx: Option<SwapPathResult> = None;
 
     for (index, amount_in) in amounts_simulations.iter().enumerate() {
         let (swap_simulation_result, result_difference) = simulate_path_precision(amount_in.clone(), socket.clone(), path.clone(), markets.clone(), tokens_infos.clone()).await;
@@ -281,11 +278,11 @@ pub async fn precision_strategy(socket: Client, path: SwapPath, markets: Vec<Mar
             if result_difference > result_amt {
                 result_amt = result_difference;
                 println!("result_amt: {}", result_amt);
-                sp_to_tx = Some(sp_result.clone());
+                _sp_to_tx = Some(sp_result.clone());
             }
         }
     }
-    if result_amt > 0.1 && sp_to_tx.is_some() {
+    if result_amt > 0.1 && _sp_to_tx.is_some() {
         // let _ = create_and_send_swap_transaction(
         //     create_transaction::SendOrSimulate::Simulate, 
         //     create_transaction::ChainType::Mainnet, 
@@ -297,12 +294,12 @@ pub async fn precision_strategy(socket: Client, path: SwapPath, markets: Vec<Mar
 pub async fn sorted_interesting_path_strategy(simulation_amount: u64, path:String, tokens: Vec<TokenInArb>, tokens_infos: HashMap<String, TokenInfos>) -> Result<()>{
 
     let file_read = OpenOptions::new().read(true).write(true).open(path)?;
-    let mut paths_vec: VecSwapPathSelected = serde_json::from_reader(&file_read).unwrap();
+    let paths_vec: VecSwapPathSelected = serde_json::from_reader(&file_read).unwrap();
     let mut counter_sp_result = 0;
 
     let paths: Vec<SwapPathSelected> = paths_vec.value;
     let mut route_simulation: HashMap<Vec<u32>, Vec<SwapRouteSimulation>> = HashMap::new();
-    let tokens_for_tx: Vec<Pubkey> = tokens.iter().map(|tk| from_str(&tk.address).unwrap()).collect();
+    let _tokens_for_tx: Vec<Pubkey> = tokens.iter().map(|tk| from_str(&tk.address).unwrap()).collect();
     loop {
         for (index, path) in paths.iter().enumerate() {
             let (new_route_simulation, swap_simulation_result, result_difference) = simulate_path(simulation_amount, path.path.clone(), path.markets.clone(), tokens_infos.clone(), route_simulation.clone()).await;
@@ -372,8 +369,8 @@ pub async fn sorted_interesting_path_strategy(simulation_amount: u64, path:Strin
 pub async fn optimism_tx_strategy(path:String) -> Result<()>{
 
     let file_read = OpenOptions::new().read(true).write(true).open(path)?;
-    let mut spr: SwapPathResult = serde_json::from_reader(&file_read).unwrap();
-    let mut counter_sp_result = 0;
+    let spr: SwapPathResult = serde_json::from_reader(&file_read).unwrap();
+    let _counter_sp_result = 0;
 
     println!("💸💸💸💸💸💸💸💸💸 Begin Execute the tx 💸💸💸💸💸💸💸💸💸");
     // let _ = create_ata_extendlut_transaction(

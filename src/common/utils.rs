@@ -1,18 +1,22 @@
 use anyhow::Result;
-use borsh::{BorshDeserialize, BorshSerialize};
+use borsh::BorshDeserialize;
+use core::mem;
 use fern::colors::{Color, ColoredLevelConfig};
 use log::{info, LevelFilter};
+use reqwest::Error;
 use solana_program::pubkey::Pubkey;
 use solana_sdk::bs58;
-use core::mem;
-use std::{collections::HashMap, fs::{File, OpenOptions}};
-use thiserror::Error;
-use reqwest::Error;
 use std::io::{BufWriter, Write};
+use std::{
+    collections::HashMap,
+    fs::{File, OpenOptions},
+};
+use thiserror::Error;
 
-use crate::{arbitrage::types::{SwapPathResult, TokenInArb, TokenInfos}, common::constants::{
-    Env, PROJECT_NAME
-}};
+use crate::{
+    arbitrage::types::{SwapPathResult, TokenInArb, TokenInfos},
+    common::constants::{Env, PROJECT_NAME},
+};
 use solana_client::rpc_client::RpcClient;
 
 // Function to format our console logs
@@ -26,7 +30,7 @@ pub fn setup_logger() -> Result<(), fern::InitError> {
         ..ColoredLevelConfig::new()
     };
 
-    let mut base_config = fern::Dispatch::new();
+    let base_config = fern::Dispatch::new();
 
     //Console out
     let stdout_config = fern::Dispatch::new()
@@ -41,7 +45,7 @@ pub fn setup_logger() -> Result<(), fern::InitError> {
         .chain(std::io::stdout())
         .level(log::LevelFilter::Error)
         .level_for(PROJECT_NAME, LevelFilter::Info);
-    
+
     //File logs
     let file_config = fern::Dispatch::new()
         .format(move |out, message, record| {
@@ -83,7 +87,10 @@ pub fn setup_logger() -> Result<(), fern::InitError> {
 pub fn write_file_swap_path_result(path: String, content_raw: SwapPathResult) -> Result<()> {
     File::create(path.clone());
 
-    let file = OpenOptions::new().read(true).write(true).open(path.clone())?;
+    let file = OpenOptions::new()
+        .read(true)
+        .write(true)
+        .open(path.clone())?;
     let mut writer = BufWriter::new(&file);
 
     writer.write_all(serde_json::to_string(&content_raw)?.as_bytes())?;
@@ -120,8 +127,7 @@ pub fn from_str(s: &str) -> Result<Pubkey, Err> {
     }
 }
 pub fn from_Pubkey(pubkey: Pubkey) -> String {
-    let pubkey_vec = bs58::encode(pubkey)
-        .into_string();
+    let pubkey_vec = bs58::encode(pubkey).into_string();
     return pubkey_vec;
 }
 
@@ -143,15 +149,20 @@ pub async fn get_tokens_infos(tokens: Vec<TokenInArb>) -> HashMap<String, TokenI
         let account = account.clone().unwrap();
         let mint_layout = MintLayout::try_from_slice(&account.data).unwrap();
 
-        let symbol = tokens.iter().find(|r| *r.address == pubkeys_str[j]).expect("Symbol token not found");
-        tokens_infos.insert(pubkeys_str[j].clone(), TokenInfos{
-            address: pubkeys_str[j].clone(),
-            decimals: mint_layout.decimals,
-            symbol: symbol.clone().symbol
-        });
+        let symbol = tokens
+            .iter()
+            .find(|r| *r.address == pubkeys_str[j])
+            .expect("Symbol token not found");
+        tokens_infos.insert(
+            pubkeys_str[j].clone(),
+            TokenInfos {
+                address: pubkeys_str[j].clone(),
+                decimals: mint_layout.decimals,
+                symbol: symbol.clone().symbol,
+            },
+        );
     }
     return tokens_infos;
-
 }
 
 pub async fn make_request(req_url: String) -> Result<reqwest::Response, Error> {

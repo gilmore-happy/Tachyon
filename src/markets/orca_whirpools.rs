@@ -1,24 +1,24 @@
 use crate::arbitrage::types::{Route, TokenInfos};
 use crate::common::constants::Env;
-use crate::markets::types::{Dex, DexLabel, Market, PoolItem, SimulationRes};
-use crate::markets::utils::toPairString;
 use crate::common::utils::{from_Pubkey, from_str, make_request};
-use std::collections::HashMap;
-use std::{fs, fs::File};
-use std::io::Write;
+use crate::markets::types::{Dex, DexLabel, Market, PoolItem, SimulationRes};
+use crate::markets::utils::to_pair_string;
+use anyhow::Result;
 use borsh::{BorshDeserialize, BorshSerialize};
-use serde::{Deserialize, Serialize};
+use log::{error, info};
 use reqwest::get;
-use log::{info, error};
+use serde::{Deserialize, Serialize};
 use solana_account_decoder::{UiAccountData, UiAccountEncoding};
 use solana_client::rpc_client::RpcClient;
 use solana_client::rpc_config::{RpcAccountInfoConfig, RpcProgramAccountsConfig};
 use solana_client::rpc_filter::{Memcmp, MemcmpEncodedBytes, RpcFilterType};
 use solana_program::pubkey::Pubkey;
+use solana_pubsub_client::pubsub_client::PubsubClient;
 use solana_sdk::commitment_config::CommitmentConfig;
 use solana_sdk::program_error::ProgramError;
-use solana_pubsub_client::pubsub_client::PubsubClient;
-use anyhow::Result;
+use std::collections::HashMap;
+use std::io::Write;
+use std::{fs, fs::File};
 
 use super::types::SimulationError;
 
@@ -29,30 +29,43 @@ pub struct OrcaDexWhirpools {
 }
 impl OrcaDexWhirpools {
     pub fn new(mut dex: Dex) -> Self {
-
         let env = Env::new();
         let rpc_client = RpcClient::new(env.rpc_url);
 
         let mut pools_vec = Vec::new();
-        
-        let data = fs::read_to_string("src/markets/cache/orca-whirpools-markets.json").expect("Error reading file");
-        let json_value: Root = serde_json::from_str(&data).unwrap();
 
-        // println!("JSON Pools: {:?}", json_value.whirlpools);
+        let data = fs::read_to_string("src/markets/cache/orca-whirpools-markets.json")
+            .expect("Error reading file");
 
         let mut pubkeys_vec: Vec<Pubkey> = Vec::new();
 
-        for pool in json_value.whirlpools.clone() {
-            let pubkey = from_str(pool.address.as_str()).unwrap();
-            pubkeys_vec.push(pubkey);
+        // Check if the file is empty or just contains an empty array
+        if !data.trim().is_empty() && data.trim() != "[]" {
+            match serde_json::from_str::<Root>(&data) {
+                Ok(json_value) => {
+                    // Process the JSON data
+                    // println!("JSON Pools: {:?}", json_value.whirlpools);
+
+                    // Add pool addresses to the pubkeys vector
+                    for pool in json_value.whirlpools {
+                        let pubkey = from_str(pool.address.as_str()).unwrap();
+                        pubkeys_vec.push(pubkey);
+                    }
+                }
+                Err(e) => {
+                    error!("Error parsing Orca Whirlpools cache: {}", e);
+                }
+            }
+        } else {
+            info!("Orca Whirlpools cache is empty or contains an empty array");
         }
-        
+
         let mut results_pools = Vec::new();
-        
+
         for i in (0..pubkeys_vec.len()).step_by(100) {
-            let maxLength = std::cmp::min(i + 100, pubkeys_vec.len());
-            let batch = &pubkeys_vec[(i..maxLength)];
-            
+            let max_length = std::cmp::min(i + 100, pubkeys_vec.len());
+            let batch = &pubkeys_vec[i..max_length];
+
             let batch_results = rpc_client.get_multiple_accounts(&batch).unwrap();
             for (j, account) in batch_results.iter().enumerate() {
                 let account = account.clone().unwrap();
@@ -67,44 +80,46 @@ impl OrcaDexWhirpools {
                 results_pools.push(data);
             }
         }
-            
+
         // println!("Print Whirpool Account {:?}", &results_pools[76]);
         // println!("Print Whirpool Account {:?}", &results_pools[162]);
         // println!("Print Whirpool Account {:?}", &results_pools[3726]);
 
         for pool in &results_pools {
-
             // let fee = (pool.trade_fee_numerator as f64 / pool.trade_fee_denominator as f64) * 10000 as f64;
 
             let item: PoolItem = PoolItem {
-                mintA: from_Pubkey(pool.token_mint_a.clone()),
-                mintB: from_Pubkey(pool.token_mint_b.clone()),
-                vaultA: from_Pubkey(pool.token_vault_a.clone()),
-                vaultB: from_Pubkey(pool.token_vault_b.clone()),
-                tradeFeeRate: pool.fee_rate.clone() as u128,
+                mint_a: from_Pubkey(pool.token_mint_a.clone()),
+                mint_b: from_Pubkey(pool.token_mint_b.clone()),
+                vault_a: from_Pubkey(pool.token_vault_a.clone()),
+                vault_b: from_Pubkey(pool.token_vault_b.clone()),
+                trade_fee_rate: pool.fee_rate.clone() as u128,
             };
 
             pools_vec.push(item);
 
             let market: Market = Market {
-                tokenMintA: from_Pubkey(pool.token_mint_a.clone()),
-                tokenVaultA: from_Pubkey(pool.token_vault_a.clone()),
-                tokenMintB: from_Pubkey(pool.token_mint_b.clone()),
-                tokenVaultB: from_Pubkey(pool.token_vault_b.clone()),
+                token_mint_a: from_Pubkey(pool.token_mint_a.clone()),
+                token_vault_a: from_Pubkey(pool.token_vault_a.clone()),
+                token_mint_b: from_Pubkey(pool.token_mint_b.clone()),
+                token_vault_b: from_Pubkey(pool.token_vault_b.clone()),
                 fee: pool.fee_rate.clone() as u64,
-                dexLabel: DexLabel::ORCA_WHIRLPOOLS,
+                dex_label: DexLabel::OrcaWhirlpools,
                 id: from_Pubkey(pool.address.clone()),
                 //TODO: None here, be sure to refresh data after
-                account_data: None, 
+                account_data: None,
                 liquidity: Some(pool.liquidity as u64),
             };
 
-            let pair_string = toPairString(from_Pubkey(pool.token_mint_a), from_Pubkey(pool.token_mint_b));
-            if dex.pairToMarkets.contains_key(&pair_string.clone()) {
-                let vec_market = dex.pairToMarkets.get_mut(&pair_string).unwrap();
+            let pair_string = to_pair_string(
+                from_Pubkey(pool.token_mint_a),
+                from_Pubkey(pool.token_mint_b),
+            );
+            if dex.pair_to_markets.contains_key(&pair_string.clone()) {
+                let vec_market = dex.pair_to_markets.get_mut(&pair_string).unwrap();
                 vec_market.push(market);
             } else {
-                dex.pairToMarkets.insert(pair_string, vec![market]);
+                dex.pair_to_markets.insert(pair_string, vec![market]);
             }
         }
 
@@ -116,45 +131,47 @@ impl OrcaDexWhirpools {
     }
 }
 
-pub async fn fetch_new_orca_whirpools(rpc_client: &RpcClient, token: String, on_tokena: bool) -> Vec<(Pubkey, Market)> {
+pub async fn fetch_new_orca_whirpools(
+    rpc_client: &RpcClient,
+    token: String,
+    on_tokena: bool,
+) -> Vec<(Pubkey, Market)> {
     let orca_program = "whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc".to_string();
-    
-    let mut new_markets: Vec<(Pubkey, Market)> = Vec::new(); 
+
+    let mut new_markets: Vec<(Pubkey, Market)> = Vec::new();
     let filters = Some(vec![
         RpcFilterType::Memcmp(Memcmp::new(
             // 101 for token_mint_a && 181 for token_mint_b
-            if on_tokena == true {
-                101
-            } else {
-                181
-            }, 
-          MemcmpEncodedBytes::Base58(token.clone()),
+            if on_tokena == true { 101 } else { 181 },
+            MemcmpEncodedBytes::Base58(token.clone()),
         )),
-        RpcFilterType::DataSize(653),  //data.len == 653 for Whirpool account
+        RpcFilterType::DataSize(653), //data.len == 653 for Whirpool account
     ]);
-    
-    let accounts = rpc_client.get_program_accounts_with_config(
-        &from_str(&orca_program).unwrap(),
-        RpcProgramAccountsConfig {
-            filters,
-            account_config: RpcAccountInfoConfig {
-                encoding: Some(UiAccountEncoding::Base64),
-                commitment: Some(rpc_client.commitment()),
-                ..RpcAccountInfoConfig::default()
+
+    let accounts = rpc_client
+        .get_program_accounts_with_config(
+            &from_str(&orca_program).unwrap(),
+            RpcProgramAccountsConfig {
+                filters,
+                account_config: RpcAccountInfoConfig {
+                    encoding: Some(UiAccountEncoding::Base64),
+                    commitment: Some(rpc_client.commitment()),
+                    ..RpcAccountInfoConfig::default()
+                },
+                ..RpcProgramAccountsConfig::default()
             },
-            ..RpcProgramAccountsConfig::default()
-        },
-    ).unwrap();
+        )
+        .unwrap();
 
     for account in accounts {
         let whirpool_account = unpack_from_slice(account.1.data.as_slice()).unwrap();
         let market: Market = Market {
-            tokenMintA: from_Pubkey(whirpool_account.token_mint_a.clone()),
-            tokenVaultA: from_Pubkey(whirpool_account.token_vault_a.clone()),
-            tokenMintB: from_Pubkey(whirpool_account.token_mint_b.clone()),
-            tokenVaultB: from_Pubkey(whirpool_account.token_vault_b.clone()),
+            token_mint_a: from_Pubkey(whirpool_account.token_mint_a.clone()),
+            token_vault_a: from_Pubkey(whirpool_account.token_vault_a.clone()),
+            token_mint_b: from_Pubkey(whirpool_account.token_mint_b.clone()),
+            token_vault_b: from_Pubkey(whirpool_account.token_vault_b.clone()),
             fee: whirpool_account.fee_rate.clone() as u64,
-            dexLabel: DexLabel::ORCA_WHIRLPOOLS,
+            dex_label: DexLabel::OrcaWhirlpools,
             id: from_Pubkey(account.0.clone()),
             account_data: Some(account.1.data),
             liquidity: Some(whirpool_account.liquidity as u64),
@@ -170,13 +187,16 @@ pub async fn fetch_data_orca_whirpools() -> Result<(), Box<dyn std::error::Error
     // info!("response: {:?}", response);
     // info!("response-status: {:?}", response.status().is_success());
     if response.status().is_success() {
-        let json: Root = serde_json::from_str(&response.text().await?)?;        
+        let json: Root = serde_json::from_str(&response.text().await?)?;
         // info!("json: {:?}", json);
         let mut file = File::create("src/markets/cache/orca-whirpools-markets.json")?;
         file.write_all(serde_json::to_string(&json)?.as_bytes())?;
         info!("Data written to 'orca_whirpools-markets.json' successfully.");
     } else {
-        error!("Fetch of 'orca_whirpools-markets.json' not successful: {}", response.status());
+        error!(
+            "Fetch of 'orca_whirpools-markets.json' not successful: {}",
+            response.status()
+        );
     }
     Ok(())
 }
@@ -185,16 +205,16 @@ pub async fn stream_orca_whirpools(account: Pubkey) -> Result<()> {
     let env = Env::new();
     let url = env.wss_rpc_url.as_str();
     let (mut account_subscription_client, account_subscription_receiver) =
-    PubsubClient::account_subscribe(
-        url,
-        &account,
-        Some(RpcAccountInfoConfig {
-            encoding: Some(UiAccountEncoding::JsonParsed),
-            data_slice: None,
-            commitment: Some(CommitmentConfig::confirmed()),
-            min_context_slot: None,
-        }),
-    )?;
+        PubsubClient::account_subscribe(
+            url,
+            &account,
+            Some(RpcAccountInfoConfig {
+                encoding: Some(UiAccountEncoding::JsonParsed),
+                data_slice: None,
+                commitment: Some(CommitmentConfig::confirmed()),
+                min_context_slot: None,
+            }),
+        )?;
 
     loop {
         match account_subscription_receiver.recv() {
@@ -205,7 +225,6 @@ pub async fn stream_orca_whirpools(account: Pubkey) -> Result<()> {
                 let account_data = unpack_from_slice(bytes_slice.as_slice());
                 println!("Orca Whirpools Pool updated: {:?}", account);
                 println!("Data: {:?}", account_data.unwrap());
-
             }
             Err(e) => {
                 error!("account subscription error: {:?}", e);
@@ -217,13 +236,25 @@ pub async fn stream_orca_whirpools(account: Pubkey) -> Result<()> {
     Ok(())
 }
 
-// Simulate one route 
-pub async fn simulate_route_orca_whirpools(printing_amt: bool, amount_in: u64, route: Route, market: Market, tokens_infos: HashMap<String, TokenInfos>) -> Result<(String, String), Box<dyn std::error::Error>> {
+// Simulate one route
+pub async fn simulate_route_orca_whirpools(
+    printing_amt: bool,
+    amount_in: u64,
+    route: Route,
+    market: Market,
+    tokens_infos: HashMap<String, TokenInfos>,
+) -> Result<(String, String), Box<dyn std::error::Error>> {
     // I want to get the data of the market i'm interested in this route
-    let whirpool_data = unpack_from_slice(market.account_data.expect("No account data provided").as_slice()).unwrap();
+    let whirpool_data = unpack_from_slice(
+        market
+            .account_data
+            .expect("No account data provided")
+            .as_slice(),
+    )
+    .unwrap();
 
-    let token_0 = tokens_infos.get(&market.tokenMintA).unwrap();
-    let token_1 = tokens_infos.get(&market.tokenMintB).unwrap();
+    let token_0 = tokens_infos.get(&market.token_mint_a).unwrap();
+    let token_1 = tokens_infos.get(&market.token_mint_b).unwrap();
     let mut params: String = String::new();
     if route.token_0to1 {
         params = format!(
@@ -269,12 +300,25 @@ pub async fn simulate_route_orca_whirpools(printing_amt: bool, amount_in: u64, r
 
     if let Ok(json_value) = serde_json::from_str::<SimulationRes>(&res_text) {
         if printing_amt {
-            println!("estimatedAmountIn: {:?} {:?}", json_value.amountIn, token_0.symbol);
-            println!("estimatedAmountOut: {:?} {:?}", json_value.estimatedAmountOut, token_1.symbol);
-            println!("estimatedMinAmountOut: {:?} {:?}", json_value.estimatedMinAmountOut.clone().unwrap(), token_1.symbol);
+            println!(
+                "estimatedAmountIn: {:?} {:?}",
+                json_value.amount_in, token_0.symbol
+            );
+            println!(
+                "estimatedAmountOut: {:?} {:?}",
+                json_value.estimated_amount_out, token_1.symbol
+            );
+            println!(
+                "estimatedMinAmountOut: {:?} {:?}",
+                json_value.estimated_min_amount_out.clone().unwrap_or_default(),
+                token_1.symbol
+            );
         }
-        
-        Ok((json_value.estimatedAmountOut, json_value.estimatedMinAmountOut.unwrap_or_default()))
+
+        Ok((
+            json_value.estimated_amount_out,
+            json_value.estimated_min_amount_out.unwrap_or_default(),
+        ))
     } else if let Ok(error_value) = serde_json::from_str::<SimulationError>(&res_text) {
         // println!("ERROR Value: {:?}", error_value.error);
         Err(Box::new(std::io::Error::new(
@@ -293,31 +337,49 @@ pub async fn simulate_route_orca_whirpools(printing_amt: bool, amount_in: u64, r
 // :::::::::::::::::::::::::::::::::::::                      UTILS                   :::::::::::::::::::::::::::::::::::::::::::::
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-pub fn get_price() {
-
-}
+pub fn get_price() {}
 
 pub fn unpack_from_slice(src: &[u8]) -> Result<WhirlpoolAccount, ProgramError> {
-    let address = Pubkey::new_from_array([0 as u8; 32]);    // Init to 0 and update just after
-    let whirlpools_config = Pubkey::new_from_array(<[u8; 32]>::try_from(&src[8..40]).expect("Orca pools bad unpack"));
+    let address = Pubkey::new_from_array([0 as u8; 32]); // Init to 0 and update just after
+    let whirlpools_config =
+        Pubkey::new_from_array(<[u8; 32]>::try_from(&src[8..40]).expect("Orca pools bad unpack"));
     let whirlpool_bump = [src[40]];
-    let tick_spacing = u16::from_le_bytes(<[u8; 2]>::try_from(&src[41..43]).expect("Orca pools bad unpack"));
+    let tick_spacing =
+        u16::from_le_bytes(<[u8; 2]>::try_from(&src[41..43]).expect("Orca pools bad unpack"));
     let tick_spacing_seed = [src[43], src[44]];
-    let fee_rate = u16::from_le_bytes(<[u8; 2]>::try_from(&src[45..47]).expect("Orca pools bad unpack"));
-    let protocol_fee_rate = u16::from_le_bytes(<[u8; 2]>::try_from(&src[47..49]).expect("Orca pools bad unpack"));
-    let liquidity = u128::from_le_bytes(<[u8; 16]>::try_from(&src[49..65]).expect("Orca pools bad unpack"));
-    let sqrt_price = u128::from_le_bytes(<[u8; 16]>::try_from(&src[65..81]).expect("Orca pools bad unpack"));
-    let tick_current_index = i32::from_le_bytes(<[u8; 4]>::try_from(&src[81..85]).expect("Orca pools bad unpack"));
-    let protocol_fee_owed_a = u64::from_le_bytes(<[u8; 8]>::try_from(&src[85..93]).expect("Orca pools bad unpack"));
-    let protocol_fee_owed_b = u64::from_le_bytes(<[u8; 8]>::try_from(&src[93..101]).expect("Orca pools bad unpack"));
-    let token_mint_a = Pubkey::new_from_array(<[u8; 32]>::try_from(&src[101..133]).expect("Orca pools bad unpack"));
-    let token_vault_a = Pubkey::new_from_array(<[u8; 32]>::try_from(&src[133..165]).expect("Orca pools bad unpack"));
-    let fee_growth_global_a = u128::from_le_bytes(<[u8; 16]>::try_from(&src[165..181]).expect("Orca pools bad unpack"));
-    let token_mint_b = Pubkey::new_from_array(<[u8; 32]>::try_from(&src[181..213]).expect("Orca pools bad unpack"));
-    let token_vault_b = Pubkey::new_from_array(<[u8; 32]>::try_from(&src[213..245]).expect("Orca pools bad unpack"));
-    let fee_growth_global_b = u128::from_le_bytes(<[u8; 16]>::try_from(&src[245..261]).expect("Orca pools bad unpack"));   
-    let reward_last_updated_timestamp = u64::from_le_bytes(<[u8; 8]>::try_from(&src[261..269]).expect("Orca pools bad unpack"));
-    // let reward_infos = 
+    let fee_rate =
+        u16::from_le_bytes(<[u8; 2]>::try_from(&src[45..47]).expect("Orca pools bad unpack"));
+    let protocol_fee_rate =
+        u16::from_le_bytes(<[u8; 2]>::try_from(&src[47..49]).expect("Orca pools bad unpack"));
+    let liquidity =
+        u128::from_le_bytes(<[u8; 16]>::try_from(&src[49..65]).expect("Orca pools bad unpack"));
+    let sqrt_price =
+        u128::from_le_bytes(<[u8; 16]>::try_from(&src[65..81]).expect("Orca pools bad unpack"));
+    let tick_current_index =
+        i32::from_le_bytes(<[u8; 4]>::try_from(&src[81..85]).expect("Orca pools bad unpack"));
+    let protocol_fee_owed_a =
+        u64::from_le_bytes(<[u8; 8]>::try_from(&src[85..93]).expect("Orca pools bad unpack"));
+    let protocol_fee_owed_b =
+        u64::from_le_bytes(<[u8; 8]>::try_from(&src[93..101]).expect("Orca pools bad unpack"));
+    let token_mint_a = Pubkey::new_from_array(
+        <[u8; 32]>::try_from(&src[101..133]).expect("Orca pools bad unpack"),
+    );
+    let token_vault_a = Pubkey::new_from_array(
+        <[u8; 32]>::try_from(&src[133..165]).expect("Orca pools bad unpack"),
+    );
+    let fee_growth_global_a =
+        u128::from_le_bytes(<[u8; 16]>::try_from(&src[165..181]).expect("Orca pools bad unpack"));
+    let token_mint_b = Pubkey::new_from_array(
+        <[u8; 32]>::try_from(&src[181..213]).expect("Orca pools bad unpack"),
+    );
+    let token_vault_b = Pubkey::new_from_array(
+        <[u8; 32]>::try_from(&src[213..245]).expect("Orca pools bad unpack"),
+    );
+    let fee_growth_global_b =
+        u128::from_le_bytes(<[u8; 16]>::try_from(&src[245..261]).expect("Orca pools bad unpack"));
+    let reward_last_updated_timestamp =
+        u64::from_le_bytes(<[u8; 8]>::try_from(&src[261..269]).expect("Orca pools bad unpack"));
+    // let reward_infos =
 
     Ok(WhirlpoolAccount {
         address,
@@ -341,7 +403,6 @@ pub fn unpack_from_slice(src: &[u8]) -> Result<WhirlpoolAccount, ProgramError> {
         reward_last_updated_timestamp,
     })
 }
-
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 // :::::::::::::::::::::::::::::::::::::                      TYPES                   :::::::::::::::::::::::::::::::::::::::::::::

@@ -1,27 +1,35 @@
-use log::{error, info};
-use solana_client::rpc_client::RpcClient;
-use solana_sdk::{commitment_config::CommitmentConfig, pubkey::Pubkey, signature::Signature};
 use anyhow::{format_err, Result};
-use std::{
-    borrow::Cow,
-    convert::{identity, TryFrom},
-    mem::size_of,
-    thread::{self, sleep}, time::{self, Duration, Instant},
-};
+use log::{error, info};
 use safe_transmute::{
     to_bytes::{transmute_one_to_bytes, transmute_to_bytes},
     transmute_many_pedantic, transmute_one_pedantic,
 };
 use serum_dex::state::{gen_vault_signer_key, AccountFlag, Market, MarketState, MarketStateV2};
+use solana_client::rpc_client::RpcClient;
+use solana_sdk::{commitment_config::CommitmentConfig, pubkey::Pubkey, signature::Signature};
+use std::{
+    borrow::Cow,
+    convert::{identity, TryFrom},
+    mem::size_of,
+    thread::{self, sleep},
+    time::{self, Duration, Instant},
+};
 
 use crate::common::constants::Env;
 
 use super::create_transaction::ChainType;
 
-
-pub async fn check_tx_status(commitment_config: CommitmentConfig, chain: ChainType ,signature: Signature) -> Result<bool> {
+pub async fn check_tx_status(
+    commitment_config: CommitmentConfig,
+    chain: ChainType,
+    signature: Signature,
+) -> Result<bool> {
     let env = Env::new();
-    let rpc_url = if chain.clone() == ChainType::Mainnet { env.rpc_url } else { env.devnet_rpc_url };
+    let rpc_url = if chain.clone() == ChainType::Mainnet {
+        env.rpc_url
+    } else {
+        env.devnet_rpc_url
+    };
     let rpc_client: RpcClient = RpcClient::new(rpc_url);
 
     let start = Instant::now();
@@ -30,7 +38,11 @@ pub async fn check_tx_status(commitment_config: CommitmentConfig, chain: ChainTy
         let confirmed = rpc_client.confirm_transaction(&signature)?;
         info!("Is confirmed? {:?}", confirmed);
 
-        let status = rpc_client.get_signature_status_with_commitment_and_history(&signature, commitment_config, true)?;
+        let status = rpc_client.get_signature_status_with_commitment_and_history(
+            &signature,
+            commitment_config,
+            true,
+        )?;
         println!("Status: {:?}", status);
 
         let seventy_secs = Duration::from_secs(11);
@@ -89,7 +101,6 @@ pub fn get_keys_for_market<'a>(
     program_id: &'a Pubkey,
     market: &'a Pubkey,
 ) -> Result<MarketPubkeys> {
-
     let account_data: Vec<u8> = client.get_account_data(&market)?;
     let words: Cow<[u64]> = remove_dex_account_padding(&account_data)?;
     let market_state: MarketState = {

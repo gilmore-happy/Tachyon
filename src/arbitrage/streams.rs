@@ -1,19 +1,17 @@
-
-use std::collections::HashMap;
+use crate::{
+    common::{constants::Env, utils::from_str},
+    markets::types::{DexLabel, Market},
+};
 use anyhow::Result;
 use log::info;
 use solana_client::rpc_client::RpcClient;
 use solana_sdk::pubkey::Pubkey;
-use crate::{
-    common::{
-        constants::Env,
-        utils::from_str,
-    }, 
-    markets::types::{DexLabel, Market}
-};
+use std::collections::HashMap;
 
 //Get fresh data on all acounts with getMultipleAccounts
-pub async fn get_fresh_accounts_states(mut accounts: HashMap<String, Market>) -> HashMap<String, Market> {
+pub async fn get_fresh_accounts_states(
+    mut accounts: HashMap<String, Market>,
+) -> HashMap<String, Market> {
     let env = Env::new();
     let rpc_client = RpcClient::new(env.rpc_url);
     let mut counter_fresh_markets = 0;
@@ -28,9 +26,9 @@ pub async fn get_fresh_accounts_states(mut accounts: HashMap<String, Market>) ->
     }
 
     for i in (0..pubkeys_vec.len()).step_by(100) {
-        let maxLength = std::cmp::min(i + 100, pubkeys_vec.len());
-        let batch = &pubkeys_vec[(i..maxLength)];
-        
+        let max_length = std::cmp::min(i + 100, pubkeys_vec.len());
+        let batch = &pubkeys_vec[i..max_length];
+
         let batch_results = rpc_client.get_multiple_accounts(&batch).unwrap();
         // println!("BatchResult {:?}", batch_results);
         for (j, account) in batch_results.iter().enumerate() {
@@ -48,4 +46,3 @@ pub async fn get_fresh_accounts_states(mut accounts: HashMap<String, Market>) ->
     info!("💦💦 Fresh data for {:?} markets", counter_fresh_markets);
     return accounts;
 }
-

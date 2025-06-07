@@ -1,5 +1,5 @@
 //! Raydium AMM Program
-//! 
+//!
 //! This module contains the Raydium AMM program implementation for the MEV bot.
 
 use anchor_lang::prelude::*;
@@ -10,17 +10,13 @@ declare_id!("675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8");
 
 pub mod processor {
     use super::*;
-    
+
     pub const AUTHORITY_AMM: &[u8] = b"amm authority";
-    
+
     pub struct Processor;
-    
+
     impl Processor {
-        pub fn authority_id(
-            program_id: &Pubkey,
-            _my_info: &[u8],
-            nonce: u8,
-        ) -> Result<Pubkey> {
+        pub fn authority_id(program_id: &Pubkey, _my_info: &[u8], nonce: u8) -> Result<Pubkey> {
             let seeds = &[AUTHORITY_AMM, &[nonce]];
             let (pda, _) = Pubkey::find_program_address(seeds, program_id);
             Ok(pda)
@@ -30,7 +26,8 @@ pub mod processor {
 
 pub mod instruction {
     use super::*;
-    
+
+    #[allow(clippy::too_many_arguments)]
     pub fn swap_base_in(
         program_id: &Pubkey,
         amm_id: &Pubkey,
@@ -75,12 +72,12 @@ pub mod instruction {
             AccountMeta::new_readonly(*user_source_owner, true),
             AccountMeta::new_readonly(anchor_spl::token::ID, false),
         ];
-        
+
         // Instruction discriminator for swap_base_in (this is a placeholder)
         let mut data = vec![9]; // Arbitrary instruction discriminator
         data.extend_from_slice(&amount_in.to_le_bytes());
         data.extend_from_slice(&minimum_amount_out.to_le_bytes());
-        
+
         Ok(Instruction {
             program_id: *program_id,
             accounts,

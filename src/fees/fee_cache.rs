@@ -1,10 +1,10 @@
+use anyhow::Result;
+use log::{error, info, warn};
+use solana_client::nonblocking::rpc_client::RpcClient;
+use solana_sdk::commitment_config::CommitmentConfig;
 use std::sync::Arc;
 use std::time::{Duration, Instant};
 use tokio::sync::RwLock;
-use anyhow::Result;
-use log::{info, warn, error};
-use solana_client::nonblocking::rpc_client::RpcClient;
-use solana_sdk::commitment_config::CommitmentConfig;
 
 #[derive(Debug, Clone)]
 pub struct CachedFeeData {
@@ -34,7 +34,7 @@ impl FeeCache {
     /// Get cached fee data or fetch new data if cache is stale
     pub async fn get_fee_data(&self) -> Result<CachedFeeData> {
         let cache_read = self.cache.read().await;
-        
+
         // Check if cache is valid
         if let Some(cached_data) = &*cache_read {
             if cached_data.timestamp.elapsed() < self.cache_duration {
@@ -53,7 +53,8 @@ impl FeeCache {
             Ok(fee_data) => {
                 let mut cache_write = self.cache.write().await;
                 *cache_write = Some(fee_data.clone());
-                info!("📊 Fee cache refreshed: base={}, p75={}, p90={}, p95={}, max={}",
+                info!(
+                    "📊 Fee cache refreshed: base={}, p75={}, p90={}, p95={}, max={}",
                     fee_data.base_fee,
                     fee_data.percentile_75,
                     fee_data.percentile_90,
@@ -64,7 +65,7 @@ impl FeeCache {
             }
             Err(e) => {
                 error!("Failed to fetch recent fees: {:?}", e);
-                
+
                 // Return cached data if available, even if stale
                 let cache_read = self.cache.read().await;
                 if let Some(cached_data) = &*cache_read {
@@ -87,10 +88,8 @@ impl FeeCache {
 
     /// Fetch recent prioritization fees from RPC
     async fn fetch_recent_fees(&self) -> Result<CachedFeeData> {
-        let recent_fees = self.rpc_client
-            .get_recent_prioritization_fees(&[])
-            .await?;
-        
+        let recent_fees = self.rpc_client.get_recent_prioritization_fees(&[]).await?;
+
         if recent_fees.is_empty() {
             warn!("No recent prioritization fees available");
             return Ok(CachedFeeData {
@@ -104,15 +103,16 @@ impl FeeCache {
         }
 
         // Extract fee values and sort
-        let mut fee_values: Vec<u64> = recent_fees.iter()
+        let mut fee_values: Vec<u64> = recent_fees
+            .iter()
             .map(|f| f.prioritization_fee)
             .filter(|&f| f > 0) // Filter out zero fees
             .collect();
-        
+
         if fee_values.is_empty() {
             fee_values.push(10_000); // Default if all fees are zero
         }
-        
+
         fee_values.sort_unstable();
 
         // Calculate percentiles

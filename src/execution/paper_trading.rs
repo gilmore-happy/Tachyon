@@ -1,19 +1,16 @@
 use anyhow::{Context, Result};
 use chrono::{DateTime, Utc};
 use log::{info, warn};
+use rand::Rng;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::fs::{File, OpenOptions};
 use std::io::{BufReader, BufWriter, Write};
 use std::path::Path;
 use std::sync::{Arc, Mutex};
-use rand::Rng;
 use uuid::Uuid;
 
-use crate::{
-    arbitrage::types::SwapPathResult,
-    execution::executor::ExecutionResult,
-};
+use crate::{arbitrage::types::SwapPathResult, execution::executor::ExecutionResult};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PaperTradeRecord {
@@ -64,9 +61,9 @@ impl Default for PaperTradingConfig {
     fn default() -> Self {
         Self {
             starting_balance: 10_000_000_000, // 10 SOL
-            max_position_size: 5_000_000_000,  // 5 SOL max per trade
-            slippage_factor: 0.005,            // 0.5% slippage
-            failure_rate: 0.05,                // 5% random failure rate
+            max_position_size: 5_000_000_000, // 5 SOL max per trade
+            slippage_factor: 0.005,           // 0.5% slippage
+            failure_rate: 0.05,               // 5% random failure rate
             state_file: "paper_trading_state.json".to_string(),
         }
     }
@@ -132,7 +129,7 @@ impl PaperTrader {
 
     pub async fn execute_trade(&self, swap_path: SwapPathResult) -> Result<ExecutionResult> {
         let mut state = self.state.lock().unwrap();
-        
+
         // Check if we have enough balance
         let amount_in = swap_path.amount_in;
         if amount_in > self.config.max_position_size {
@@ -157,12 +154,12 @@ impl PaperTrader {
 
         // Simulate market conditions
         let market_conditions = self.simulate_market_conditions();
-        
+
         // Apply slippage to the expected output
         let slippage = 1.0 - (market_conditions.slippage_applied * self.config.slippage_factor);
-        let actual_output = (swap_path.estimated_amount_out.parse::<f64>()
-            .unwrap_or(0.0) * slippage) as u64;
-        
+        let actual_output =
+            (swap_path.estimated_amount_out.parse::<f64>().unwrap_or(0.0) * slippage) as u64;
+
         // Calculate profit/loss
         let gross_profit = actual_output as i64 - amount_in as i64;
         let gas_cost = self.calculate_gas_cost(&market_conditions);
@@ -170,7 +167,7 @@ impl PaperTrader {
 
         // Simulate random failures
         let success = !self.should_fail_randomly();
-        
+
         let failure_reason = if !success {
             Some(self.generate_failure_reason())
         } else if net_profit < 0 {
@@ -211,7 +208,7 @@ impl PaperTrader {
         }
 
         drop(state); // Release lock before saving
-        
+
         // Save state to disk
         let _ = self.save_state();
 
@@ -243,7 +240,7 @@ impl PaperTrader {
     fn simulate_market_conditions(&self) -> MarketConditions {
         use rand::Rng;
         let mut rng = rand::thread_rng();
-        
+
         MarketConditions {
             network_congested: rng.gen_bool(0.3), // 30% chance of congestion
             slippage_applied: rng.gen_range(0.1..2.0), // 0.1% to 2% slippage
@@ -255,7 +252,7 @@ impl PaperTrader {
         let base_cost = 5_000; // 0.000005 SOL base
         let priority = conditions.priority_fee;
         let congestion_multiplier = if conditions.network_congested { 3 } else { 1 };
-        
+
         (base_cost + priority) * congestion_multiplier
     }
 
@@ -274,15 +271,16 @@ impl PaperTrader {
             "Network congestion timeout",
             "Priority fee too low",
         ];
-        
-        reasons.choose(&mut rand::thread_rng())
+
+        reasons
+            .choose(&mut rand::thread_rng())
             .unwrap_or(&"Unknown error")
             .to_string()
     }
 
     pub fn get_statistics(&self) -> PaperTradingStatistics {
         let state = self.state.lock().unwrap();
-        
+
         let win_rate = if state.total_trades > 0 {
             (state.successful_trades as f64 / state.total_trades as f64) * 100.0
         } else {
@@ -338,14 +336,26 @@ impl std::fmt::Display for PaperTradingStatistics {
         writeln!(f, "📊 Paper Trading Statistics")?;
         writeln!(f, "═══════════════════════════════════════")?;
         writeln!(f, "Total Trades: {}", self.total_trades)?;
-        writeln!(f, "Successful: {} ({:.2}% win rate)", self.successful_trades, self.win_rate)?;
+        writeln!(
+            f,
+            "Successful: {} ({:.2}% win rate)",
+            self.successful_trades, self.win_rate
+        )?;
         writeln!(f, "Failed: {}", self.failed_trades)?;
         writeln!(f, "Total Profit: {:.6} SOL", self.total_profit as f64 / 1e9)?;
         writeln!(f, "Gas Spent: {:.6} SOL", self.total_gas_spent as f64 / 1e9)?;
         writeln!(f, "Net Profit: {:.6} SOL", self.net_profit as f64 / 1e9)?;
-        writeln!(f, "Current Balance: {:.6} SOL", self.current_balance as f64 / 1e9)?;
+        writeln!(
+            f,
+            "Current Balance: {:.6} SOL",
+            self.current_balance as f64 / 1e9
+        )?;
         writeln!(f, "ROI: {:.2}%", self.roi)?;
-        writeln!(f, "Avg Profit/Trade: {:.6} SOL", self.avg_profit_per_trade / 1e9)?;
+        writeln!(
+            f,
+            "Avg Profit/Trade: {:.6} SOL",
+            self.avg_profit_per_trade / 1e9
+        )?;
         Ok(())
     }
 }

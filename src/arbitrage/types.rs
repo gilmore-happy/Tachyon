@@ -1,5 +1,5 @@
-use serde::{de::DeserializeOwned, Deserialize, Serialize};
 use mongodb::bson;
+use serde::{de::DeserializeOwned, Deserialize, Serialize};
 
 use crate::markets::types::{DexLabel, Market};
 
@@ -15,8 +15,8 @@ pub struct Route {
     pub dex: DexLabel,
     pub pool_address: String,
     pub token_0to1: bool,
-    pub tokenIn: String,
-    pub tokenOut: String,
+    pub token_in: String,
+    pub token_out: String,
     pub fee: u64,
 }
 
@@ -44,7 +44,6 @@ pub struct SwapRouteSimulation {
     pub amount_in: u64,
     pub estimated_amount_out: String,
     pub estimated_min_amount_out: String,
-
 }
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SwapPathResult {
@@ -63,15 +62,15 @@ pub struct SwapPathResult {
 }
 #[derive(Debug, Clone, Serialize)]
 pub struct VecSwapPathResult {
-    pub result: Vec<SwapPathResult>
+    pub result: Vec<SwapPathResult>,
 }
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SwapPathSelected {
     pub result: f64,
     pub path: SwapPath,
-    pub markets: Vec<Market>
+    pub markets: Vec<Market>,
 }
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct VecSwapPathSelected {
-    pub value: Vec<SwapPathSelected>
+    pub value: Vec<SwapPathSelected>,
 }
