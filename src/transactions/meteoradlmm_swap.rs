@@ -7,7 +7,7 @@ use anyhow::*;
 
 use borsh::{BorshDeserialize, BorshSerialize};
 use num::Integer;
-use solana_client::rpc_client::RpcClient;
+use solana_client::nonblocking::rpc_client::RpcClient; // Changed
 use solana_program::hash;
 use solana_program::instruction::AccountMeta;
 use std::result::Result::Ok;
@@ -37,7 +37,7 @@ pub async fn construct_meteora_instructions(
     let SwapParametersMeteora {
         amount_in,
         lb_pair,
-        swap_for_y,
+        swap_for_y: _,
         input_token,
         output_token,
         minimum_amount_out,
@@ -50,8 +50,8 @@ pub async fn construct_meteora_instructions(
 
     let amm_program = from_str("LBUZKhRxPF3XUpBCjp4YzTKgLccjZhTSDM9YuVaPwxo").unwrap();
 
-    let rpc_client: RpcClient = RpcClient::new(env.rpc_url);
-    let pool_account: solana_sdk::account::Account = rpc_client.get_account(&lb_pair).unwrap();
+    let rpc_client = RpcClient::new(env.rpc_url); // Changed to nonblocking
+    let pool_account: solana_sdk::account::Account = rpc_client.get_account(&lb_pair).await.unwrap(); // Changed to await
     let pool_state = AccountData::try_from_slice(&pool_account.data).unwrap();
 
     // println!("Pool State: {:#?}", pool_state);
@@ -62,18 +62,18 @@ pub async fn construct_meteora_instructions(
 
     //Get PDA
     let pda_user_source = get_associated_token_address(&payer.pubkey(), &input_token);
-    match rpc_client.get_account(&pda_user_source) {
-        Ok(account) => {}
-        Err(error) => {
+    match rpc_client.get_account(&pda_user_source).await { // Changed to await
+        Ok(_account) => {}
+        Err(_error) => {
             // error!("❌ PDA not exist for {}", input_token);
         }
     }
 
     let pda_user_destination = get_associated_token_address(&payer.pubkey(), &output_token);
 
-    match rpc_client.get_account(&pda_user_destination) {
-        Ok(account) => {}
-        Err(error) => {
+    match rpc_client.get_account(&pda_user_destination).await { // Changed to await
+        Ok(_account) => {}
+        Err(_error) => {
             // error!("❌ PDA not exist for {}", output_token);
         }
     }
@@ -83,7 +83,7 @@ pub async fn construct_meteora_instructions(
     let (bin_array_0, _bump) =
         derive_bin_array_pda(lb_pair, active_bin_array_idx as i64, amm_program);
 
-    let bin_array_bitmap_extension = derive_bin_array_bitmap_extension(lb_pair, amm_program);
+    let _bin_array_bitmap_extension = derive_bin_array_bitmap_extension(lb_pair, amm_program);
     let bin_array_1 =
         derive_bin_array_pda(lb_pair, (active_bin_array_idx - 1) as i64, amm_program).0;
     let bin_array_2 =
@@ -132,7 +132,7 @@ pub async fn construct_meteora_instructions(
     };
 
     swap_instructions.push(InstructionDetails {
-        instruction: instruction,
+        instruction,
         details: "Meteora Swap Instruction".to_string(),
         market: Some(MarketInfos {
             dex_label: DexLabel::Meteora,

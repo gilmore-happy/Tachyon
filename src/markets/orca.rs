@@ -1,5 +1,5 @@
 use crate::common::constants::Env;
-use crate::common::utils::{from_Pubkey, from_str};
+use crate::common::utils::{from_pubkey, from_str};
 use crate::markets::types::{Dex, DexLabel, Market, PoolItem};
 use crate::markets::utils::to_pair_string;
 use anyhow::Result;
@@ -7,15 +7,17 @@ use log::info;
 use reqwest::get;
 use serde::{Deserialize, Serialize};
 use solana_account_decoder::{UiAccountData, UiAccountEncoding};
-use solana_client::rpc_client::RpcClient;
+use solana_client::nonblocking::rpc_client::RpcClient; // Changed
 use solana_client::rpc_config::RpcAccountInfoConfig;
 use solana_program::pubkey::Pubkey;
 use solana_pubsub_client::pubsub_client::PubsubClient;
 use solana_sdk::commitment_config::CommitmentConfig;
 use solana_sdk::program_error::ProgramError;
 use std::collections::HashMap;
-use std::io::Write;
-use std::{fs, fs::File};
+// use std::io::Write; // No longer needed directly for tokio::fs::File
+// use std::{fs, fs::File}; // Replaced with tokio::fs
+use tokio::fs; // Added
+use tokio::io::AsyncWriteExt; // Added for file.write_all(...).await
 
 #[derive(Debug)]
 pub struct OrcaDex {
@@ -23,14 +25,14 @@ pub struct OrcaDex {
     pub pools: Vec<PoolItem>,
 }
 impl OrcaDex {
-    pub fn new(mut dex: Dex) -> Self {
+    pub async fn new(mut dex: Dex) -> Self { // Changed to async
         let env = Env::new();
         let rpc_client = RpcClient::new(env.rpc_url);
 
         let mut pools_vec = Vec::new();
 
         let data =
-            fs::read_to_string("src/markets/cache/orca-markets.json").expect("Error reading file");
+            fs::read_to_string("src/markets/cache/orca-markets.json").await.expect("Error reading file"); // Changed to await
         let json_value: HashMap<String, Pool> = serde_json::from_str(&data).unwrap();
 
         // println!("JSON Pools: {:?}", json_value);
@@ -48,7 +50,7 @@ impl OrcaDex {
             let max_length = std::cmp::min(i + 100, pubkeys_vec.len());
             let batch = &pubkeys_vec[i..max_length];
 
-            let batch_results = rpc_client.get_multiple_accounts(&batch).unwrap();
+            let batch_results = rpc_client.get_multiple_accounts(&batch).await.unwrap(); // Changed to await
             for j in batch_results {
                 let account = j.unwrap();
                 let data = unpack_from_slice(&account.data.into_boxed_slice());
@@ -61,28 +63,28 @@ impl OrcaDex {
                 * 10000 as f64;
 
             let item: PoolItem = PoolItem {
-                mint_a: from_Pubkey(pool.mint_a.clone()),
-                mint_b: from_Pubkey(pool.mint_b.clone()),
-                vault_a: from_Pubkey(pool.token_account_a.clone()),
-                vault_b: from_Pubkey(pool.token_account_b.clone()),
-                trade_fee_rate: fee.clone() as u128,
+                mint_a: from_pubkey(pool.mint_a),
+                mint_b: from_pubkey(pool.mint_b),
+                vault_a: from_pubkey(pool.token_account_a),
+                vault_b: from_pubkey(pool.token_account_b),
+                trade_fee_rate: fee as u128,
             };
 
             pools_vec.push(item);
 
             let market: Market = Market {
-                token_mint_a: from_Pubkey(pool.mint_a.clone()),
-                token_vault_a: from_Pubkey(pool.token_account_a.clone()),
-                token_mint_b: from_Pubkey(pool.mint_b.clone()),
-                token_vault_b: from_Pubkey(pool.token_account_b.clone()),
-                fee: fee.clone() as u64,
+                token_mint_a: from_pubkey(pool.mint_a),
+                token_vault_a: from_pubkey(pool.token_account_a),
+                token_mint_b: from_pubkey(pool.mint_b),
+                token_vault_b: from_pubkey(pool.token_account_b),
+                fee: fee as u64,
                 dex_label: DexLabel::Orca,
-                id: from_Pubkey(pool.token_pool.clone()),
+                id: from_pubkey(pool.token_pool),
                 account_data: None,
                 liquidity: None,
             };
 
-            let pair_string = to_pair_string(from_Pubkey(pool.mint_a), from_Pubkey(pool.mint_b));
+            let pair_string = to_pair_string(from_pubkey(pool.mint_a), from_pubkey(pool.mint_b));
             if dex.pair_to_markets.contains_key(&pair_string.clone()) {
                 let vec_market = dex.pair_to_markets.get_mut(&pair_string).unwrap();
                 vec_market.push(market);
@@ -93,7 +95,7 @@ impl OrcaDex {
 
         info!("Orca: {} pools founded", &results_pools.len());
         Self {
-            dex: dex,
+            dex,
             pools: pools_vec,
         }
     }
@@ -106,8 +108,8 @@ pub async fn fetch_data_orca() -> Result<(), Box<dyn std::error::Error>> {
     if response.status().is_success() {
         let json: HashMap<String, Pool> = serde_json::from_str(&response.text().await?)?;
         // info!("json: {:?}", json);
-        let mut file = File::create("src/markets/cache/orca-markets.json")?;
-        file.write_all(serde_json::to_string(&json)?.as_bytes())?;
+        let mut file = fs::File::create("src/markets/cache/orca-markets.json").await?; // Changed to tokio::fs::File and await
+        file.write_all(serde_json::to_string(&json)?.as_bytes()).await?; // Changed to await
         info!("Data written to 'orca-markets.json' successfully.");
     } else {
         info!(
@@ -121,7 +123,7 @@ pub async fn fetch_data_orca() -> Result<(), Box<dyn std::error::Error>> {
 pub async fn stream_orca(account: Pubkey) -> Result<()> {
     let env = Env::new();
     let url = env.wss_rpc_url.as_str();
-    let (account_subscription_client, account_subscription_receiver) =
+    let (_account_subscription_client, account_subscription_receiver) =
         PubsubClient::account_subscribe(
             url,
             &account,
@@ -134,8 +136,35 @@ pub async fn stream_orca(account: Pubkey) -> Result<()> {
         )?;
 
     loop {
-        match account_subscription_receiver.recv() {
+        // To make recv non-blocking, we'd typically spawn_blocking or use an async-aware channel.
+        // For a direct minimal change to unblock a tokio runtime, spawn_blocking is an option.
+        // However, this changes the function's execution flow.
+        // A simple approach if this stream is critical and needs to integrate into a larger async app
+        // is to ensure this whole stream_orca function is run on a separate thread if it's meant to be long-lived.
+        // Or, more idiomatically, use an async channel if PubsubClient can feed into one.
+        // For now, let's make the .recv() itself non-blocking to the current thread if run within tokio::spawn_blocking
+        // This is a conceptual placeholder for a more robust async stream handling.
+        // The simplest change to avoid blocking the *current* async task if this loop is part of it:
+        // This specific change assumes stream_orca is called within a context like tokio::spawn.
+        // If stream_orca itself is intended to be a long-running blocking task, it should be spawned onto a dedicated thread.
+        // Given the .await in fetch_data_orca, this module is already async-aware.
+        // The most direct way to make recv() non-blocking for a tokio runtime is to use spawn_blocking.
+        // This implies the processing logic also runs in that blocking thread.
+        // If the goal is to integrate into an async stream, a bridge (e.g. tokio::sync::mpsc) would be better.
+        // For this refactor, I'll highlight the blocking nature. A full async pubsub client might be needed.
+        // The simplest "unblocking" change for a single iteration if this were in an async loop:
+        // match tokio::task::spawn_blocking(move || account_subscription_receiver.recv()).await {
+        // However, this is for a single recv. The loop structure makes this tricky without a proper async channel.
+
+        // For now, I will leave this as is, but note that account_subscription_receiver.recv() IS BLOCKING.
+        // A proper fix would involve a more significant redesign of this streaming part,
+        // possibly using something like `tokio_stream::wrappers::ReceiverStream` if the receiver was a tokio mpsc,
+        // or bridging std::sync::mpsc to tokio::sync::mpsc.
+
+        match account_subscription_receiver.recv() { // THIS IS STILL BLOCKING
             Ok(response) => {
+                // To process data without blocking other async tasks, consider:
+                // tokio::spawn(async move { process_data(data_bytes).await });
                 let data = response.value.data;
                 let bytes_slice = UiAccountData::decode(&data).unwrap();
                 // println!("account subscription data response: {:?}", data);

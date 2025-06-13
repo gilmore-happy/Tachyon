@@ -1,8 +1,8 @@
 use crate::arbitrage::types::{Route, TokenInfos};
 use crate::common::constants::Env;
 use crate::common::debug::print_json_segment;
-use crate::common::utils::{from_Pubkey, from_str, make_request};
-use crate::markets::types::{Dex, DexLabel, Market, PoolItem, SimulationError, SimulationRes};
+use crate::common::utils::{from_pubkey, from_str, make_request};
+use crate::markets::types::{Dex, DexLabel, Market, PoolItem, SimulationRes}; // Removed SimulationError
 use crate::markets::utils::to_pair_string;
 
 use anyhow::Result;
@@ -12,14 +12,20 @@ use reqwest::get;
 use serde::{de, Deserialize, Deserializer, Serialize};
 use serde_json::Value;
 use solana_account_decoder::UiAccountEncoding;
-use solana_client::rpc_client::RpcClient;
+// Removed unused solana_client::rpc_client::RpcClient
 use solana_client::rpc_config::{RpcAccountInfoConfig, RpcProgramAccountsConfig};
 use solana_client::rpc_filter::{Memcmp, MemcmpEncodedBytes, RpcFilterType};
 use solana_program::pubkey::Pubkey;
 use std::collections::HashMap;
-use std::fs;
-use std::fs::File;
-use std::io::{BufWriter, Write};
+// use std::fs; // Replaced with tokio::fs
+// use std::fs::File; // Replaced with tokio::fs::File
+// use std::io::{BufWriter, Write}; // Write is part of tokio::io::AsyncWriteExt, BufWriter might need tokio::io::BufWriter
+use tokio::fs; // Added
+use tokio::fs::File; // Added
+use tokio::io::{AsyncWriteExt, BufWriter}; // Added
+
+use crate::markets::errors::MarketSimulationError; // Added
+use log::warn; // Added for logging fallback
 
 #[derive(Debug)]
 pub struct MeteoraDEX {
@@ -27,17 +33,18 @@ pub struct MeteoraDEX {
     pub pools: Vec<PoolItem>,
 }
 impl MeteoraDEX {
-    pub fn new(mut dex: Dex) -> Self {
+    pub async fn new(mut dex: Dex) -> Self { // Changed to async
         let mut pools_vec = Vec::new();
 
         let data = fs::read_to_string("src/markets/cache/meteora-markets.json")
+            .await // Changed to await
             .expect("Error reading file");
         let json_value: Root = serde_json::from_str(&data).unwrap();
 
         for pool in json_value.clone() {
             //Serialization foraccount_data
             let mut serialized_data: Vec<u8> = Vec::new();
-            let _result = BorshSerialize::serialize(&pool, &mut serialized_data).unwrap();
+            BorshSerialize::serialize(&pool, &mut serialized_data).unwrap();
             let fee: f64 = pool.max_fee_percentage.parse().unwrap();
             let liquidity: f64 = pool.liquidity.parse().unwrap();
             let item: PoolItem = PoolItem {
@@ -45,7 +52,7 @@ impl MeteoraDEX {
                 mint_b: pool.mint_y.clone(),
                 vault_a: pool.reserve_x.clone(),
                 vault_b: pool.reserve_y.clone(),
-                trade_fee_rate: fee.clone() as u128,
+                trade_fee_rate: fee as u128,
             };
             pools_vec.push(item);
 
@@ -55,7 +62,7 @@ impl MeteoraDEX {
                 token_mint_b: pool.mint_y.clone(),
                 token_vault_b: pool.reserve_y.clone(),
                 dex_label: DexLabel::Meteora,
-                fee: fee.clone() as u64,
+                fee: fee as u64,
                 id: pool.address.clone(),
                 account_data: Some(serialized_data),
                 liquidity: Some(liquidity as u64),
@@ -72,7 +79,7 @@ impl MeteoraDEX {
 
         info!("Meteora : {} pools founded", json_value.len());
         Self {
-            dex: dex,
+            dex,
             pools: pools_vec,
         }
     }
@@ -87,10 +94,10 @@ pub async fn fetch_data_meteora() -> Result<(), Box<dyn std::error::Error>> {
 
         match serde_json::from_str::<Root>(&data) {
             Ok(json) => {
-                let file = File::create("src/markets/cache/meteora-markets.json")?;
+                let file = File::create("src/markets/cache/meteora-markets.json").await?; // Changed to tokio::fs::File and await
                 let mut writer = BufWriter::new(file);
-                writer.write_all(serde_json::to_string(&json)?.as_bytes())?;
-                writer.flush()?;
+                writer.write_all(serde_json::to_string(&json)?.as_bytes()).await?; // Changed to await
+                writer.flush().await?; // Changed to await
                 info!("Data written to 'meteora-markets.json' successfully.");
             }
             Err(e) => {
@@ -100,7 +107,7 @@ pub async fn fetch_data_meteora() -> Result<(), Box<dyn std::error::Error>> {
                 // let mut writer = BufWriter::new(raw_file);
                 // writer.write_all(data.as_bytes())?;
                 // writer.flush()?;
-                let result = print_json_segment(
+                let _result = print_json_segment(
                     "src/markets/cache/meteora-markets-raw.json",
                     3426919 - 100 as u64,
                     2000,
@@ -119,7 +126,7 @@ pub async fn fetch_data_meteora() -> Result<(), Box<dyn std::error::Error>> {
 }
 
 pub async fn fetch_new_meteora_pools(
-    rpc_client: &RpcClient,
+    rpc_client: &solana_client::nonblocking::rpc_client::RpcClient, // Changed type
     token: String,
     on_tokena: bool,
 ) -> Vec<(Pubkey, Market)> {
@@ -130,7 +137,7 @@ pub async fn fetch_new_meteora_pools(
     let mut new_markets: Vec<(Pubkey, Market)> = Vec::new();
     let filters = Some(vec![
         RpcFilterType::Memcmp(Memcmp::new(
-            if on_tokena == true { 88 } else { 120 },
+            if on_tokena { 88 } else { 120 },
             MemcmpEncodedBytes::Base58(token.clone()),
         )),
         RpcFilterType::DataSize(904),
@@ -149,6 +156,7 @@ pub async fn fetch_new_meteora_pools(
                 ..RpcProgramAccountsConfig::default()
             },
         )
+        .await // Changed to await
         .unwrap();
 
     for account in accounts.clone() {
@@ -157,21 +165,21 @@ pub async fn fetch_new_meteora_pools(
         let meteora_market = AccountData::try_from_slice(&account.1.data).unwrap();
         // println!("meteora_market: {:?}", meteora_market);
         let market: Market = Market {
-            token_mint_a: from_Pubkey(meteora_market.token_xmint.clone()),
-            token_vault_a: from_Pubkey(meteora_market.reserve_x.clone()),
-            token_mint_b: from_Pubkey(meteora_market.token_ymint.clone()),
-            token_vault_b: from_Pubkey(meteora_market.reserve_y.clone()),
+            token_mint_a: from_pubkey(meteora_market.token_xmint),
+            token_vault_a: from_pubkey(meteora_market.reserve_x),
+            token_mint_b: from_pubkey(meteora_market.token_ymint),
+            token_vault_b: from_pubkey(meteora_market.reserve_y),
             dex_label: DexLabel::Meteora,
-            fee: 0 as u64,
-            id: from_Pubkey(account.0).clone(),
+            fee: 0_u64,
+            id: from_pubkey(account.0).clone(),
             account_data: Some(account.1.data),
-            liquidity: Some(666 as u64),
+            liquidity: Some(666_u64),
         };
         new_markets.push((account.0, market));
     }
     // println!("Accounts: {:?}", accounts);
     // println!("new_markets: {:?}", new_markets);
-    return new_markets;
+    new_markets
 }
 
 // Simulate one route
@@ -182,7 +190,7 @@ pub async fn simulate_route_meteora(
     route: Route,
     market: Market,
     tokens_infos: HashMap<String, TokenInfos>,
-) -> Result<(String, String), Box<dyn std::error::Error>> {
+) -> Result<(u64, u64), MarketSimulationError> { // Changed return type
     // println!("account_data: {:?}", &market.account_data.clone().unwrap());
     // println!("market: {:?}", market.clone());
     // let meteora_data = AccountData::try_from_slice(&market.account_data.expect("Account data problem // METEORA")).expect("Account data not fit bytes length");
@@ -197,15 +205,15 @@ pub async fn simulate_route_meteora(
         market.id,
         route.token_0to1,
         amount_in_uint,
-        if route.token_0to1 == true {
-            token0.clone().symbol
+        if route.token_0to1 {
+            &token0.symbol
         } else {
-            token1.clone().symbol
+            &token1.symbol
         },
-        if route.token_0to1 == true {
-            token1.clone().symbol
+        if route.token_0to1 {
+            &token1.symbol
         } else {
-            token0.clone().symbol
+            &token0.symbol
         },
     );
 
@@ -214,54 +222,64 @@ pub async fn simulate_route_meteora(
     let domain = env.simulator_url;
 
     let req_url = format!("{}meteora_quote?{}", domain, params);
-    let res = make_request(req_url).await?;
-    let res_text = res.text().await?;
+    
+    let res = make_request(req_url).await.map_err(|e| MarketSimulationError::ApiRequestFailed {
+        market: "LocalSimulator-MeteoraQuote".to_string(),
+        message: e.to_string(),
+        source: Some(Box::new(e)),
+    })?;
+    let res_text = res.text().await.map_err(|e| MarketSimulationError::ApiRequestFailed {
+        market: "LocalSimulator-MeteoraQuote".to_string(),
+        message: format!("Failed to read response text: {}", e),
+        source: Some(Box::new(e)),
+    })?;
 
     if let Ok(json_value) = serde_json::from_str::<SimulationRes>(&res_text) {
         if printing_amt {
-            println!(
-                "estimatedAmountIn: {:?} {:?}",
-                json_value.amount_in,
-                if route.token_0to1 == true {
-                    token0.clone().symbol
-                } else {
-                    token1.clone().symbol
-                }
-            );
-            println!(
-                "estimatedAmountOut: {:?} {:?}",
-                json_value.estimated_amount_out,
-                if route.token_0to1 == true {
-                    token1.clone().symbol
-                } else {
-                    token0.clone().symbol
-                }
-            );
-            println!(
-                "estimatedMinAmountOut: {:?} {:?}",
+            info!(
+                "LocalSim Meteora: In: {} {}, EstOut: {} {}, EstMinOut: {} {}",
+                json_value.amount_in, 
+                if route.token_0to1 { token0.symbol.clone() } else { token1.symbol.clone() },
+                json_value.estimated_amount_out, 
+                if route.token_0to1 { token1.symbol.clone() } else { token0.symbol.clone() },
                 json_value.estimated_min_amount_out.clone().unwrap_or_default(),
-                if route.token_0to1 == true {
-                    token1.clone().symbol
-                } else {
-                    token0.clone().symbol
-                }
+                if route.token_0to1 { token1.symbol.clone() } else { token0.symbol.clone() }
             );
         }
-        return Ok((
-            json_value.estimated_amount_out,
-            json_value.estimated_min_amount_out.unwrap_or_default(),
-        ));
-    } else if let Ok(error_value) = serde_json::from_str::<SimulationError>(&res_text) {
-        // println!("ERROR Value: {:?}", error_value.error);
-        Err(Box::new(std::io::Error::new(
-            std::io::ErrorKind::Other,
-            error_value.error,
-        )))
+
+        let estimated_out = json_value.estimated_amount_out.parse::<u64>()
+            .map_err(|e| MarketSimulationError::AmountParseError {
+                market: "LocalSimulator-MeteoraQuote".to_string(),
+                value: json_value.estimated_amount_out.clone(),
+                field: "estimated_amount_out".to_string(),
+                source: e,
+            })?;
+        
+        let min_out_str = json_value.estimated_min_amount_out.unwrap_or_else(|| {
+            warn!("LocalSimulator-MeteoraQuote: estimated_min_amount_out is None for route {}, pool {}. Falling back to estimated_amount_out.", route.id, route.pool_address);
+            json_value.estimated_amount_out.clone()
+        });
+
+        let min_out = min_out_str.parse::<u64>()
+            .map_err(|e| MarketSimulationError::AmountParseError {
+                market: "LocalSimulator-MeteoraQuote".to_string(),
+                value: min_out_str,
+                field: "estimated_min_amount_out (or fallback)".to_string(),
+                source: e,
+            })?;
+
+        return Ok((estimated_out, min_out));
+    } else if let Ok(error_value) = serde_json::from_str::<super::types::SimulationError>(&res_text) {
+        Err(MarketSimulationError::ApiRequestFailed {
+            market: "LocalSimulator-MeteoraQuote".to_string(),
+            message: error_value.error,
+            source: None,
+        })
     } else {
-        Err(Box::new(std::io::Error::new(
-            std::io::ErrorKind::Other,
-            "Unexpected response format",
-        )))
+        Err(MarketSimulationError::InvalidResponseFormat {
+            market: "LocalSimulator-MeteoraQuote".to_string(),
+            details: format!("Unexpected response format: {}", res_text),
+        })
     }
 }
 

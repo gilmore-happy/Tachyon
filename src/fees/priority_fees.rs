@@ -6,11 +6,12 @@ use crate::fees::{
         ProfitBasedStrategy, Urgency,
     },
 };
-use anyhow::{Context, Result};
+use anyhow::{anyhow, Context, Result};
 use log::{info, warn};
 use solana_client::nonblocking::rpc_client::RpcClient;
 use solana_sdk::commitment_config::CommitmentConfig;
 use std::sync::Arc;
+use std::sync::OnceLock;
 
 #[derive(Debug, Clone, Copy)]
 pub enum FeeMode {
@@ -170,42 +171,23 @@ pub struct FeeStats {
     pub strategy_name: String,
 }
 
-/// Global priority fee service instance
-static mut GLOBAL_FEE_SERVICE: Option<Arc<PriorityFeeService>> = None;
-static INIT: std::sync::Once = std::sync::Once::new();
+// Replace the dangerous mutable static with safe OnceLock
+static GLOBAL_FEE_SERVICE: OnceLock<Arc<PriorityFeeService>> = OnceLock::new();
 
-/// Get or initialize the global fee service
-pub fn get_global_fee_service() -> Result<Arc<PriorityFeeService>> {
-    unsafe {
-        INIT.call_once(|| match PriorityFeeService::from_env() {
-            Ok(service) => {
-                GLOBAL_FEE_SERVICE = Some(Arc::new(service));
-            }
-            Err(e) => {
-                warn!("Failed to initialize global fee service: {:?}", e);
-            }
-        });
-
-        GLOBAL_FEE_SERVICE
-            .clone()
-            .ok_or_else(|| anyhow::anyhow!("Global fee service not initialized"))
-    }
-}
-
-/// Initialize the global fee service with custom config
 pub fn init_global_fee_service(
     rpc_client: Arc<RpcClient>,
     config: PriorityFeeConfig,
 ) -> Result<()> {
-    unsafe {
-        if GLOBAL_FEE_SERVICE.is_some() {
-            return Err(anyhow::anyhow!("Global fee service already initialized"));
-        }
+    let service = Arc::new(PriorityFeeService::new(rpc_client, config));
+    GLOBAL_FEE_SERVICE.set(service)
+        .map_err(|_| anyhow!("Global fee service already initialized"))?;
+    Ok(())
+}
 
-        let service = PriorityFeeService::new(rpc_client, config);
-        GLOBAL_FEE_SERVICE = Some(Arc::new(service));
-        Ok(())
-    }
+pub fn get_global_fee_service() -> Result<Arc<PriorityFeeService>> {
+    GLOBAL_FEE_SERVICE.get()
+        .cloned()
+        .ok_or_else(|| anyhow!("Global fee service not initialized"))
 }
 
 #[cfg(test)]

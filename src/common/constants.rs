@@ -25,6 +25,12 @@ pub struct Env {
     pub lut_buffer_count: Option<u64>,
 }
 
+impl Default for Env {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Env {
     pub fn new() -> Self {
         Env {

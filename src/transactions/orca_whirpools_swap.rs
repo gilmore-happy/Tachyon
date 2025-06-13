@@ -6,7 +6,7 @@ use anchor_spl::token::spl_token;
 
 use borsh::{BorshDeserialize, BorshSerialize};
 use serde::{Deserialize, Serialize};
-use solana_client::rpc_client::RpcClient;
+use solana_client::nonblocking::rpc_client::RpcClient; // Changed
 use solana_program::hash;
 use solana_program::instruction::AccountMeta;
 use std::result::Result::Ok;
@@ -49,8 +49,8 @@ pub async fn construct_orca_whirpools_instructions(
 
     let amm_program = from_str("whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc").unwrap();
 
-    let rpc_client: RpcClient = RpcClient::new(env.rpc_url);
-    let pool_account: solana_sdk::account::Account = rpc_client.get_account(&whirpools).unwrap();
+    let rpc_client = RpcClient::new(env.rpc_url); // Changed to nonblocking
+    let pool_account: solana_sdk::account::Account = rpc_client.get_account(&whirpools).await.unwrap(); // Changed to await
     // println!("Params: {:?}", pool_account);
     // println!("Params data length: {:?}", pool_account.data.len());
 
@@ -75,18 +75,18 @@ pub async fn construct_orca_whirpools_instructions(
 
     //Get PDA
     let pda_user_source = get_associated_token_address(&payer.pubkey(), &input_token);
-    match rpc_client.get_account(&pda_user_source) {
-        Ok(account) => {}
-        Err(error) => {
+    match rpc_client.get_account(&pda_user_source).await { // Changed to await
+        Ok(_account) => {}
+        Err(_error) => {
             // error!("❌ PDA not exist for {}", input_token);
         }
     }
 
     let pda_user_destination = get_associated_token_address(&payer.pubkey(), &output_token);
 
-    match rpc_client.get_account(&pda_user_destination) {
-        Ok(account) => {}
-        Err(error) => {
+    match rpc_client.get_account(&pda_user_destination).await { // Changed to await
+        Ok(_account) => {}
+        Err(_error) => {
             // error!("❌ PDA not exist for {}", output_token);
         }
     }
@@ -170,7 +170,7 @@ pub async fn construct_orca_whirpools_instructions(
     // println!("Instruction: {:?}", instruction);
 
     swap_instructions.push(InstructionDetails {
-        instruction: instruction,
+        instruction,
         details: "Orca Whirpool Swap Instruction".to_string(),
         market: Some(MarketInfos {
             dex_label: DexLabel::OrcaWhirlpools,

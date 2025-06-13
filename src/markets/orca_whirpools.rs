@@ -1,15 +1,16 @@
 use crate::arbitrage::types::{Route, TokenInfos};
 use crate::common::constants::Env;
-use crate::common::utils::{from_Pubkey, from_str, make_request};
+use crate::common::utils::{from_pubkey, from_str, make_request};
 use crate::markets::types::{Dex, DexLabel, Market, PoolItem, SimulationRes};
 use crate::markets::utils::to_pair_string;
+use solana_client::nonblocking::rpc_client::RpcClient;
 use anyhow::Result;
 use borsh::{BorshDeserialize, BorshSerialize};
-use log::{error, info};
+use log::{error, info, warn}; // Added warn here
 use reqwest::get;
 use serde::{Deserialize, Serialize};
 use solana_account_decoder::{UiAccountData, UiAccountEncoding};
-use solana_client::rpc_client::RpcClient;
+// Removed duplicate RpcClient import
 use solana_client::rpc_config::{RpcAccountInfoConfig, RpcProgramAccountsConfig};
 use solana_client::rpc_filter::{Memcmp, MemcmpEncodedBytes, RpcFilterType};
 use solana_program::pubkey::Pubkey;
@@ -20,7 +21,11 @@ use std::collections::HashMap;
 use std::io::Write;
 use std::{fs, fs::File};
 
-use super::types::SimulationError;
+use crate::markets::errors::MarketSimulationError; // Added
+// log::{error, info} already imports warn implicitly if used, but explicit is fine if preferred.
+// use log::warn; 
+
+// use super::types::SimulationError; // Removed unused import
 
 #[derive(Debug)]
 pub struct OrcaDexWhirpools {
@@ -28,7 +33,7 @@ pub struct OrcaDexWhirpools {
     pub pools: Vec<PoolItem>,
 }
 impl OrcaDexWhirpools {
-    pub fn new(mut dex: Dex) -> Self {
+    pub async fn new(mut dex: Dex) -> Self {
         let env = Env::new();
         let rpc_client = RpcClient::new(env.rpc_url);
 
@@ -66,7 +71,7 @@ impl OrcaDexWhirpools {
             let max_length = std::cmp::min(i + 100, pubkeys_vec.len());
             let batch = &pubkeys_vec[i..max_length];
 
-            let batch_results = rpc_client.get_multiple_accounts(&batch).unwrap();
+            let batch_results = rpc_client.get_multiple_accounts(&batch).await.unwrap();
             for (j, account) in batch_results.iter().enumerate() {
                 let account = account.clone().unwrap();
                 // let gov = solana_sdk::pubkey::Pubkey::try_from("2LecshUwdy9xi7meFgHtFJQNSKk4KdTrcpvaB56dP2NQ").unwrap();
@@ -89,31 +94,31 @@ impl OrcaDexWhirpools {
             // let fee = (pool.trade_fee_numerator as f64 / pool.trade_fee_denominator as f64) * 10000 as f64;
 
             let item: PoolItem = PoolItem {
-                mint_a: from_Pubkey(pool.token_mint_a.clone()),
-                mint_b: from_Pubkey(pool.token_mint_b.clone()),
-                vault_a: from_Pubkey(pool.token_vault_a.clone()),
-                vault_b: from_Pubkey(pool.token_vault_b.clone()),
+                mint_a: from_pubkey(pool.token_mint_a.clone()),
+                mint_b: from_pubkey(pool.token_mint_b.clone()),
+                vault_a: from_pubkey(pool.token_vault_a.clone()),
+                vault_b: from_pubkey(pool.token_vault_b.clone()),
                 trade_fee_rate: pool.fee_rate.clone() as u128,
             };
 
             pools_vec.push(item);
 
             let market: Market = Market {
-                token_mint_a: from_Pubkey(pool.token_mint_a.clone()),
-                token_vault_a: from_Pubkey(pool.token_vault_a.clone()),
-                token_mint_b: from_Pubkey(pool.token_mint_b.clone()),
-                token_vault_b: from_Pubkey(pool.token_vault_b.clone()),
+                token_mint_a: from_pubkey(pool.token_mint_a.clone()),
+                token_vault_a: from_pubkey(pool.token_vault_a.clone()),
+                token_mint_b: from_pubkey(pool.token_mint_b.clone()),
+                token_vault_b: from_pubkey(pool.token_vault_b.clone()),
                 fee: pool.fee_rate.clone() as u64,
                 dex_label: DexLabel::OrcaWhirlpools,
-                id: from_Pubkey(pool.address.clone()),
+                id: from_pubkey(pool.address.clone()),
                 //TODO: None here, be sure to refresh data after
                 account_data: None,
                 liquidity: Some(pool.liquidity as u64),
             };
 
             let pair_string = to_pair_string(
-                from_Pubkey(pool.token_mint_a),
-                from_Pubkey(pool.token_mint_b),
+                from_pubkey(pool.token_mint_a),
+                from_pubkey(pool.token_mint_b),
             );
             if dex.pair_to_markets.contains_key(&pair_string.clone()) {
                 let vec_market = dex.pair_to_markets.get_mut(&pair_string).unwrap();
@@ -132,7 +137,7 @@ impl OrcaDexWhirpools {
 }
 
 pub async fn fetch_new_orca_whirpools(
-    rpc_client: &RpcClient,
+    rpc_client: &solana_client::nonblocking::rpc_client::RpcClient,
     token: String,
     on_tokena: bool,
 ) -> Vec<(Pubkey, Market)> {
@@ -161,18 +166,19 @@ pub async fn fetch_new_orca_whirpools(
                 ..RpcProgramAccountsConfig::default()
             },
         )
+        .await
         .unwrap();
 
     for account in accounts {
         let whirpool_account = unpack_from_slice(account.1.data.as_slice()).unwrap();
         let market: Market = Market {
-            token_mint_a: from_Pubkey(whirpool_account.token_mint_a.clone()),
-            token_vault_a: from_Pubkey(whirpool_account.token_vault_a.clone()),
-            token_mint_b: from_Pubkey(whirpool_account.token_mint_b.clone()),
-            token_vault_b: from_Pubkey(whirpool_account.token_vault_b.clone()),
+            token_mint_a: from_pubkey(whirpool_account.token_mint_a.clone()),
+            token_vault_a: from_pubkey(whirpool_account.token_vault_a.clone()),
+            token_mint_b: from_pubkey(whirpool_account.token_mint_b.clone()),
+            token_vault_b: from_pubkey(whirpool_account.token_vault_b.clone()),
             fee: whirpool_account.fee_rate.clone() as u64,
             dex_label: DexLabel::OrcaWhirlpools,
-            id: from_Pubkey(account.0.clone()),
+            id: from_pubkey(account.0.clone()),
             account_data: Some(account.1.data),
             liquidity: Some(whirpool_account.liquidity as u64),
         };
@@ -204,7 +210,7 @@ pub async fn fetch_data_orca_whirpools() -> Result<(), Box<dyn std::error::Error
 pub async fn stream_orca_whirpools(account: Pubkey) -> Result<()> {
     let env = Env::new();
     let url = env.wss_rpc_url.as_str();
-    let (account_subscription_client, account_subscription_receiver) =
+    let (__account_subscription_client, account_subscription_receiver) =
         PubsubClient::account_subscribe(
             url,
             &account,
@@ -243,7 +249,7 @@ pub async fn simulate_route_orca_whirpools(
     route: Route,
     market: Market,
     tokens_infos: HashMap<String, TokenInfos>,
-) -> Result<(String, String), Box<dyn std::error::Error>> {
+) -> Result<(u64, u64), MarketSimulationError> { // Changed return type
     // I want to get the data of the market i'm interested in this route
     let whirpool_data = unpack_from_slice(
         market
@@ -255,9 +261,9 @@ pub async fn simulate_route_orca_whirpools(
 
     let token_0 = tokens_infos.get(&market.token_mint_a).unwrap();
     let token_1 = tokens_infos.get(&market.token_mint_b).unwrap();
-    let mut params: String = String::new();
-    if route.token_0to1 {
-        params = format!(
+    
+    let params = if route.token_0to1 {
+        format!(
             "poolId={}&tokenInKey={}&tokenInDecimals={}&tokenInSymbol={}&tokenOutKey={}&tokenOutDecimals={}&tokenOutSymbol={}&tickSpacing={}&amountIn={}",
             route.pool_address,
             whirpool_data.token_mint_a,
@@ -268,9 +274,9 @@ pub async fn simulate_route_orca_whirpools(
             token_1.symbol,
             whirpool_data.tick_spacing,
             amount_in,
-        );
+        )
     } else {
-        params = format!(
+        format!(
             "poolId={}&tokenInKey={}&tokenInDecimals={}&tokenInSymbol={}&tokenOutKey={}&tokenOutDecimals={}&tokenOutSymbol={}&tickSpacing={}&amountIn={}",
             route.pool_address,
             whirpool_data.token_mint_b,
@@ -281,8 +287,8 @@ pub async fn simulate_route_orca_whirpools(
             token_0.symbol,
             whirpool_data.tick_spacing,
             amount_in,
-        );
-    }
+        )
+    };
 
     //Get price
     // let price = from_x64_orca_wp(whirpool_data.sqrt_price, decimals_0 as f64, decimals_1 as f64);
@@ -295,41 +301,61 @@ pub async fn simulate_route_orca_whirpools(
     let req_url = format!("{}orca_quote?{}", domain, params);
     // println!("req_url: {:?}", req_url);
 
-    let res = make_request(req_url).await?;
-    let res_text = res.text().await?;
+    let res = make_request(req_url).await.map_err(|e| MarketSimulationError::ApiRequestFailed {
+        market: "LocalSimulator-OrcaQuote".to_string(),
+        message: e.to_string(),
+        source: Some(Box::new(e)),
+    })?;
+    let res_text = res.text().await.map_err(|e| MarketSimulationError::ApiRequestFailed {
+        market: "LocalSimulator-OrcaQuote".to_string(),
+        message: format!("Failed to read response text: {}", e),
+        source: Some(Box::new(e)),
+    })?;
 
     if let Ok(json_value) = serde_json::from_str::<SimulationRes>(&res_text) {
         if printing_amt {
-            println!(
-                "estimatedAmountIn: {:?} {:?}",
-                json_value.amount_in, token_0.symbol
-            );
-            println!(
-                "estimatedAmountOut: {:?} {:?}",
-                json_value.estimated_amount_out, token_1.symbol
-            );
-            println!(
-                "estimatedMinAmountOut: {:?} {:?}",
-                json_value.estimated_min_amount_out.clone().unwrap_or_default(),
-                token_1.symbol
+            // Keep print_amt logic as is, since it's for debugging string values
+            info!(
+                "LocalSim Orca: In: {} {}, EstOut: {} {}, EstMinOut: {} {}",
+                json_value.amount_in, token_0.symbol,
+                json_value.estimated_amount_out, token_1.symbol,
+                json_value.estimated_min_amount_out.clone().unwrap_or_default(), token_1.symbol
             );
         }
 
-        Ok((
-            json_value.estimated_amount_out,
-            json_value.estimated_min_amount_out.unwrap_or_default(),
-        ))
-    } else if let Ok(error_value) = serde_json::from_str::<SimulationError>(&res_text) {
-        // println!("ERROR Value: {:?}", error_value.error);
-        Err(Box::new(std::io::Error::new(
-            std::io::ErrorKind::Other,
-            error_value.error,
-        )))
+        let estimated_out = json_value.estimated_amount_out.parse::<u64>()
+            .map_err(|e| MarketSimulationError::AmountParseError {
+                market: "LocalSimulator-OrcaQuote".to_string(),
+                value: json_value.estimated_amount_out.clone(),
+                field: "estimated_amount_out".to_string(),
+                source: e,
+            })?;
+        
+        let min_out_str = json_value.estimated_min_amount_out.unwrap_or_else(|| {
+            warn!("LocalSimulator-OrcaQuote: estimated_min_amount_out is None for route {}, pool {}. Falling back to estimated_amount_out.", route.id, route.pool_address);
+            json_value.estimated_amount_out.clone()
+        });
+
+        let min_out = min_out_str.parse::<u64>()
+            .map_err(|e| MarketSimulationError::AmountParseError {
+                market: "LocalSimulator-OrcaQuote".to_string(),
+                value: min_out_str,
+                field: "estimated_min_amount_out (or fallback)".to_string(),
+                source: e,
+            })?;
+
+        Ok((estimated_out, min_out))
+    } else if let Ok(error_value) = serde_json::from_str::<super::types::SimulationError>(&res_text) { // Ensure correct SimulationError type
+        Err(MarketSimulationError::ApiRequestFailed { // Changed to more specific error
+            market: "LocalSimulator-OrcaQuote".to_string(),
+            message: error_value.error,
+            source: None,
+        })
     } else {
-        Err(Box::new(std::io::Error::new(
-            std::io::ErrorKind::Other,
-            "Unexpected response format",
-        )))
+        Err(MarketSimulationError::InvalidResponseFormat { // Changed to more specific error
+            market: "LocalSimulator-OrcaQuote".to_string(),
+            details: format!("Unexpected response format: {}", res_text),
+        })
     }
 }
 

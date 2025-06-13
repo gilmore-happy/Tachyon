@@ -1,9 +1,9 @@
 use crate::markets::utils::to_pair_string;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
-use strum_macros::EnumIter;
+use strum_macros::{EnumIter, Display}; // Added Display
 
-#[derive(Debug, Clone, EnumIter, Serialize, Deserialize, Eq, PartialEq, Hash)]
+#[derive(Debug, Clone, EnumIter, Serialize, Deserialize, Eq, PartialEq, Hash, Display)] // Added Display
 pub enum DexLabel {
     Orca,
     OrcaWhirlpools,

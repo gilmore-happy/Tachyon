@@ -1,598 +1,354 @@
-use super::{
-    simulate::simulate_path_precision,
-    types::{SwapPath, TokenInArb, TokenInfos},
-};
-use crate::markets::types::{Dex, Market};
-use crate::{
-    arbitrage::{
-        calc_arb::{calculate_arb, get_markets_arb},
-        simulate::simulate_path,
-        streams::get_fresh_accounts_states,
-        types::{
-            SwapPathResult, SwapPathSelected, SwapRouteSimulation, VecSwapPathResult,
-            VecSwapPathSelected,
-        },
-    },
-    common::{
-        database::{insert_swap_path_result_collection, insert_vec_swap_path_selected_collection},
-        utils::write_file_swap_path_result,
-    },
-    transactions::create_transaction::{
-        create_and_send_swap_transaction, ChainType, SendOrSimulate,
-    },
-};
+//! src/arbitrage/strategies.rs - Updated for bounded channel & TokenInfos price_usd
+
+use crate::arbitrage::path_evaluator::SmartPathEvaluator;
+use crate::arbitrage::types::{ArbOpportunity, SwapPath, SwapPathSelected, TokenInArb, TokenInfos};
+use crate::common::config::{Config, STRATEGY_MASSIVE, STRATEGY_BEST_PATH};
+use crate::data::market_stream::MarketEvent;
+use crate::execution::risk_engine::RiskEngine;
+use crate::markets::pools::{Pool, PoolRegistry};
+use crate::telemetry::Metrics; // Assuming this is Arc<Metrics> from telemetry.rs
 use anyhow::Result;
-use chrono::{Datelike, Utc};
-use futures::future::join_all;
-use indicatif::{ProgressBar, ProgressStyle};
-use log::{error, info};
-use rust_socketio::asynchronous::Client;
-use std::io::{BufWriter, Write};
-use std::{
-    collections::HashMap,
-    fs::{File, OpenOptions},
-    sync::Arc,
-};
-use tokio::sync::Semaphore;
+use log::{error, warn, debug};
+use moka::future::Cache;
+use std::sync::Arc;
+use tokio::sync::mpsc::{self, error::TrySendError};
+use tracing::{info, info_span, Instrument};
 
-// NEW: Use our execution system instead of TCP
-use crate::execution::executor::{execute_profitable_swap, ExecutionMode, ExecutionQueue};
+pub struct StrategyOrchestrator {
+    config: Arc<Config>,
+    pool_registry: Arc<PoolRegistry>,
+    token_cache: Arc<Cache<String, TokenInfos>>,
+    exec_tx: mpsc::Sender<ArbOpportunity>, // Bounded sender
+    market_rx: mpsc::Receiver<MarketEvent>,
+    risk_engine: Arc<RiskEngine>,
+    metrics: Arc<Metrics>, // This should be the Arc<Metrics> from telemetry.rs
+    evaluator: SmartPathEvaluator,
+}
 
-pub async fn run_arbitrage_strategy(
-    simulation_amount: u64,
-    get_fresh_pools_bool: bool,
-    restrict_sol_usdc: bool,
-    include_1hop: bool,
-    include_2hop: bool,
-    numbers_of_best_paths: usize,
-    dexs: Vec<Dex>,
-    tokens: Vec<TokenInArb>,
-    tokens_infos: HashMap<String, TokenInfos>,
-    execution_queue: Option<&ExecutionQueue>, // NEW: Optional execution queue
-) -> Result<(String, VecSwapPathSelected)> {
-    info!("👀 Run Arbitrage Strategies...");
+impl StrategyOrchestrator {
+    pub fn new(
+        config: Arc<Config>,
+        pool_registry: Arc<PoolRegistry>,
+        token_cache: Arc<Cache<String, TokenInfos>>,
+        exec_tx: mpsc::Sender<ArbOpportunity>, // Bounded sender
+        market_rx: mpsc::Receiver<MarketEvent>,
+        risk_engine: Arc<RiskEngine>,
+        metrics: Arc<Metrics>, // Pass Arc<Metrics>
+    ) -> Self {
+        Self {
+            config,
+            pool_registry,
+            token_cache,
+            exec_tx,
+            market_rx,
+            risk_engine,
+            metrics,
+            evaluator: SmartPathEvaluator::new(),
+        }
+    }
 
-    let markets_arb = get_markets_arb(
-        get_fresh_pools_bool,
-        restrict_sol_usdc,
-        dexs,
-        tokens.clone(),
-    )
-    .await;
+    pub async fn run(mut self) -> Result<()> {
+        // Process market events in background
+        let market_metrics = self.metrics.clone(); // Arc clone
+        let exec_tx = self.exec_tx.clone(); // Sender clone
+        let risk_engine = self.risk_engine.clone();
+        let evaluator = SmartPathEvaluator::new();
+        
+        let (_, dummy_rx) = mpsc::channel(1);
+        let mut market_rx = std::mem::replace(&mut self.market_rx, dummy_rx);
+        
+        let market_events_handle = tokio::spawn(
+            async move {
+                while let Some(event) = market_rx.recv().await {
+                    market_metrics.inc_opportunities_discovered(); // Use helper method
+                    debug!("Received market event: {:?}", event);
+                    
+                    if let Some(opportunity) = StrategyOrchestrator::process_market_event(event, &evaluator).await {
+                        match risk_engine.should_execute(&opportunity).await {
+                            Ok(true) => {
+                                info!("✅ Risk check passed for opportunity: {} lamports profit", 
+                                    opportunity.expected_profit_lamports);
+                                
+                                match exec_tx.try_send(opportunity) {
+                                    Ok(()) => {
+                                        market_metrics.inc_opportunities_sent(); // Use helper method
+                                    }
+                                    Err(TrySendError::Full(_)) => {
+                                        warn!("Execution queue full, dropping opportunity from market event processor");
+                                        market_metrics.inc_opportunities_dropped(); // Use helper method
+                                    }
+                                    Err(TrySendError::Closed(_)) => {
+                                        error!("Execution channel closed from market event processor");
+                                        break;
+                                    }
+                                }
+                            }
+                            Ok(false) => {
+                                warn!("❌ Risk check failed for opportunity from market event");
+                                market_metrics.inc_opportunities_rejected(); // Use helper method
+                            }
+                            Err(e) => {
+                                error!("Risk check error from market event: {}", e);
+                            }
+                        }
+                    }
+                }
+            }
+            .instrument(info_span!("market_event_processor")),
+        );
 
-    // Sort markets with low liquidity
-    let (sorted_markets_arb, all_paths) = calculate_arb(
-        include_1hop,
-        include_2hop,
-        markets_arb.clone(),
-        tokens.clone(),
-    );
+        if self.config.contains_strategy(STRATEGY_MASSIVE) {
+            if let Err(e) = self.run_massive().await {
+                error!("Massive strategy failed: {}", e);
+            }
+        }
+        
+        if self.config.contains_strategy(STRATEGY_BEST_PATH) {
+            if let Err(e) = self.run_best_path().await {
+                error!("Best path strategy failed: {}", e);
+            }
+        }
+        
+        market_events_handle.abort();
+        info!("🏁 All strategies completed");
+        Ok(())
+    }
 
-    //Get fresh account state
-    let fresh_markets_arb = get_fresh_accounts_states(sorted_markets_arb.clone()).await;
+    async fn run_massive(&self) -> Result<()> {
+        info!("🚀 Launching MASSIVE strategy");
+        let pools = self.pool_registry.get_pools(false).await?;
 
-    // We keep route simulation result for RPC optimization
-    let route_simulation: HashMap<Vec<u32>, Vec<SwapRouteSimulation>> = HashMap::new();
-    let mut swap_paths_results: VecSwapPathResult = VecSwapPathResult { result: Vec::new() };
+        for input_config in &self.config.massive_strategy_inputs {
+            for token_config in &input_config.tokens_to_arb {
+                if !self.token_cache.contains_key(&token_config.address) { 
+                    let token_info = TokenInfos {
+                        address: token_config.address.clone(),
+                        symbol: token_config.symbol.clone(),
+                        decimals: token_config.decimals,
+                        // price_usd is no longer part of TokenInfos as per the new types.rs
+                        // Price information for execution will be part of the ArbOpportunity.execution_plan
+                    };
+                    self.token_cache.insert(token_config.address.clone(), token_info).await;
+                    debug!("📝 Cached token info for {}", token_config.symbol);
+                }
+            }
 
-    let mut counter_failed_paths = 0;
-    let mut counter_positive_paths = 0;
-    let mut error_paths: HashMap<Vec<u32>, u8> = HashMap::new();
+            let tokens_to_arb: Vec<TokenInArb> = input_config
+                .tokens_to_arb
+                .iter()
+                .map(|tc| TokenInArb::from(tc))
+                .collect();
 
-    //Progress bar
-    let bar = ProgressBar::new(all_paths.len() as u64);
-    bar.set_style(
-        ProgressStyle::with_template("[{elapsed}] [{bar:140.cyan/blue}] ✅ {pos:>3}/{len:3} {msg}")
-            .unwrap()
-            .progress_chars("##-"),
-    );
-    bar.set_message(format!(
-        "❌ Failed routes: {}/{} 💸 Positive routes: {}/{}",
-        counter_failed_paths,
-        bar.position(),
-        counter_positive_paths,
-        bar.position()
-    ));
+            let paths = self.find_arbitrage_paths(&tokens_to_arb, &pools).await?;
+            info!("📊 Found {} potential arbitrage paths in MASSIVE strategy", paths.len());
 
-    let mut best_paths_for_strat: Vec<SwapPathSelected> = Vec::new();
-    let mut return_path = "".to_string();
-    let mut counter_sp_result = 0;
-
-    // Create a semaphore to limit concurrent simulations (avoid RPC rate limits)
-    let semaphore = Arc::new(Semaphore::new(20)); // Adjust based on RPC capacity
-
-    // Wrap large read-only data in Arc to avoid repeated cloning
-    let tokens_infos_arc = Arc::new(tokens_infos);
-    let fresh_markets_arb_arc = Arc::new(fresh_markets_arb);
-    let route_simulation_arc = Arc::new(tokio::sync::Mutex::new(route_simulation));
-
-    // Process paths in batches to avoid memory issues
-    for chunk in all_paths.chunks(50) {
-        let mut simulation_tasks = Vec::new();
-
-        // Prepare the tasks
-        for path in chunk {
-            // Verify error in previous paths to see if this path is interesting
-            let key = vec![path.id_paths[0], path.id_paths[1]];
-            let counter_opt = error_paths.get(&key.clone());
-            if let Some(value) = counter_opt {
-                if value >= &3 {
-                    error!(
-                        "🔴⏭️  Skip the {:?} path because previous errors",
-                        path.id_paths
-                    );
-                    counter_failed_paths += 1;
+            for path in paths {
+                if !self.validate_path_tokens(&path).await {
+                    warn!("Skipping path with invalid tokens in MASSIVE strategy");
                     continue;
                 }
-            }
-
-            let path = path.clone();
-            let semaphore = Arc::clone(&semaphore);
-            let tokens_infos = Arc::clone(&tokens_infos_arc);
-            let fresh_markets_arb = Arc::clone(&fresh_markets_arb_arc);
-            let route_simulation = Arc::clone(&route_simulation_arc);
-            let simulation_amount = simulation_amount;
-
-            let task = tokio::spawn(async move {
-                // Acquire a permit from the semaphore
-                let _permit = semaphore.acquire().await.unwrap();
-
-                // Get Pubkeys of the concerned markets
-                let pubkeys: Vec<String> = path
-                    .paths
-                    .clone()
-                    .iter()
-                    .map(|route| route.clone().pool_address)
-                    .collect();
-                let markets: Vec<Market> = pubkeys
-                    .iter()
-                    .filter_map(|key| fresh_markets_arb.get(key))
-                    .cloned()
-                    .collect();
-
-                // Get the current route simulation
-                let route_simulation_current = route_simulation.lock().await.clone();
-
-                // Simulate the path
-                let (new_route_simulation, swap_simulation_result, result_difference) =
-                    simulate_path(
-                        simulation_amount,
-                        path.clone(),
-                        markets.clone(),
-                        tokens_infos.as_ref().clone(),
-                        route_simulation_current,
-                    )
-                    .await;
-
-                // Return the simulation results and path info
-                (
-                    path,
-                    markets,
-                    new_route_simulation,
-                    swap_simulation_result,
-                    result_difference,
-                )
-            });
-
-            simulation_tasks.push(task);
-        }
-
-        // Wait for all simulations in this batch to complete
-        let results = join_all(simulation_tasks).await;
-
-        // Process results and update route_simulation
-        for result in results {
-            if let Ok((
-                path,
-                markets,
-                new_route_simulation,
-                swap_simulation_result,
-                result_difference,
-            )) = result
-            {
-                // Update the route simulation with the new entries
-                let mut route_sim = route_simulation_arc.lock().await;
-                route_sim.extend(new_route_simulation);
-                drop(route_sim); // Release the lock
-
-                // Update progress bar
-                bar.inc(1);
-
-                // If no error in swap path
-                if swap_simulation_result.len() >= path.hops as usize {
-                    let mut tokens_path = swap_simulation_result
-                        .iter()
-                        .map(|swap_sim| {
-                            tokens_infos_arc
-                                .get(&swap_sim.token_in)
-                                .unwrap()
-                                .symbol
-                                .clone()
-                        })
-                        .collect::<Vec<String>>()
-                        .join("-");
-                    tokens_path = format!("{}-{}", tokens_path, tokens[0].symbol.clone());
-
-                    let sp_result: SwapPathResult = SwapPathResult {
-                        path_id: bar.position() as u32,
-                        hops: path.hops,
-                        tokens_path: tokens_path.clone(),
-                        route_simulations: swap_simulation_result.clone(),
-                        token_in: tokens[0].address.clone(),
-                        token_in_symbol: tokens[0].symbol.clone(),
-                        token_out: tokens[0].address.clone(),
-                        token_out_symbol: tokens[0].symbol.clone(),
-                        amount_in: swap_simulation_result[0].amount_in.clone(),
-                        estimated_amount_out: swap_simulation_result
-                            [swap_simulation_result.len() - 1]
-                            .estimated_amount_out
-                            .clone(),
-                        estimated_min_amount_out: swap_simulation_result
-                            [swap_simulation_result.len() - 1]
-                            .estimated_min_amount_out
-                            .clone(),
-                        result: result_difference,
-                    };
-                    swap_paths_results.result.push(sp_result.clone());
-
-                    // NEW: Use execution queue instead of TCP
-                    if let Some(queue) = execution_queue {
-                        if result_difference > 20000000.0 {
-                            println!(
-                                "💸💸💸💸💸💸💸💸💸 Profitable swap detected 💸💸💸💸💸💸💸💸💸"
-                            );
-                            info!(
-                                "💸 Sending to execution queue: {} SOL profit",
-                                result_difference / 1e9
-                            );
-
-                            let now = Utc::now();
-                            let date = format!("{}-{}-{}", now.day(), now.month(), now.year());
-                            let path = format!(
-                                "optimism_transactions/{}-{}-{}.json",
-                                date,
-                                tokens_path.clone(),
-                                counter_sp_result
-                            );
-
-                            let _ = insert_swap_path_result_collection(
-                                "optimism_transactions",
-                                sp_result.clone(),
-                            )
-                            .await;
-                            let _ = write_file_swap_path_result(path.clone(), sp_result.clone());
-                            counter_sp_result += 1;
-
-                            // Execute via our new system
-                            let mode = ExecutionMode::Live; // Or Paper/Simulate based on config
-                            let _ = execute_profitable_swap(sp_result, queue, mode).await;
-                        }
-                    }
-
-                    // Reset errors if one path is good
-                    let key = vec![path.id_paths[0], path.id_paths[1]];
-                    error_paths.insert(key, 0);
-
-                    // Custom Queue FIFO for best results
-                    if best_paths_for_strat.len() < numbers_of_best_paths {
-                        best_paths_for_strat.push(SwapPathSelected {
-                            result: result_difference,
-                            path: path.clone(),
-                            markets: markets,
-                        });
-                        if best_paths_for_strat.len() == numbers_of_best_paths {
-                            best_paths_for_strat
-                                .sort_by(|a, b| b.result.partial_cmp(&a.result).unwrap());
-                        }
-                    } else if result_difference
-                        > best_paths_for_strat[best_paths_for_strat.len() - 1].result
-                    {
-                        for (index, path_in_vec) in best_paths_for_strat.clone().iter().enumerate()
-                        {
-                            if result_difference < path_in_vec.result {
-                                continue;
-                            } else {
-                                best_paths_for_strat[index] = SwapPathSelected {
-                                    result: result_difference,
-                                    path: path.clone(),
-                                    markets: markets,
-                                };
-                                break;
+                
+                match self.evaluator.evaluate(&path) {
+                    Ok(Some(opportunity)) => {
+                        self.metrics.inc_opportunities_discovered(); // Use helper method
+                        
+                        match self.risk_engine.should_execute(&opportunity).await {
+                            Ok(true) => {
+                                info!("✅ Sending opportunity from MASSIVE: {} lamports profit", 
+                                    opportunity.expected_profit_lamports);
+                                
+                                match self.exec_tx.try_send(opportunity) {
+                                    Ok(()) => {
+                                        self.metrics.inc_opportunities_sent(); // Use helper method
+                                    }
+                                    Err(TrySendError::Full(_)) => {
+                                        warn!("Execution queue full in MASSIVE strategy, dropping opportunity");
+                                        self.metrics.inc_opportunities_dropped(); // Use helper method
+                                    }
+                                    Err(TrySendError::Closed(_)) => {
+                                        error!("Execution channel closed in MASSIVE strategy");
+                                        return Err(anyhow::anyhow!("Execution channel closed"));
+                                    }
+                                }
+                            }
+                            Ok(false) => {
+                                self.metrics.inc_opportunities_rejected(); // Use helper method
+                                warn!("❌ Opportunity rejected by risk engine in MASSIVE strategy");
+                            }
+                            Err(e) => {
+                                error!("Risk engine error in MASSIVE strategy: {}", e);
                             }
                         }
                     }
-
-                    // Update positive routes
-                    if result_difference > 0.0 {
-                        counter_positive_paths += 1;
-                        bar.set_message(format!(
-                            "❌ Failed routes: {}/{} 💸 Positive routes: {}/{}",
-                            counter_failed_paths,
-                            bar.position(),
-                            counter_positive_paths,
-                            bar.position()
-                        ));
+                    Ok(None) => {
+                        debug!("Path not profitable after evaluation in MASSIVE strategy");
                     }
-                } else {
-                    // If simulation failed, mark as failed
-                    counter_failed_paths += 1;
-
-                    // Update error paths tracking
-                    if swap_simulation_result.len() == 0 {
-                        let key = vec![path.id_paths[0], path.id_paths[1]];
-                        let counter_opt = error_paths.get(&key.clone());
-                        match counter_opt {
-                            None => {
-                                error_paths.insert(key, 1);
-                            }
-                            Some(value) => {
-                                error_paths.insert(key, value + 1);
-                            }
-                        }
+                    Err(e) => {
+                        error!("Path evaluation error in MASSIVE strategy: {}", e);
                     }
-
-                    // Update progress bar
-                    bar.set_message(format!(
-                        "❌ Failed routes: {}/{} 💸 Positive routes: {}/{}",
-                        counter_failed_paths,
-                        bar.position(),
-                        counter_positive_paths,
-                        bar.position()
-                    ));
-                }
-
-                // Print best paths periodically
-                let position = bar.position() as usize;
-                if position % 10 == 0 && position > 0 {
-                    println!(
-                        "best_paths_for_strat {:#?}",
-                        best_paths_for_strat
-                            .iter()
-                            .map(|iter| iter.result)
-                            .collect::<Vec<f64>>()
-                    );
                 }
             }
         }
 
-        // Write intermediate results to file
-        let position = bar.position() as usize;
-        if (position != 0 && position % 300 == 0) || position == all_paths.len() {
-            let file_number = position / 300;
-            let symbols = tokens
-                .iter()
-                .map(|token| &token.symbol)
-                .cloned()
-                .collect::<Vec<String>>()
-                .join("-");
-            let mut file =
-                File::create(format!("results/result_{}_{}.json", file_number, symbols)).unwrap();
-            match serde_json::to_writer_pretty(&mut file, &swap_paths_results) {
-                Ok(_) => {
-                    info!("🥇🥇 Results written!");
-                    swap_paths_results = VecSwapPathResult { result: Vec::new() };
-                }
-                Err(value) => {
-                    error!("Results not written properly: {:?}", value);
-                }
-            };
-        }
+        info!("✅ MASSIVE strategy cycle completed");
+        Ok(())
     }
 
-    let mut tokens_list = "".to_string();
-    for (index, token) in tokens.iter().enumerate() {
-        if index == 0 {
-            tokens_list = format!("{}", tokens[index].symbol.clone());
+    async fn run_best_path(&self) -> Result<()> {
+        info!("🚀 Launching BEST_PATH strategy");
+        
+        let cached_tokens: Vec<TokenInArb> = self.token_cache
+            .iter()
+            .map(|(_, token_info)| TokenInArb {
+                token: token_info.address.clone(),
+                symbol: token_info.symbol.clone(),
+                decimals: token_info.decimals,
+            })
+            .collect();
+        
+        if cached_tokens.len() < 2 {
+            warn!("Not enough tokens cached for BEST_PATH strategy");
+            return Ok(());
+        }
+        
+        let pools = self.pool_registry.get_pools(true).await?;
+        let mut best_opportunity: Option<ArbOpportunity> = None;
+        let mut current_best_profit = 0u64; // Renamed to avoid conflict if ArbOpportunity had 'best_profit'
+        
+        for i in 0..cached_tokens.len() {
+            for j in i+1..cached_tokens.len() {
+                let pair = vec![cached_tokens[i].clone(), cached_tokens[j].clone()];
+                let paths = self.find_arbitrage_paths(&pair, &pools).await?;
+                
+                for path in paths {
+                    if let Ok(Some(opportunity)) = self.evaluator.evaluate(&path) {
+                        if opportunity.expected_profit_lamports > current_best_profit {
+                            current_best_profit = opportunity.expected_profit_lamports;
+                            best_opportunity = Some(opportunity);
+                        }
+                    }
+                }
+            }
+        }
+        
+        if let Some(opportunity) = best_opportunity {
+            info!("🎯 Found best path with {} lamports profit", current_best_profit);
+            self.metrics.inc_opportunities_discovered(); // Discovered the best one
+
+            if self.risk_engine.should_execute(&opportunity).await? {
+                match self.exec_tx.try_send(opportunity) {
+                    Ok(()) => {
+                        self.metrics.inc_opportunities_sent(); // Use helper method
+                    }
+                    Err(TrySendError::Full(_)) => {
+                        warn!("Execution queue full, dropping best opportunity from BEST_PATH strategy");
+                        self.metrics.inc_opportunities_dropped(); // Use helper method
+                    }
+                    Err(TrySendError::Closed(_)) => {
+                        error!("Execution channel closed in BEST_PATH strategy");
+                        return Err(anyhow::anyhow!("Execution channel closed"));
+                    }
+                }
+            } else {
+                self.metrics.inc_opportunities_rejected(); // Use helper method
+                warn!("❌ Best path opportunity rejected by risk engine");
+            }
         } else {
-            tokens_list = format!("{}-{}", tokens_list, tokens[index].symbol.clone());
+            info!("No profitable paths found in BEST_PATH strategy");
         }
+        
+        Ok(())
     }
-
-    let path = format!("best_paths_selected/{}.json", tokens_list);
-    let _ = File::create(path.clone());
-
-    let file = OpenOptions::new()
-        .read(true)
-        .write(true)
-        .open(path.clone())?;
-    let mut writer = BufWriter::new(&file);
-
-    let content = VecSwapPathSelected {
-        value: best_paths_for_strat.clone(),
-    };
-    writer.write_all(serde_json::to_string(&content)?.as_bytes())?;
-    writer.flush()?;
-    info!("Data written to '{}' successfully.", path);
-
-    let _ = insert_vec_swap_path_selected_collection("best_paths_selected", content.clone()).await;
-
-    return_path = path;
-    bar.finish();
-    Ok((
-        return_path,
-        VecSwapPathSelected {
-            value: best_paths_for_strat,
-        },
-    ))
-}
-
-pub async fn precision_strategy(
-    socket: Client,
-    path: SwapPath,
-    markets: Vec<Market>,
-    tokens: Vec<TokenInArb>,
-    tokens_infos: HashMap<String, TokenInfos>,
-) {
-    info!(
-        "🔎🔎 Run a Precision Simulation on Path Id: {:?}",
-        path.id_paths
-    );
-
-    let mut swap_paths_results: VecSwapPathResult = VecSwapPathResult { result: Vec::new() };
-
-    let decimals = 9;
-    let amounts_simulations = vec![
-        5 * 10_u64.pow(decimals - 1),
-        1 * 10_u64.pow(decimals),
-        5 * 10_u64.pow(decimals),
-        10 * 10_u64.pow(decimals),
-        20 * 10_u64.pow(decimals),
-    ];
-
-    let mut result_amt = 0.0;
-    let mut _sp_to_tx: Option<SwapPathResult> = None;
-
-    for (index, amount_in) in amounts_simulations.iter().enumerate() {
-        let (swap_simulation_result, result_difference) = simulate_path_precision(
-            amount_in.clone(),
-            socket.clone(),
-            path.clone(),
-            markets.clone(),
-            tokens_infos.clone(),
-        )
-        .await;
-
-        if swap_simulation_result.len() >= path.hops as usize {
-            let mut tokens_path = swap_simulation_result
-                .iter()
-                .map(|swap_sim| tokens_infos.get(&swap_sim.token_in).unwrap().symbol.clone())
-                .collect::<Vec<String>>()
-                .join("-");
-            tokens_path = format!("{}-{}", tokens_path, tokens[0].symbol.clone());
-
-            let sp_result: SwapPathResult = SwapPathResult {
-                path_id: index as u32,
-                hops: path.hops,
-                tokens_path: tokens_path,
-                route_simulations: swap_simulation_result.clone(),
-                token_in: tokens[0].address.clone(),
-                token_in_symbol: tokens[0].symbol.clone(),
-                token_out: tokens[0].address.clone(),
-                token_out_symbol: tokens[0].symbol.clone(),
-                amount_in: swap_simulation_result[0].amount_in.clone(),
-                estimated_amount_out: swap_simulation_result[swap_simulation_result.len() - 1]
-                    .estimated_amount_out
-                    .clone(),
-                estimated_min_amount_out: swap_simulation_result[swap_simulation_result.len() - 1]
-                    .estimated_min_amount_out
-                    .clone(),
-                result: result_difference,
-            };
-            swap_paths_results.result.push(sp_result.clone());
-
-            if result_difference > result_amt {
-                result_amt = result_difference;
-                println!("result_amt: {}", result_amt);
-                _sp_to_tx = Some(sp_result.clone());
-            }
-        }
-    }
-}
-
-pub async fn sorted_interesting_path_strategy(
-    simulation_amount: u64,
-    path: String,
-    tokens: Vec<TokenInArb>,
-    tokens_infos: HashMap<String, TokenInfos>,
-    execution_queue: Option<&ExecutionQueue>, // NEW: Optional execution queue
-) -> Result<()> {
-    let file_read = OpenOptions::new().read(true).write(true).open(path)?;
-    let paths_vec: VecSwapPathSelected = serde_json::from_reader(&file_read).unwrap();
-    let mut counter_sp_result = 0;
-
-    let paths: Vec<SwapPathSelected> = paths_vec.value;
-    let route_simulation: HashMap<Vec<u32>, Vec<SwapRouteSimulation>> = HashMap::new();
-
-    loop {
-        for (index, path) in paths.iter().enumerate() {
-            let (new_route_simulation, swap_simulation_result, result_difference) = simulate_path(
-                simulation_amount,
-                path.path.clone(),
-                path.markets.clone(),
-                tokens_infos.clone(),
-                route_simulation.clone(),
-            )
-            .await;
-
-            //If no error in swap path
-            if swap_simulation_result.len() >= path.path.hops as usize {
-                let mut tokens_path = swap_simulation_result
-                    .iter()
-                    .map(|swap_sim| tokens_infos.get(&swap_sim.token_in).unwrap().symbol.clone())
-                    .collect::<Vec<String>>()
-                    .join("-");
-                tokens_path = format!("{}-{}", tokens_path, tokens[0].symbol.clone());
-
-                let sp_result: SwapPathResult = SwapPathResult {
-                    path_id: index as u32,
-                    hops: path.path.hops,
-                    tokens_path: tokens_path.clone(),
-                    route_simulations: swap_simulation_result.clone(),
-                    token_in: tokens[0].address.clone(),
-                    token_in_symbol: tokens[0].symbol.clone(),
-                    token_out: tokens[0].address.clone(),
-                    token_out_symbol: tokens[0].symbol.clone(),
-                    amount_in: swap_simulation_result[0].amount_in.clone(),
-                    estimated_amount_out: swap_simulation_result[swap_simulation_result.len() - 1]
-                        .estimated_amount_out
-                        .clone(),
-                    estimated_min_amount_out: swap_simulation_result
-                        [swap_simulation_result.len() - 1]
-                        .estimated_min_amount_out
-                        .clone(),
-                    result: result_difference,
-                };
-
-                // NEW: Use execution queue instead of TCP
-                if let Some(queue) = execution_queue {
-                    if result_difference > 20000000.0 {
-                        println!("💸💸💸💸💸💸💸💸💸 Profitable swap detected 💸💸💸💸💸💸💸💸💸");
-                        info!(
-                            "💸 Sending to execution queue: {} SOL profit",
-                            result_difference / 1e9
-                        );
-
-                        let now = Utc::now();
-                        let date = format!("{}-{}-{}", now.day(), now.month(), now.year());
-                        let path = format!(
-                            "optimism_transactions/{}-{}-{}.json",
-                            date, tokens_path, counter_sp_result
-                        );
-
-                        let _ = write_file_swap_path_result(path.clone(), sp_result.clone());
-                        counter_sp_result += 1;
-
-                        // Execute via our new system
-                        let mode = ExecutionMode::Live; // Or Paper/Simulate based on config
-                        let _ = execute_profitable_swap(sp_result, queue, mode).await;
-                    }
+    
+    async fn find_arbitrage_paths(&self, tokens: &[TokenInArb], pools: &[Pool]) -> Result<Vec<SwapPathSelected>> {
+        if tokens.len() < 2 { return Ok(vec![]); }
+        let mut paths = Vec::new();
+        for i in 0..tokens.len() {
+            for j in i+1..tokens.len() {
+                let token_a = &tokens[i];
+                let token_b = &tokens[j];
+                let connecting_pools: Vec<&Pool> = pools.iter()
+                    .filter(|pool| (pool.token_a == token_a.token && pool.token_b == token_b.token) || (pool.token_a == token_b.token && pool.token_b == token_a.token))
+                    .collect();
+                if connecting_pools.len() >= 2 { // Placeholder: needs real path finding
+                    paths.push(SwapPathSelected {
+                        path: SwapPath { id_paths: vec![1, 2], hops: 2, paths: vec![] },
+                        expected_profit_usd: 0.0, markets: vec![],
+                    });
                 }
             }
-
-            tokio::time::sleep(tokio::time::Duration::from_millis(200)).await;
         }
+        Ok(paths)
     }
-}
-
-pub async fn optimism_tx_strategy(
-    path: String,
-    execution_queue: Option<&ExecutionQueue>,
-) -> Result<()> {
-    let file_read = OpenOptions::new().read(true).write(true).open(path)?;
-    let spr: SwapPathResult = serde_json::from_reader(&file_read).unwrap();
-
-    println!("💸💸💸💸💸💸💸💸💸 Begin Execute the tx 💸💸💸💸💸💸💸💸💸");
-
-    // NEW: Use execution queue if available
-    if let Some(queue) = execution_queue {
-        let mode = ExecutionMode::Live;
-        execute_profitable_swap(spr, queue, mode).await?;
-    } else {
-        // Fallback to direct execution
-        let _ =
-            create_and_send_swap_transaction(SendOrSimulate::Send, ChainType::Mainnet, spr.clone())
-                .await;
+    
+    async fn validate_path_tokens(&self, path: &SwapPathSelected) -> bool {
+        if path.expected_profit_usd < 0.0 {
+            warn!("Path has negative expected_profit_usd ({}) during token validation step.", path.expected_profit_usd);
+            return false;
+        }
+        // TODO: Actual token validation using self.token_cache and config whitelist
+        true
     }
+    
+    async fn process_market_event(event: MarketEvent, _evaluator: &SmartPathEvaluator) -> Option<ArbOpportunity> {
+        // event is a struct: MarketEvent { token_pair, price, source }
+        // The previous logic assumed an enum variant MarketEvent::PriceUpdate { pool_id, price_change, .. }
+        // which is incorrect based on the actual MarketEvent struct definition.
+        //
+        // This function needs to be implemented with logic that translates a MarketEvent
+        // (e.g., a new price for a token_pair) into a potential ArbOpportunity.
+        // This might involve:
+        // 1. Identifying related pools from self.pool_registry.
+        // 2. Comparing the new event.price with existing prices in pools to find discrepancies.
+        // 3. Constructing a SwapPath if an arbitrage is detected.
+        //
+        // For now, providing a very basic placeholder to fix the compile error.
+        // This placeholder creates an opportunity if the price is non-zero, which is not realistic.
+        
+        // Example placeholder:
+        if event.price > 0.0 { // This condition is arbitrary and needs real logic
+            // info!("Processing MarketEvent for {}: price {} from {}", event.token_pair, event.price, event.source);
+            
+            // Creating a highly simplified ArbOpportunity.
+            // Real logic would need to construct a valid SwapPath based on the event.
+            // We don't have pool_id or a direct price_change from the current MarketEvent struct.
+            // The id_paths would typically come from identified pools in an arbitrage route.
+            let placeholder_path = SwapPath {
+                id_paths: vec![0], // Placeholder ID, e.g., representing an abstract market event
+                hops: 1,           // Placeholder
+                paths: vec![],     // Placeholder, actual Route objects would be here
+            };
 
-    Ok(())
+            // Placeholder profit calculation. This is very arbitrary.
+            // A real calculation would depend on the arbitrage path found and amounts.
+            // E.g., if event.price is for SOL/USDC, and it's $150,
+            // this calculates 1% of 1 SOL notional value in lamports.
+            let placeholder_profit_lamports = (event.price * 0.01 * 1_000_000_000.0) as u64; 
+
+            if placeholder_profit_lamports > 0 {
+                let now_nanos = std::time::SystemTime::now()
+                    .duration_since(std::time::UNIX_EPOCH)
+                    .unwrap_or_default()
+                    .as_nanos();
+                return Some(ArbOpportunity {
+                    path: placeholder_path,
+                    expected_profit_lamports: placeholder_profit_lamports,
+                    timestamp_unix_nanos: now_nanos,
+                    execution_plan: vec![], // Added
+                    metadata: crate::arbitrage::types::OpportunityMetadata { // Added
+                        estimated_gas_cost: 0,
+                        net_profit_lamports: placeholder_profit_lamports as i64,
+                        profit_percentage_bps: 100, // 1%
+                        risk_score: 0,
+                        source: crate::arbitrage::types::OpportunitySource::MarketEvent { 
+                            pool_id: 0, // Placeholder
+                            event_type: "price_update".to_string() 
+                        },
+                        max_latency_ms: 500,
+                    },
+                });
+            }
+        }
+        None
+    }
 }

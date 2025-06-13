@@ -4,7 +4,7 @@ members = [
 ]
 
 [package]
-name = "MEV_Bot_Solana"
+name = "mev_bot_solana"
 version = "0.1.0"
 edition = "2021"
 
@@ -13,20 +13,20 @@ lb_clmm = { path = "./programs/lb_clmm" }
 raydium_amm = { path = "./programs/raydium_amm" }
 url = "2.3.1"
 dotenv = "0.15.0"
-anyhow = "1.0.70"
+anyhow = "1.0.82"
 itertools = "0.11.0"
-serde = "1.0.188"
-serde_json = { version = "1.0.107", features = ["std"] }
+serde = { version = "1.0.197", features = ["derive"] }
+serde_json = "1.0.115"
 bounded-vec-deque = "0.1.1"
 
 # Telegram
 teloxide = { version = "0.12", features = ["macros"] }
 
-futures = "0.3.5"
+futures = "0.3.30"
 futures-util = "*"
-tokio = { version = "1.29.0", features = ["full"] }
+tokio = { version = "1.37.0", features = ["full"] }
 tokio-stream = { version = "0.1", features = ['sync'] }
-tokio-tungstenite = "*"
+tokio-tungstenite = "0.23.1"
 async-trait = "0.1.74"
 eth-encode-packed = "0.1.0"
 rlp = { version = "0.5", features = ["derive"] }
@@ -35,7 +35,7 @@ csv = "1.2.2"
 colored = "2.0.0"
 log = "0.4.21"
 fern = { version = "0.6.2", features = ["colored"] }
-chrono = "0.4.23"
+chrono = "0.4.38"
 indicatif = "0.17.5"
 ndarray = "0.15.6"
 web3 = "0.19.0"
@@ -44,14 +44,16 @@ reqwest = {version = "0.12.3", features = ["blocking","json", "stream"] }
 strum = "0.26.2"
 strum_macros = "0.26.2"
 exitfailure = "0.5.1"
-solana-sdk = "1.18.9"
-solana-client = "1.18.10"
+solana-sdk = { version = "1.18.14" }
+solana-client = { version = "1.18.14" }
+solana-quic-client = { version = "1.18.15" } # Match solana-client version from clippy output
 solana-program = "1.18.10"
 thiserror = "1.0.58"
 hex = "0.4.3"
 solana-account-decoder = "1.18.12"
 solana-pubsub-client = "1.18.12"
 base64 = "0.22.1"
+bs58 = "0.5.0" # Added for keypair decoding
 decimal = "2.1.0"
 rust_decimal = {version = "1.35.0", features = ["maths"]}
 num = "0.4.2"
@@ -74,15 +76,46 @@ plotters = { version = "^0.3.5", default-features = false, features = ["evcxr", 
 piston_window = "0.132.0"
 plotters-piston = "0.3.0"
 systemstat = "0.2.3"
-mongodb = {version = "2.8.2", default-features = false, features = ["async-std-runtime"] }
-uuid = { version = "1.6", features = ["v4"] }
+uuid = { version = "1.8.0", features = ["v4"] }
 rand = "0.8"
-dashmap = "5.5"
+dashmap = "5.5.3"
 
-# AWS SDK for DynamoDB
-aws-config = "1.1.1"
-aws-sdk-dynamodb = "1.9.0"
+# Added dependencies
+moka = { version = "0.12.7", features = ["future"] }
+priority-queue = "1.3.2"
+prometheus = "0.13.4"
+prometheus_exporter = "0.8.4"
+statrs = "0.16.0"
+tracing = "0.1.40"
+tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
+vaultrs = "0.6.0"
+
+# Benchmarking and Performance Monitoring
+criterion = { version = "0.5", features = ["html_reports"] }
+
+[dev-dependencies]
+tokio = { version = "1.37.0", features = ["test-util"] }
+criterion = { version = "0.5", features = ["html_reports"] }
+tokio-test = "0.4"
 
 [profile.release]
 codegen-units = 1
 lto = "fat"
+
+[[bench]]
+name = "arbitrage_benchmarks"
+harness = false
+
+[[bench]]
+name = "market_data_benchmarks"
+harness = false
+
+[[bench]]
+name = "execution_benchmarks"
+harness = false
+
+[[bench]]
+name = "rpc_performance_benchmarks"
+harness = false
+
+

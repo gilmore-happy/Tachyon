@@ -7,7 +7,7 @@ use borsh::BorshDeserialize;
 // use anyhow::*;
 
 use raydium_amm::instruction::swap_base_in;
-use solana_client::rpc_client::RpcClient;
+use solana_client::nonblocking::rpc_client::RpcClient; // Changed
 use solana_sdk::signature::read_keypair_file;
 
 use crate::common::constants::Env;
@@ -29,7 +29,7 @@ pub struct SwapParametersRaydium {
 }
 // Function are imported from Raydium library, you can see here:
 // https://github.com/raydium-io/raydium-library
-pub fn construct_raydium_instructions(params: SwapParametersRaydium) -> Vec<InstructionDetails> {
+pub async fn construct_raydium_instructions(params: SwapParametersRaydium) -> Vec<InstructionDetails> { // Changed to async
     let SwapParametersRaydium {
         pool,
         input_token_mint,
@@ -48,8 +48,8 @@ pub fn construct_raydium_instructions(params: SwapParametersRaydium) -> Vec<Inst
     //Devnet : HWy1jotHpo6UqeQxx49dpYYdQB8wj9Qk9MdxwjLvDHB8
     //Mainnet : 675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8
 
-    let rpc_client: RpcClient = RpcClient::new(env.rpc_url);
-    let pool_account: solana_sdk::account::Account = rpc_client.get_account(&pool).unwrap();
+    let rpc_client = RpcClient::new(env.rpc_url); // Changed to nonblocking
+    let pool_account: solana_sdk::account::Account = rpc_client.get_account(&pool).await.unwrap(); // Changed to await
     // println!("Params data length: {:?}", pool_account.data.len());
     let pool_state = AmmInfo::try_from_slice(&pool_account.data).unwrap();
     // println!("min_amount_out: {:?}", min_amount_out);
@@ -65,10 +65,10 @@ pub fn construct_raydium_instructions(params: SwapParametersRaydium) -> Vec<Inst
 
     // load market keys
     let market_keys =
-        get_keys_for_market(&rpc_client, &pool_state.market_program, &pool_state.market).unwrap();
+        get_keys_for_market(&rpc_client, &pool_state.market_program, &pool_state.market).await.unwrap(); // Changed to await
 
     let pda_user_source = get_associated_token_address(&payer.pubkey(), &input_token_mint);
-    match rpc_client.get_account(&pda_user_source) {
+    match rpc_client.get_account(&pda_user_source).await { // Changed to await
         Ok(_account) => {}
         Err(_error) => {
             // error!("❌ PDA not exist for {}", input_token_mint);
@@ -77,7 +77,7 @@ pub fn construct_raydium_instructions(params: SwapParametersRaydium) -> Vec<Inst
 
     let pda_user_destination = get_associated_token_address(&payer.pubkey(), &output_token_mint);
 
-    match rpc_client.get_account(&pda_user_destination) {
+    match rpc_client.get_account(&pda_user_destination).await { // Changed to await
         Ok(_account) => {}
         Err(_error) => {
             // error!("❌ PDA not exist for {}", output_token_mint);

@@ -1,3 +1,4 @@
+pub mod errors;
 pub mod meteora;
 pub mod orca;
 pub mod orca_whirpools;

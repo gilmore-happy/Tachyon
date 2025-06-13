@@ -1,12 +1,13 @@
 use anyhow::Result;
 use chrono::{DateTime, Utc};
 use log::{info, warn};
-use rand::Rng;
+// Removed unused import: rand::Rng
 use serde::{Deserialize, Serialize};
-use std::fs::{File, OpenOptions};
-use std::io::{BufReader, BufWriter, Write};
-use std::path::Path;
-use std::sync::{Arc, Mutex};
+use tokio::fs::{File, OpenOptions}; // Changed std::fs to tokio::fs
+use tokio::io::{AsyncReadExt, AsyncWriteExt, BufWriter}; // Changed std::io to tokio::io and imports, removed BufReader
+// Removed unused std::path::Path
+use std::sync::Arc; // Keep std::sync::Arc
+use tokio::sync::Mutex; // Changed std::sync::Mutex to tokio::sync::Mutex
 
 use crate::{arbitrage::types::SwapPathResult, execution::executor::ExecutionResult};
 
@@ -68,14 +69,15 @@ impl Default for PaperTradingConfig {
 }
 
 impl PaperTrader {
-    pub fn new() -> Self {
-        Self::with_config(PaperTradingConfig::default())
+    pub async fn new() -> Self { // Changed to async
+        Self::with_config(PaperTradingConfig::default()).await // Changed to await
     }
 
-    pub fn with_config(config: PaperTradingConfig) -> Self {
+    pub async fn with_config(config: PaperTradingConfig) -> Self { // Changed to async
         // Load existing state or create new
-        let state = if Path::new(&config.state_file).exists() {
-            match Self::load_state(&config.state_file) {
+        let state_file_path = config.state_file.clone(); // Clone for async boundary
+        let state = if tokio::fs::metadata(&state_file_path).await.is_ok() { // Changed to async exists check
+            match Self::load_state(&state_file_path).await { // Changed to await
                 Ok(state) => state,
                 Err(e) => {
                     warn!("Failed to load paper trading state: {:?}", e);
@@ -105,28 +107,30 @@ impl PaperTrader {
         }
     }
 
-    fn load_state(path: &str) -> Result<PaperTradingState> {
-        let file = File::open(path)?;
-        let reader = BufReader::new(file);
-        let state = serde_json::from_reader(reader)?;
+    async fn load_state(path: &str) -> Result<PaperTradingState> { // Changed to async
+        let mut file = File::open(path).await?; // Changed to async open
+        let mut contents = String::new();
+        file.read_to_string(&mut contents).await?; // Read to string for serde_json
+        let state = serde_json::from_str(&contents)?;
         Ok(state)
     }
 
-    fn save_state(&self) -> Result<()> {
-        let state = self.state.lock().unwrap();
+    async fn save_state(&self) -> Result<()> { // Changed to async
+        let state = self.state.lock().await; // Changed to await
         let file = OpenOptions::new()
             .write(true)
             .create(true)
             .truncate(true)
-            .open(&self.config.state_file)?;
+            .open(&self.config.state_file).await?; // Changed to await
         let mut writer = BufWriter::new(file);
-        serde_json::to_writer_pretty(&mut writer, &*state)?;
-        writer.flush()?;
+        let json_string = serde_json::to_string_pretty(&*state)?;
+        writer.write_all(json_string.as_bytes()).await?; // Changed to await
+        writer.flush().await?; // Changed to await
         Ok(())
     }
 
     pub async fn execute_trade(&self, swap_path: SwapPathResult) -> Result<ExecutionResult> {
-        let mut state = self.state.lock().unwrap();
+        let mut state = self.state.lock().await; // Changed to await
 
         // Check if we have enough balance
         let amount_in = swap_path.amount_in;
@@ -135,8 +139,9 @@ impl PaperTrader {
                 success: false,
                 signature: None,
                 error: Some("Position size exceeds maximum allowed".to_string()),
-                profit: 0,
+                profit_lamports: 0, // Changed profit to profit_lamports
                 gas_cost: 0,
+                execution_time_ms: 0, // Added
             });
         }
 
@@ -145,8 +150,9 @@ impl PaperTrader {
                 success: false,
                 signature: None,
                 error: Some("Insufficient balance".to_string()),
-                profit: 0,
+                profit_lamports: 0, // Changed profit to profit_lamports
                 gas_cost: 0,
+                execution_time_ms: 0, // Added
             });
         }
 
@@ -208,7 +214,7 @@ impl PaperTrader {
         drop(state); // Release lock before saving
 
         // Save state to disk
-        let _ = self.save_state();
+        let _ = self.save_state().await; // Changed to await
 
         // Log the result
         if success && net_profit > 0 {
@@ -230,8 +236,9 @@ impl PaperTrader {
             success: success && net_profit > 0,
             signature: Some(format!("PAPER-{}", uuid::Uuid::new_v4())),
             error: failure_reason,
-            profit: net_profit,
+            profit_lamports: net_profit, // Changed profit to profit_lamports
             gas_cost,
+            execution_time_ms: 0, // Added mock value
         })
     }
 
@@ -276,8 +283,8 @@ impl PaperTrader {
             .to_string()
     }
 
-    pub fn get_statistics(&self) -> PaperTradingStatistics {
-        let state = self.state.lock().unwrap();
+    pub async fn get_statistics(&self) -> PaperTradingStatistics { // Changed to async
+        let state = self.state.lock().await; // Changed to await
 
         let win_rate = if state.total_trades > 0 {
             (state.successful_trades as f64 / state.total_trades as f64) * 100.0
@@ -306,10 +313,10 @@ impl PaperTrader {
         }
     }
 
-    pub fn reset(&self) {
-        let mut state = self.state.lock().unwrap();
+    pub async fn reset(&self) { // Changed to async
+        let mut state = self.state.lock().await; // Changed to await
         *state = Self::create_new_state(&self.config);
-        let _ = self.save_state();
+        let _ = self.save_state().await; // Changed to await
         info!("📝 Paper trading state reset");
     }
 }

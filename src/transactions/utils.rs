@@ -5,14 +5,15 @@ use safe_transmute::{
     transmute_many_pedantic, transmute_one_pedantic,
 };
 use serum_dex::state::{gen_vault_signer_key, AccountFlag, Market, MarketState, MarketStateV2};
-use solana_client::rpc_client::RpcClient;
+use solana_client::nonblocking::rpc_client::RpcClient; // Changed
 use solana_sdk::{commitment_config::CommitmentConfig, pubkey::Pubkey, signature::Signature};
 use std::{
     borrow::Cow,
     convert::{identity, TryFrom},
-    thread::{sleep},
+    // thread::{sleep}, // Replaced with tokio::time::sleep
     time::{Duration, Instant},
 };
+use tokio::time::sleep; // Added
 
 use crate::common::constants::Env;
 
@@ -29,19 +30,19 @@ pub async fn check_tx_status(
     } else {
         env.devnet_rpc_url
     };
-    let rpc_client: RpcClient = RpcClient::new(rpc_url);
+    let rpc_client = RpcClient::new(rpc_url); // Changed to nonblocking
 
     let start = Instant::now();
     let mut counter = 0;
     loop {
-        let confirmed = rpc_client.confirm_transaction(&signature)?;
+        let confirmed = rpc_client.confirm_transaction(&signature).await?; // Changed to await
         info!("Is confirmed? {:?}", confirmed);
 
         let status = rpc_client.get_signature_status_with_commitment_and_history(
             &signature,
             commitment_config,
             true,
-        )?;
+        ).await?; // Changed to await
         println!("Status: {:?}", status);
 
         let seventy_secs = Duration::from_secs(11);
@@ -60,7 +61,7 @@ pub async fn check_tx_status(
         }
         let ten_secs = Duration::from_secs(10);
         info!("⏳ {} seconds...", 10 * counter);
-        sleep(ten_secs);
+        sleep(ten_secs).await; // Changed to await
         counter += 1;
     }
 }
@@ -95,12 +96,12 @@ fn remove_dex_account_padding<'a>(data: &'a [u8]) -> Result<Cow<'a, [u64]>> {
 }
 
 #[cfg(target_endian = "little")]
-pub fn get_keys_for_market<'a>(
-    client: &'a RpcClient,
+pub async fn get_keys_for_market<'a>( // Changed to async
+    client: &'a solana_client::nonblocking::rpc_client::RpcClient, // Changed type
     program_id: &'a Pubkey,
     market: &'a Pubkey,
 ) -> Result<MarketPubkeys> {
-    let account_data: Vec<u8> = client.get_account_data(&market)?;
+    let account_data: Vec<u8> = client.get_account_data(&market).await?; // Changed to await
     let words: Cow<[u64]> = remove_dex_account_padding(&account_data)?;
     let market_state: MarketState = {
         let account_flags = Market::account_flags(&account_data)?;

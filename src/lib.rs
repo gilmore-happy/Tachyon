@@ -6,6 +6,7 @@ pub mod fees;
 pub mod markets;
 pub mod strategies;
 pub mod transactions; // Add the fees module
+pub mod telemetry;
 
 
 mod tests {

@@ -9,9 +9,13 @@ use solana_client::rpc_config::RpcAccountInfoConfig;
 use solana_program::pubkey::Pubkey;
 use solana_pubsub_client::pubsub_client::PubsubClient;
 use solana_sdk::commitment_config::CommitmentConfig;
-use std::fs;
-use std::fs::File;
-use std::io::Write;
+// use std::fs; // Replaced
+// use std::fs::File; // Replaced
+// use std::io::Write; // Replaced
+use tokio::fs; // Added
+use tokio::fs::File; // Added
+use tokio::io::AsyncWriteExt; // Added
+
 
 use crate::common::constants::Env;
 
@@ -21,10 +25,11 @@ pub struct RaydiumClmmDEX {
     pub pools: Vec<PoolItem>,
 }
 impl RaydiumClmmDEX {
-    pub fn new(mut dex: Dex) -> Self {
+    pub async fn new(mut dex: Dex) -> Self { // Changed to async
         let mut pools_vec = Vec::new();
 
         let data = fs::read_to_string("src/markets/cache/raydium-clmm-markets.json")
+            .await // Changed to await
             .expect("Error reading file");
         let json_value: Root = serde_json::from_str(&data).unwrap();
 
@@ -61,7 +66,7 @@ impl RaydiumClmmDEX {
 
         info!("Raydium CLMM: {} pools founded", json_value.data.len());
         Self {
-            dex: dex,
+            dex,
             pools: pools_vec,
         }
     }
@@ -74,8 +79,8 @@ pub async fn fetch_data_raydium_clmm() -> Result<(), Box<dyn std::error::Error>>
     if response.status().is_success() {
         let json: Root = serde_json::from_str(&response.text().await?)?;
         // info!("json: {:?}", json);
-        let mut file = File::create("src/markets/cache/raydium-clmm-markets.json")?;
-        file.write_all(serde_json::to_string(&json)?.as_bytes())?;
+        let mut file = File::create("src/markets/cache/raydium-clmm-markets.json").await?; // Changed to await
+        file.write_all(serde_json::to_string(&json)?.as_bytes()).await?; // Changed to await
         info!("Data written to 'raydium-clmm-markets.json' successfully.");
     } else {
         error!(
@@ -89,7 +94,7 @@ pub async fn fetch_data_raydium_clmm() -> Result<(), Box<dyn std::error::Error>>
 pub async fn stream_raydium_clmm(account: Pubkey) -> Result<()> {
     let env = Env::new();
     let url = env.wss_rpc_url.as_str();
-    let (account_subscription_client, account_subscription_receiver) =
+    let (_account_subscription_client, account_subscription_receiver) =
         PubsubClient::account_subscribe(
             url,
             &account,
@@ -102,10 +107,11 @@ pub async fn stream_raydium_clmm(account: Pubkey) -> Result<()> {
         )?;
 
     loop {
-        match account_subscription_receiver.recv() {
+        // Similar to orca.rs, account_subscription_receiver.recv() is blocking.
+        match account_subscription_receiver.recv() { // THIS IS STILL BLOCKING
             Ok(response) => {
                 let data = response.value.data;
-                let bytes_slice = UiAccountData::decode(&data).unwrap();
+                let _bytes_slice = UiAccountData::decode(&data).unwrap();
                 println!("account subscription data response: {:?}", data);
                 // let account_data = unpack_from_slice(bytes_slice.as_slice());
                 // println!("Raydium CLMM Pool updated: {:?}", account);

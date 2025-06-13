@@ -1,213 +1,119 @@
-use anyhow::Result;
+//! src/common/config.rs - Updated with missing fields
+
 use serde::{Deserialize, Serialize};
 use std::fs;
 
-use crate::execution::executor::ExecutionMode;
-use crate::fees::priority_fees::FeeMode;
-
-// Define the Strategy enum for more organized strategy selection
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub enum Strategy {
-    Massive,
-    BestPath,
-    Optimism,
-    All,
-    None,
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct RiskConfig {
+    pub initial_portfolio_value_usd: Option<f64>,
+    pub max_daily_drawdown: f64,
+    pub max_trade_size_percentage: f64,
+    pub profit_sanity_check_percentage: f64,
+    pub token_whitelist: Vec<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct InputConfig {
+pub enum DataMode {
+    WebSocket(String),
+    Grpc(String),
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct StrategyInputConfig {
     pub tokens_to_arb: Vec<TokenConfig>,
-    pub include_1hop: bool,
-    pub include_2hop: bool,
-    pub numbers_of_best_paths: usize,
-    pub get_fresh_pools_bool: bool,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Config {
-    // Token configuration
-    pub tokens_to_trade: Vec<TokenConfig>,
-    pub input_vectors: Vec<InputConfig>,
-
-    // Strategy parameters
-    pub active_strategies: Vec<Strategy>,
-    pub simulation_amount: u64, // Example: 3500000000 (3.5 SOL in lamports)
-    pub min_profit_threshold_lamports: u64, // Minimum profit threshold in lamports (e.g. 20000000 = 0.02 SOL)
-
-    // Profit and slippage thresholds
-    pub min_profit_threshold: f64, // Example: 20.0 (USD or equivalent value)
-    pub max_slippage: f64,         // Example: 0.02 (2%)
-
-    // Execution configuration
-    #[serde(with = "execution_mode_serde")]
-    pub execution_mode: ExecutionMode,
-
-    // Massive strategy options
-    pub fetch_new_pools: bool,
-    pub restrict_sol_usdc: bool,
-
-    // Path configuration
-    pub path_best_strategie: String, // Example: "best_paths_selected/ultra_strategies/0-SOL-SOLLY-1-SOL-SPIKE-2-SOL-AMC-GME.json"
-    pub optimism_path: String, // Example: "optimism_transactions/11-6-2024-SOL-SOLLY-SOL-0.json"
-
-    // Fee configuration
-    #[serde(with = "fee_mode_serde")]
-    pub fee_mode: FeeMode,
-    pub fee_cache_duration_secs: u64,
-
-    // Optional URL configuration (can be overridden by environment variables)
-    pub rpc_url: Option<String>,
-    pub rpc_url_tx: Option<String>,
-    pub wss_rpc_url: Option<String>,
-
-    // Cache directories
-    pub cache_dir: String,
-    pub output_dir: String,
+    pub get_fresh_pools_bool: Option<bool>,
+    pub include_1hop: Option<bool>,
+    pub include_2hop: Option<bool>,
+    pub numbers_of_best_paths: Option<usize>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TokenConfig {
     pub address: String,
     pub symbol: String,
+    pub decimals: u8,
+}
+
+// From implementation for TokenInArb conversion
+impl From<&TokenConfig> for crate::arbitrage::types::TokenInArb {
+    fn from(tc: &TokenConfig) -> Self {
+        crate::arbitrage::types::TokenInArb {
+            token: tc.address.clone(),
+            symbol: tc.symbol.clone(),
+            decimals: tc.decimals,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Config {
+    // Core settings
+    pub rpc_url: Option<String>,
+    pub wss_rpc_url: Option<String>,
+    pub vault_url: Option<String>,
+    pub execution_mode: String, // "Live", "Paper", "Simulate"
+    pub simulation_amount: u64,
+
+    // Strategy settings
+    pub active_strategies: Vec<String>,
+    pub massive_strategy_inputs: Vec<StrategyInputConfig>,
+    pub path_best_strategy: String,
+    pub top_n_ultra_paths: Option<usize>,
+
+    // Performance and management
+    pub executor_queue_size: Option<usize>,
+    pub fee_multiplier: Option<f64>,
+    pub fetch_new_pools: Option<bool>,
+    pub restrict_sol_usdc: Option<bool>,
+    pub output_dir: Option<String>,
+    pub statistics_file_path: Option<String>,
+    pub statistics_save_interval_secs: Option<u64>,
+
+    // Data sources
+    pub data_mode: DataMode,
+
+    // Module configurations
+    pub risk_management: RiskConfig,
+    
+    // ===== NEW FIELDS FOR EXECUTOR =====
+    
+    // Transaction execution settings
+    pub compute_unit_limit: Option<u32>,              // Default: 400_000
+    pub transaction_confirmation_timeout_secs: Option<u64>, // Default: 30
+    pub transaction_poll_interval_ms: Option<u64>,     // Default: 500
+    pub max_send_retries: Option<u32>,                // Default: 3
+    
+    // Paper trading settings
+    pub paper_trade_mock_gas_cost: Option<u64>,       // Default: 5000
+    pub paper_trade_mock_execution_time_ms: Option<u64>, // Default: 100
+    
+    // Priority fee settings (some may already exist)
+    pub fee_cache_duration_secs: Option<u64>,         // Default: 2
+    
+    // Queue management
+    pub max_queue_size: Option<usize>,                // Default: 1000
+    
+    // Slippage settings
+    pub max_slippage_bps: Option<u16>,                // Default: 100 (1%) e.g. for executor pre-flight check
 }
 
 impl Config {
-    pub fn load() -> Result<Self> {
-        // Try to load from config file, otherwise use defaults
-        if let Ok(contents) = fs::read_to_string("config.json") {
-            Ok(serde_json::from_str(&contents)?)
-        } else {
-            Ok(Self::default())
-        }
-    }
-
-    pub fn save(&self) -> Result<()> {
-        // Save the configuration to a file
-        let contents = serde_json::to_string_pretty(self)?;
-        fs::write("config.json", contents)?;
-        Ok(())
+    pub fn load() -> Result<Self, Box<dyn std::error::Error>> {
+        let config_str = fs::read_to_string("config.json")?;
+        let config: Config = serde_json::from_str(&config_str)?;
+        Ok(config)
     }
 
     pub fn contains_strategy(&self, strategy_name: &str) -> bool {
-        // Map the string strategy name to our Strategy enum
-        let strategy = match strategy_name {
-            STRATEGY_MASSIVE => Strategy::Massive,
-            STRATEGY_BEST_PATH => Strategy::BestPath,
-            STRATEGY_OPTIMISM => Strategy::Optimism,
-            STRATEGY_ALL => Strategy::All,
-            _ => Strategy::None,
-        };
-
-        // Check if the strategy is in the active strategies or if "All" is active
-        self.active_strategies.contains(&strategy) || self.active_strategies.contains(&Strategy::All)
+        self.active_strategies.contains(&strategy_name.to_string())
     }
 }
 
-impl Default for Config {
-    fn default() -> Self {
-        Self {
-            tokens_to_trade: vec![TokenConfig {
-                address: "So11111111111111111111111111111111111111112".to_string(),
-                symbol: "SOL".to_string(),
-            }],
-            input_vectors: vec![InputConfig {
-                tokens_to_arb: vec![TokenConfig {
-                    address: "So11111111111111111111111111111111111111112".to_string(),
-                    symbol: "SOL".to_string(),
-                }],
-                include_1hop: false,
-                include_2hop: false,
-                numbers_of_best_paths: 1,
-                get_fresh_pools_bool: false,
-            }],
-            active_strategies: vec![Strategy::Massive, Strategy::BestPath],
-            simulation_amount: 3_500_000_000, // 3.5 SOL in lamports
-            min_profit_threshold_lamports: 20_000_000, // 0.02 SOL minimum profit threshold
-            min_profit_threshold: 20.0,       // Default profit threshold (USD or equivalent)
-            max_slippage: 0.02,               // Default max slippage 2%
-            execution_mode: ExecutionMode::Simulate, // Default to simulation mode for safety
-            fetch_new_pools: false,
-            restrict_sol_usdc: true,
-            path_best_strategie:
-                "best_paths_selected/ultra_strategies/0-SOL-SOLLY-1-SOL-SPIKE-2-SOL-AMC-GME.json"
-                    .to_string(),
-            optimism_path: "optimism_transactions/11-6-2024-SOL-SOLLY-SOL-0.json".to_string(),
-            fee_mode: FeeMode::ProfitBased,
-            fee_cache_duration_secs: 2,
-            rpc_url: None, // Will use environment variables by default
-            rpc_url_tx: None,
-            wss_rpc_url: None,
-            cache_dir: "src/markets/cache".to_string(),
-            output_dir: "best_paths_selected".to_string(),
-        }
-    }
-}
-
-// Constants for strategy names
+// Strategy constants
 pub const STRATEGY_MASSIVE: &str = "Massive";
 pub const STRATEGY_BEST_PATH: &str = "BestPath";
-pub const STRATEGY_OPTIMISM: &str = "Optimism";
-pub const STRATEGY_ALL: &str = "All";
-pub const STRATEGY_NONE: &str = "None";
 
-// Serde helper modules for enum serialization/deserialization
-mod execution_mode_serde {
-    use crate::execution::executor::ExecutionMode;
-    use serde::{Deserialize, Deserializer, Serializer};
-
-    pub fn serialize<S>(mode: &ExecutionMode, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: Serializer,
-    {
-        let mode_str = match mode {
-            ExecutionMode::Live => "Live",
-            ExecutionMode::Paper => "Paper",
-            ExecutionMode::Simulate => "Simulate",
-        };
-        serializer.serialize_str(mode_str)
-    }
-
-    pub fn deserialize<'de, D>(deserializer: D) -> Result<ExecutionMode, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let mode_str = String::deserialize(deserializer)?;
-        match mode_str.as_str() {
-            "Live" => Ok(ExecutionMode::Live),
-            "Paper" => Ok(ExecutionMode::Paper),
-            _ => Ok(ExecutionMode::Simulate), // Default to Simulate
-        }
-    }
-}
-
-mod fee_mode_serde {
-    use crate::fees::priority_fees::FeeMode;
-    use serde::{Deserialize, Deserializer, Serializer};
-
-    pub fn serialize<S>(mode: &FeeMode, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: Serializer,
-    {
-        let mode_str = match mode {
-            FeeMode::Conservative => "Conservative",
-            FeeMode::Aggressive => "Aggressive",
-            FeeMode::ProfitBased => "ProfitBased",
-        };
-        serializer.serialize_str(mode_str)
-    }
-
-    pub fn deserialize<'de, D>(deserializer: D) -> Result<FeeMode, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let mode_str = String::deserialize(deserializer)?;
-        match mode_str.as_str() {
-            "Conservative" => Ok(FeeMode::Conservative),
-            "Aggressive" => Ok(FeeMode::Aggressive),
-            _ => Ok(FeeMode::ProfitBased), // Default to ProfitBased
-        }
-    }
-}
+// Execution mode constants
+pub const EXECUTION_MODE_LIVE: &str = "Live";
+pub const EXECUTION_MODE_PAPER: &str = "Paper";
+pub const EXECUTION_MODE_SIMULATE: &str = "Simulate";

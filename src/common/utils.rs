@@ -17,7 +17,7 @@ use crate::{
     arbitrage::types::{SwapPathResult, TokenInArb, TokenInfos},
     common::constants::{Env, PROJECT_NAME},
 };
-use solana_client::rpc_client::RpcClient;
+use solana_client::nonblocking::rpc_client::RpcClient; // Changed to nonblocking
 
 // Function to format our console logs
 pub fn setup_logger() -> Result<(), fern::InitError> {
@@ -27,7 +27,7 @@ pub fn setup_logger() -> Result<(), fern::InitError> {
         info: Color::Green,
         warn: Color::Red,
         error: Color::BrightRed,
-        ..ColoredLevelConfig::new()
+
     };
 
     let base_config = fern::Dispatch::new();
@@ -85,7 +85,7 @@ pub fn setup_logger() -> Result<(), fern::InitError> {
 }
 
 pub fn write_file_swap_path_result(path: String, content_raw: SwapPathResult) -> Result<()> {
-    File::create(path.clone());
+    let _ = File::create(path.clone());
 
     let file = OpenOptions::new()
         .read(true)
@@ -126,9 +126,8 @@ pub fn from_str(s: &str) -> Result<Pubkey, Err> {
         Pubkey::try_from(pubkey_vec).map_err(|_| ParsePubkeyError::Invalid)
     }
 }
-pub fn from_Pubkey(pubkey: Pubkey) -> String {
-    let pubkey_vec = bs58::encode(pubkey).into_string();
-    return pubkey_vec;
+pub fn from_pubkey(pubkey: Pubkey) -> String {
+    bs58::encode(pubkey).into_string()
 }
 
 pub async fn get_tokens_infos(tokens: Vec<TokenInArb>) -> HashMap<String, TokenInfos> {
@@ -138,10 +137,10 @@ pub async fn get_tokens_infos(tokens: Vec<TokenInArb>) -> HashMap<String, TokenI
     let mut pubkeys_str: Vec<String> = Vec::new();
     let mut pubkeys: Vec<Pubkey> = Vec::new();
     for token in tokens.clone() {
-        pubkeys_str.push(token.address.clone());
-        pubkeys.push(from_str(token.address.clone().as_str()).unwrap());
+        pubkeys_str.push(token.token.clone());
+        pubkeys.push(from_str(token.token.clone().as_str()).unwrap());
     }
-    let batch_results = rpc_client.get_multiple_accounts(&pubkeys).unwrap();
+    let batch_results = rpc_client.get_multiple_accounts(&pubkeys).await.unwrap();
 
     let mut tokens_infos: HashMap<String, TokenInfos> = HashMap::new();
 
@@ -151,18 +150,19 @@ pub async fn get_tokens_infos(tokens: Vec<TokenInArb>) -> HashMap<String, TokenI
 
         let symbol = tokens
             .iter()
-            .find(|r| *r.address == pubkeys_str[j])
+            .find(|r| r.token == pubkeys_str[j])
             .expect("Symbol token not found");
         tokens_infos.insert(
             pubkeys_str[j].clone(),
             TokenInfos {
                 address: pubkeys_str[j].clone(),
                 decimals: mint_layout.decimals,
+                // price_usd: 150.0, // Mock price, to be replaced by actual oracle/API call
                 symbol: symbol.clone().symbol,
             },
         );
     }
-    return tokens_infos;
+    tokens_infos
 }
 
 pub async fn make_request(req_url: String) -> Result<reqwest::Response, Error> {

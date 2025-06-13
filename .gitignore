@@ -29,3 +29,9 @@ aws/
 *_secret*
 *_private*
 *.secret
+
+# Editor-specific files
+.cursor/
+
+# Benchmark output
+benchmark_results/
