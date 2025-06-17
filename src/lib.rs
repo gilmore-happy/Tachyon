@@ -8,11 +8,19 @@ pub mod strategies;
 pub mod transactions; // Add the fees module
 pub mod telemetry;
 
-
+#[cfg(test)]
 mod tests {
-    
-
-    
+    use super::*;
+    use solana_sdk::pubkey::Pubkey;
+    use crate::arbitrage::types::{TokenInArb, SwapPathResult, SwapRouteSimulation};
+    use crate::markets::types::DexLabel;
+    use crate::transactions::create_transaction::{
+        write_lut_for_market, 
+        create_ata_extendlut_transaction, 
+        ChainType, 
+        SendOrSimulate
+    };
+    use crate::common::utils::from_str;
 
     #[test]
     fn write_in_write_lut_for_market() {
@@ -23,18 +31,21 @@ mod tests {
         let lut_address2: Pubkey = Pubkey::new_unique();
         let _ = write_lut_for_market(market2, lut_address2, true);
     }
+    
     #[tokio::test]
     async fn test_devnet_create_ata_extendlut_transaction() {
         let tokens_to_arb: Vec<TokenInArb> = vec![
             TokenInArb {
-                address: String::from("So11111111111111111111111111111111111111112"),
+                token: String::from("So11111111111111111111111111111111111111112"),
                 symbol: String::from("SOL"),
+                decimals: 9,
             }, // Base token here
             TokenInArb {
-                address: String::from("4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"),
+                token: String::from("4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"),
                 symbol: String::from("USDC"),
+                decimals: 6,
             },
-            // TokenInArb{address: String::from("9jaZhJM6nMHTo4hY9DGabQ1HNuUWhJtm7js1fmKMVpkN"), symbol: String::from("AMC")},
+            // TokenInArb{token: String::from("9jaZhJM6nMHTo4hY9DGabQ1HNuUWhJtm7js1fmKMVpkN"), symbol: String::from("AMC"), decimals: 6},
         ];
 
         let spr = SwapPathResult {
@@ -51,7 +62,7 @@ mod tests {
                     token_out: "9jaZhJM6nMHTo4hY9DGabQ1HNuUWhJtm7js1fmKMVpkN".to_string(),
                     amount_in: 300000000,
                     estimated_amount_out: "8703355798604".to_string(),
-                    estimated_min_amount_out: "8617183959013".to_string(),
+                    minimum_amount_out: 8617183959013,
                 },
                 SwapRouteSimulation {
                     id_route: 26,
@@ -62,7 +73,7 @@ mod tests {
                     token_out: "8wXtPeU6557ETkp9WHFY1n1EcU6NxDvbAggHGsMYiHsB".to_string(),
                     amount_in: 8703355798604, // 0.001 SOL
                     estimated_amount_out: "4002500590682".to_string(),
-                    estimated_min_amount_out: "3998498090091".to_string(),
+                    minimum_amount_out: 3998498090091,
                 },
                 SwapRouteSimulation {
                     id_route: 13,
@@ -73,7 +84,7 @@ mod tests {
                     token_out: "So11111111111111111111111111111111111111112".to_string(),
                     amount_in: 4002500590682, // 0.001 SOL
                     estimated_amount_out: "300776562".to_string(),
-                    estimated_min_amount_out: "297798576".to_string(),
+                    minimum_amount_out: 297798576,
                 },
             ],
             token_in: "So11111111111111111111111111111111111111112".to_string(),
@@ -88,7 +99,7 @@ mod tests {
 
         let tokens: Vec<Pubkey> = tokens_to_arb
             .into_iter()
-            .map(|tok| from_str(tok.address.as_str()).unwrap())
+            .map(|tok| from_str(tok.token.as_str()).unwrap())
             .collect();
         let _ = create_ata_extendlut_transaction(
             ChainType::Devnet,

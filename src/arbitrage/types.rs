@@ -139,20 +139,17 @@ pub struct Route {
     // Removed fee, decimals_in, decimals_out as they might be part of pool data or fetched differently
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)] // Removed PartialEq, Eq, Hash due to f64 fields
 pub struct SwapPathSelected { // This might become less relevant if ArbOpportunity is fully adopted
     pub path: SwapPath,
     pub expected_profit_usd: f64,
     pub markets: Vec<Market>,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)] // Added Serialize, Deserialize
 pub struct Market { // This might be simplified or absorbed into pool data
     pub id: String,
-    pub dex_label: DexLabel,
-    pub token_a: String,
-    pub token_b: String,
-    pub pool_address: String,
+    pub dex_label: crate::markets::types::DexLabel,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Hash)] // Added PartialEq, Eq, Hash
@@ -258,5 +255,27 @@ impl ArbOpportunity {
     /// Get total number of swaps
     pub fn swap_count(&self) -> usize {
         self.execution_plan.len()
+    }
+}
+
+/// Enhanced arbitrage engine options for production use
+#[derive(Debug, Clone)]
+pub struct ArbitrageEngineOptions {
+    pub fetch_interval_ms: u64,
+    pub max_opportunities_per_cycle: usize,
+    pub enable_circuit_breaker: bool,
+    pub backoff_multiplier: f64,
+    pub max_backoff_ms: u64,
+}
+
+impl Default for ArbitrageEngineOptions {
+    fn default() -> Self {
+        Self {
+            fetch_interval_ms: 100,
+            max_opportunities_per_cycle: 20,
+            enable_circuit_breaker: true,
+            backoff_multiplier: 2.0,
+            max_backoff_ms: 30000, // 30 seconds
+        }
     }
 }

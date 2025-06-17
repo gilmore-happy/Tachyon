@@ -2,19 +2,19 @@
 
 use anyhow::Result;
 use moka::future::Cache;
-use solana_client::nonblocking::rpc_client::RpcClient;
+
 use solana_sdk::signature::{Keypair, Signer};
 use solana_sdk::bs58; // Ensure bs58 is in Cargo.toml
 use std::sync::Arc;
 use std::sync::atomic::Ordering; // Added for fetch_add
 use std::time::Duration;
 use tokio::sync::mpsc;
-use tracing::{error, info, info_span, Instrument};
-use log::warn; // Added for warn! macro
+use tracing::{error, info, info_span, warn, Instrument};
 
 use crate::arbitrage::strategies::StrategyOrchestrator;
 use crate::arbitrage::types::{ArbOpportunity, TokenInfos}; // Removed SwapPathSelected
 use crate::common::config::{Config, EXECUTION_MODE_SIMULATE}; // Added EXECUTION_MODE_SIMULATE
+use crate::common::rpc_manager::create_rpc_manager; // Added RpcManager imports
 use crate::data::market_stream::init_market_data;
 use crate::execution::executor::TransactionExecutor;
 use crate::execution::risk_engine::RiskEngine;
@@ -50,6 +50,13 @@ async fn main() -> Result<()> {
     let keypair = Arc::new(load_keypair(&config).await?);
     info!("✅ Keypair loaded securely for wallet: {}", keypair.pubkey());
 
+    // Initialize RPC Manager with slot-aware execution for MEV timing
+    let rpc_manager = Arc::new(create_rpc_manager(&config));
+    
+    // Start slot tracking for MEV-aware execution timing
+    rpc_manager.start_slot_tracking().await;
+    info!("✅ RPC Manager initialized with slot-aware execution for MEV timing");
+
     // Initialize concurrent state caches
     let token_cache: Arc<Cache<String, TokenInfos>> = Arc::new(
         Cache::builder()
@@ -60,15 +67,9 @@ async fn main() -> Result<()> {
     metrics.pools_loaded.fetch_add(pool_registry.len() as u64, Ordering::Relaxed); // Changed to fetch_add
     info!("✅ Caches and pool registry initialized with {} pools.", pool_registry.len());
 
-    // Initialize RPC client (shared for fee service, executor will take URL string)
-    let rpc_url = config.rpc_url.clone().ok_or_else(|| anyhow::anyhow!("rpc_url not configured in config.json"))?;
-    let wss_rpc_url = config.wss_rpc_url.clone().ok_or_else(|| anyhow::anyhow!("wss_rpc_url not configured in config.json"))?;
-    
-    let rpc_client_for_fees = Arc::new(RpcClient::new_with_commitment(
-        rpc_url.clone(),
-        solana_sdk::commitment_config::CommitmentConfig::confirmed(),
-    ));
-    info!("✅ RPC client for Fee Service initialized using URL: {}", rpc_url);
+    // Get RPC client from manager for fee service initialization
+    let rpc_client_for_fees = rpc_manager.get_client().await;
+    info!("✅ RPC client for Fee Service obtained from RPC Manager");
 
     // Initialize priority fee service globally (used by advanced executor)
     let fee_config_mode = match config.execution_mode.as_str() {
@@ -96,11 +97,11 @@ async fn main() -> Result<()> {
     ));
     info!("✅ Risk engine initialized.");
     
-    // Initialize and spawn "advanced" transaction executor
-    let executor = TransactionExecutor::new(
+    // Initialize and spawn "advanced" transaction executor with RPC Manager
+    let executor = TransactionExecutor::new_with_rpc_manager(
         keypair.clone(), // Arc<Keypair>
-        rpc_url.clone(), // String
-        wss_rpc_url.clone(), // String
+        rpc_manager.clone(), // Arc<RpcManager> - centralized RPC management
+        config.get_websocket_url(), // String - WebSocket URL for TPU client
         exec_rx_for_executor, // Receiver<ArbOpportunity>
         config.clone(),   // Arc<Config>
         Arc::new(crate::execution::executor::Metrics::new()),  // Changed to use executor::Metrics
@@ -111,7 +112,7 @@ async fn main() -> Result<()> {
         }
         .instrument(info_span!("transaction_executor")),
     );
-    info!("✅ Advanced Transaction Executor started in {} mode.", config.execution_mode);
+    info!("✅ Advanced Transaction Executor started in {} mode with RPC Manager.", config.execution_mode);
 
     // Initialize market data pipeline
     let market_rx = init_market_data(&config)
@@ -134,6 +135,8 @@ async fn main() -> Result<()> {
     // Log active strategies
     info!("📋 Active strategies: {:?}", config.active_strategies);
 
+    // For arbitrage, we don't need complex RPC monitoring - direct connection is faster
+
     // Run strategies
     let orchestrator_handle = tokio::spawn( // Capture handle
         async move {
@@ -152,16 +155,15 @@ async fn main() -> Result<()> {
             info!("🛑 Shutdown signal received");
             // Optionally, could abort tasks here if they don't handle shutdown internally
             // orchestrator_handle.abort();
-            // converter_handle.abort();
             // executor_handle.abort();
         }
         res = orchestrator_handle => {
             info!("🏁 Orchestrator completed: {:?}", res);
         }
-        // Converter_handle removed
         res = executor_handle => {
             error!("❌ Executor terminated unexpectedly: {:?}", res);
         }
+
     }
 
     info!("👋 MEV Bot shutting down gracefully");
@@ -183,8 +185,12 @@ async fn load_keypair(config: &Config) -> Result<Keypair> {
     // Check for keypair file path in environment
     if let Ok(keypair_path) = std::env::var("SOLANA_KEYPAIR_PATH") {
         info!("Loading keypair from file specified by SOLANA_KEYPAIR_PATH: {}", keypair_path);
-        let keypair_bytes = std::fs::read(&keypair_path)
+        let keypair_file_content = std::fs::read_to_string(&keypair_path)
             .map_err(|e| anyhow::anyhow!("Failed to read keypair file from {}: {}", keypair_path, e))?;
+        
+        // Parse JSON array format (standard Solana keypair format)
+        let keypair_bytes: Vec<u8> = serde_json::from_str(&keypair_file_content)
+            .map_err(|e| anyhow::anyhow!("Failed to parse keypair JSON from {}: {}", keypair_path, e))?;
         
         return Keypair::from_bytes(&keypair_bytes)
             .map_err(|e| anyhow::anyhow!("Failed to create keypair from file bytes ({}): {}", keypair_path, e));

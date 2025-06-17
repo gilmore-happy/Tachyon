@@ -11,10 +11,10 @@ use crate::transactions::{ // Added for new build_swap_instructions
     create_transaction::InstructionDetails,
     meteoradlmm_swap::{construct_meteora_instructions, SwapParametersMeteora},
     raydium_swap::{construct_raydium_instructions, SwapParametersRaydium},
+    raydium_clmm_swap::{construct_raydium_clmm_instructions, SwapParametersRaydiumClmm},
     orca_whirpools_swap::{construct_orca_whirpools_instructions, SwapParametersOrcaWhirpools},
-    // TODO: Add imports for RaydiumClmm and Orca swap constructors when they are implemented
 };
-use anyhow::Result;
+use anyhow::{anyhow, Result};
 use log::{error, info, warn};
 use priority_queue::PriorityQueue;
 use solana_client::nonblocking::rpc_client::RpcClient;
@@ -33,6 +33,7 @@ use std::time::Duration;
 use tokio::sync::mpsc::Receiver;
 use tokio::time::{sleep, Instant};
 use uuid::Uuid;
+use crate::common::rpc_manager::RpcManager; // Added RpcManager import
 
 // Basic Metrics Structure (Ideally in its own module: src/common/metrics.rs)
 #[derive(Debug)]
@@ -83,7 +84,8 @@ pub struct ExecutionResult {
 
 pub struct TransactionExecutor {
     keypair: Arc<Keypair>,
-    rpc_client: Arc<RpcClient>,
+    rpc_client: Option<Arc<RpcClient>>, // Made optional for RpcManager mode
+    rpc_manager: Option<Arc<RpcManager>>, // Added RpcManager field
     tpu_client: Arc<TpuClient<solana_quic_client::QuicPool, solana_quic_client::QuicConnectionManager, solana_quic_client::QuicConfig>>,
     execution_queue: Receiver<ArbOpportunity>,
     fee_service: Arc<PriorityFeeService>,
@@ -95,6 +97,7 @@ pub struct TransactionExecutor {
 }
 
 impl TransactionExecutor {
+    /// Legacy constructor for backward compatibility
     pub async fn new(
         keypair: Arc<Keypair>,
         rpc_url: String,
@@ -130,7 +133,8 @@ impl TransactionExecutor {
         
         Ok(Self {
             keypair,
-            rpc_client,
+            rpc_client: Some(rpc_client),
+            rpc_manager: None,
             tpu_client,
             execution_queue: rx,
             fee_service,
@@ -140,6 +144,97 @@ impl TransactionExecutor {
             config,
             metrics,
         })
+    }
+
+    /// New constructor with RpcManager for enhanced reliability and failover
+    pub async fn new_with_rpc_manager(
+        keypair: Arc<Keypair>,
+        rpc_manager: Arc<RpcManager>,
+        wss_url: String,
+        rx: Receiver<ArbOpportunity>,
+        config: Arc<Config>,
+        metrics: Arc<Metrics>,
+    ) -> Result<Self> {
+        // Get initial RPC client from manager for TPU client setup
+        let _initial_rpc_client = rpc_manager.get_client().await;
+        
+        // Create blocking RPC client for TPU (using primary URL as fallback)
+        let blocking_rpc_client_for_tpu = Arc::new(solana_client::rpc_client::RpcClient::new(
+            config.get_rpc_url()
+        ));
+        
+        let tpu_client = match TpuClient::new(
+            blocking_rpc_client_for_tpu,
+            &wss_url,
+            TpuClientConfig::default(),
+        ) {
+            Ok(client) => Arc::new(client),
+            Err(e) => return Err(anyhow::anyhow!("Failed to create TPU client with RPC Manager: {}", e)),
+        };
+        
+        let fee_service = get_global_fee_service()
+            .map_err(|e| anyhow::anyhow!("Failed to get fee service: {}", e))?;
+        
+        let paper_trader = if config.execution_mode == "Paper" {
+            Some(PaperTrader::new().await)
+        } else {
+            None
+        };
+        
+        info!("✅ TransactionExecutor initialized with RPC Manager (failover enabled)");
+        
+        Ok(Self {
+            keypair,
+            rpc_client: None, // Not used when RpcManager is available
+            rpc_manager: Some(rpc_manager),
+            tpu_client,
+            execution_queue: rx,
+            fee_service,
+            execution_mode: config.execution_mode.clone(),
+            paper_trader,
+            priority_queue: PriorityQueue::new(),
+            config,
+            metrics,
+        })
+    }
+
+    /// Get RPC client with automatic failover support
+    async fn get_rpc_client(&self) -> Result<Arc<RpcClient>> {
+        if let Some(ref rpc_manager) = self.rpc_manager {
+            // Use RPC Manager with automatic failover
+            Ok(rpc_manager.get_client().await)
+        } else if let Some(ref rpc_client) = self.rpc_client {
+            // Fallback to legacy direct client
+            Ok(rpc_client.clone())
+        } else {
+            Err(anyhow!("No RPC client or RPC manager available"))
+        }
+    }
+
+    /// Execute RPC operation with automatic retry and failover (when using RpcManager)
+    async fn execute_rpc_with_retry<T, F, Fut>(&self, operation: F) -> Result<T>
+    where
+        F: Fn(Arc<RpcClient>) -> Fut + Send + Sync,
+        Fut: std::future::Future<Output = Result<T>> + Send,
+        T: Send,
+    {
+        if let Some(ref rpc_manager) = self.rpc_manager {
+            // Use RPC Manager's built-in retry and failover logic
+            rpc_manager.execute_with_retry(operation).await
+        } else {
+            // Fallback to single attempt with legacy client
+            let client = self.get_rpc_client().await?;
+            operation(client).await
+        }
+    }
+
+    /// Check if we have sufficient time in current slot for execution (MEV timing)
+    async fn check_execution_window(&self, required_ms: u64) -> bool {
+        if let Some(ref rpc_manager) = self.rpc_manager {
+            rpc_manager.has_execution_window(required_ms).await
+        } else {
+            true // Legacy mode - assume we have time
+        }
     }
     
     pub async fn run(mut self) {
@@ -220,6 +315,14 @@ impl TransactionExecutor {
 
     async fn process_opportunity_internal(&self, opportunity: ArbOpportunity) -> Result<()> {
         self.metrics.execution_attempts.fetch_add(1, Ordering::Relaxed);
+        
+        // MEV timing check - ensure we have enough time in slot for execution
+        let required_execution_time_ms = 50; // Conservative estimate for transaction execution
+        if !self.check_execution_window(required_execution_time_ms).await {
+            warn!("⏰ Skipping opportunity - insufficient time remaining in slot");
+            return Ok(());
+        }
+        
         match self.execute_opportunity(opportunity).await {
             Ok(result) => {
                 if result.success {
@@ -264,7 +367,9 @@ impl TransactionExecutor {
         instructions.insert(0, ComputeBudgetInstruction::set_compute_unit_limit(compute_unit_limit));
         instructions.insert(1, ComputeBudgetInstruction::set_compute_unit_price(priority_fee));
         
-        let recent_blockhash = self.rpc_client.get_latest_blockhash().await?;
+        let recent_blockhash = self.execute_rpc_with_retry(|client| async move {
+            client.get_latest_blockhash().await.map_err(|e| anyhow!("Failed to get latest blockhash: {}", e))
+        }).await?;
         
         let transaction = Transaction::new_signed_with_payer(
             &instructions,
@@ -349,7 +454,12 @@ impl TransactionExecutor {
                 });
             }
 
-            match self.rpc_client.get_signature_status(&signature).await {
+            match self.execute_rpc_with_retry(|client| {
+                let sig = signature;
+                async move {
+                    client.get_signature_status(&sig).await.map_err(|e| anyhow!("Failed to get signature status: {}", e))
+                }
+            }).await {
                 Ok(Some(status)) => {
                     if status.is_ok() {
                         return Ok(ExecutionResult {
@@ -440,7 +550,9 @@ impl TransactionExecutor {
         
         let instructions = self.build_swap_instructions(&opportunity).await?;
         
-        let _latest_blockhash = self.rpc_client.get_latest_blockhash().await?; // Keep for simulation if needed by RPC
+        let _latest_blockhash = self.execute_rpc_with_retry(|client| async move {
+            client.get_latest_blockhash().await.map_err(|e| anyhow!("Failed to get latest blockhash for simulation: {}", e))
+        }).await?; // Keep for simulation if needed by RPC
         
         // Corrected: Transaction::new_with_payer takes 2 arguments
         // For simulation, we typically don't need to sign it or provide blockhash to this constructor.
@@ -451,9 +563,12 @@ impl TransactionExecutor {
             // No signers array or blockhash for this specific constructor
         );
         
-        let simulation_response = self.rpc_client
-            .simulate_transaction(&tx_to_simulate)
-            .await?;
+        let simulation_response = self.execute_rpc_with_retry(|client| {
+            let tx = tx_to_simulate.clone();
+            async move {
+                client.simulate_transaction(&tx).await.map_err(|e| anyhow!("Failed to simulate transaction: {}", e))
+            }
+        }).await?;
         
         let execution_time_ms = measurement_start.elapsed().as_millis() as u64;
         
@@ -547,13 +662,38 @@ impl TransactionExecutor {
                     construct_orca_whirpools_instructions(params).await
                 }
                 
-                // TODO: Implement for RaydiumClmm and Orca once their constructors are ready
-                DexLabel::RaydiumClmm | DexLabel::Orca => {
-                    warn!("build_swap_instructions: Skipping currently unsupported DEX: {:?} in leg {}", leg.dex, index + 1);
-                    // It's important to decide if an unsupported DEX in a plan is an error or skippable.
-                    // For now, returning an error as the plan is pre-calculated and should be executable.
-                    return Err(anyhow::anyhow!("Unsupported DEX {:?} in execution plan at leg {}", leg.dex, index + 1));
-                    // continue; // Or, if some legs can be skipped (less likely for arbitrage)
+                DexLabel::RaydiumClmm => {
+                    let params = SwapParametersRaydiumClmm {
+                        pool: leg.pool_address,
+                        input_token_mint: leg.token_in,
+                        output_token_mint: leg.token_out,
+                        amount_in: leg.amount_in,
+                        a_to_b: leg.swap_direction,
+                        min_amount_out: leg.minimum_amount_out,
+                        sqrt_price_limit: u128::MAX, // Use max as default (no price limit)
+                        wallet_pubkey: self.keypair.pubkey(), // REAL wallet pubkey from keypair!
+                    };
+                    // Use the new Result-based interface with proper error handling
+                    match construct_raydium_clmm_instructions(params).await {
+                        Ok(instructions) => instructions,
+                        Err(e) => {
+                            error!("Failed to construct Raydium CLMM instructions for leg {}: {}", index + 1, e);
+                            return Err(anyhow::anyhow!("Raydium CLMM instruction construction failed: {}", e));
+                        }
+                    }
+                }
+                
+                DexLabel::Orca => {
+                    // For now, treat Orca the same as OrcaWhirlpools since they use the same API
+                    // TODO: Investigate if Orca and OrcaWhirlpools should be separate or consolidated
+                    let params = SwapParametersOrcaWhirpools {
+                        whirpools: leg.pool_address,
+                        input_token: leg.token_in,
+                        output_token: leg.token_out,
+                        amount_in: leg.amount_in,
+                        minimum_amount_out: leg.minimum_amount_out,
+                    };
+                    construct_orca_whirpools_instructions(params).await
                 }
             };
             

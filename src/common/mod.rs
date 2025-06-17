@@ -3,5 +3,5 @@ pub mod constants;
 pub mod debug;
 pub mod maths;
 pub mod performance;
-pub mod types;
+pub mod rpc_manager;
 pub mod utils;

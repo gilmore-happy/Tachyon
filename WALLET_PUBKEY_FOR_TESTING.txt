@@ -1,8 +1,0 @@
-SOLANA MEV BOT:
-Generating a new keypair
-Wrote new keypair to mev-bot-keypair.json
-===================================================================================
-pubkey: 695hQs4AS4bHK5yFteTLLaWKFFrW8y644SBhysm9RTZT
-===================================================================================
-Save this seed phrase to recover your new keypair:
-nerve pulse element permit priority note remind reform fruit neither method suggest

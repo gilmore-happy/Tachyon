@@ -47,9 +47,11 @@ impl From<&TokenConfig> for crate::arbitrage::types::TokenInArb {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Config {
+    // Simple RPC configuration
+    pub rpc_url: String,
+    pub websocket_url: String,
+    
     // Core settings
-    pub rpc_url: Option<String>,
-    pub wss_rpc_url: Option<String>,
     pub vault_url: Option<String>,
     pub execution_mode: String, // "Live", "Paper", "Simulate"
     pub simulation_amount: u64,
@@ -75,8 +77,6 @@ pub struct Config {
     // Module configurations
     pub risk_management: RiskConfig,
     
-    // ===== NEW FIELDS FOR EXECUTOR =====
-    
     // Transaction execution settings
     pub compute_unit_limit: Option<u32>,              // Default: 400_000
     pub transaction_confirmation_timeout_secs: Option<u64>, // Default: 30
@@ -87,26 +87,81 @@ pub struct Config {
     pub paper_trade_mock_gas_cost: Option<u64>,       // Default: 5000
     pub paper_trade_mock_execution_time_ms: Option<u64>, // Default: 100
     
-    // Priority fee settings (some may already exist)
+    // Priority fee settings
     pub fee_cache_duration_secs: Option<u64>,         // Default: 2
     
     // Queue management
     pub max_queue_size: Option<usize>,                // Default: 1000
     
     // Slippage settings
-    pub max_slippage_bps: Option<u16>,                // Default: 100 (1%) e.g. for executor pre-flight check
+    pub max_slippage_bps: Option<u16>,                // Default: 100 (1%)
 }
 
 impl Config {
     pub fn load() -> Result<Self, Box<dyn std::error::Error>> {
         let config_str = fs::read_to_string("config.json")?;
-        let config: Config = serde_json::from_str(&config_str)?;
+        
+        // Expand environment variables in the config string
+        let expanded_config_str = expand_env_vars(&config_str);
+        
+        let mut config: Config = serde_json::from_str(&expanded_config_str)?;
+        
+        // Validate URLs
+        config.validate_urls()?;
+        
         Ok(config)
+    }
+
+    /// Validate URLs and provide fallbacks if needed
+    fn validate_urls(&mut self) -> Result<(), Box<dyn std::error::Error>> {
+        // Validate RPC URL
+        if self.rpc_url.is_empty() || self.rpc_url.starts_with("${") {
+            return Err("QUICKNODE_RPC_URL environment variable not set or invalid".into());
+        }
+        
+        // Validate WebSocket URL
+        if self.websocket_url.is_empty() || self.websocket_url.starts_with("${") {
+            return Err("QUICKNODE_WSS_URL environment variable not set or invalid".into());
+        }
+        
+        Ok(())
     }
 
     pub fn contains_strategy(&self, strategy_name: &str) -> bool {
         self.active_strategies.contains(&strategy_name.to_string())
     }
+    
+    /// Get RPC URL
+    pub fn get_rpc_url(&self) -> String {
+        self.rpc_url.clone()
+    }
+    
+    /// Get WebSocket URL
+    pub fn get_websocket_url(&self) -> String {
+        self.websocket_url.clone()
+    }
+}
+
+/// Expand environment variables in a string
+/// Supports ${VAR_NAME} syntax
+fn expand_env_vars(input: &str) -> String {
+    let mut result = input.to_string();
+    
+    // Simple regex-like replacement for ${VAR_NAME}
+    while let Some(start) = result.find("${") {
+        if let Some(end) = result[start..].find('}') {
+            let var_name = &result[start + 2..start + end];
+            let replacement = std::env::var(var_name).unwrap_or_else(|_| {
+                tracing::warn!("Environment variable {} not found, keeping placeholder", var_name);
+                format!("${{{}}}", var_name)
+            });
+            result.replace_range(start..start + end + 1, &replacement);
+        } else {
+            break;
+        }
+    }
+    
+    result
 }
 
 // Strategy constants
