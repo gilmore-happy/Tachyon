@@ -1,0 +1,374 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs</file>
+  <line>170</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs" />
+  <problem_class id="DuplicatedCode" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Duplicated code fragment</problem_class>
+  <description>Duplicate code: lines 170-175</description>
+  <highlighted_element>if let Some(opportunity) = self.calculate_arbitrage_profit(pool_a, pool_b, pair_id).await? {</highlighted_element>
+  <language>Rust</language>
+  <offset>16</offset>
+  <length>92</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs</file>
+  <line>177</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs" />
+  <problem_class id="DuplicatedCode" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Duplicated code fragment</problem_class>
+  <description>Duplicate code: lines 177-182</description>
+  <highlighted_element>if let Some(opportunity) = self.calculate_arbitrage_profit(pool_b, pool_a, pair_id).await? {</highlighted_element>
+  <language>Rust</language>
+  <offset>16</offset>
+  <length>92</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs</file>
+  <line>535</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs" />
+  <problem_class id="DuplicatedCode" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Duplicated code fragment</problem_class>
+  <description>Duplicate code: lines 535-546</description>
+  <highlighted_element>let tokens = vec![</highlighted_element>
+  <language>Rust</language>
+  <offset>8</offset>
+  <length>18</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/simulate.rs</file>
+  <line>105</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/simulate.rs" />
+  <problem_class id="DuplicatedCode" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Duplicated code fragment</problem_class>
+  <description>Duplicate code: lines 105-115</description>
+  <highlighted_element>let swap_sim: SwapRouteSimulation = SwapRouteSimulation {</highlighted_element>
+  <language>Rust</language>
+  <offset>24</offset>
+  <length>57</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/simulate.rs</file>
+  <line>118</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/simulate.rs" />
+  <problem_class id="DuplicatedCode" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Duplicated code fragment</problem_class>
+  <description>Duplicate code: lines 118-120</description>
+  <highlighted_element>if i == 0 &amp;&amp; !route_simulation.contains_key(&amp;vec![path.id_paths[i]]) {</highlighted_element>
+  <language>Rust</language>
+  <offset>24</offset>
+  <length>70</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/simulate.rs</file>
+  <line>123</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/simulate.rs" />
+  <problem_class id="DuplicatedCode" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Duplicated code fragment</problem_class>
+  <description>Duplicate code: lines 123-134</description>
+  <highlighted_element>if i == 1</highlighted_element>
+  <language>Rust</language>
+  <offset>24</offset>
+  <length>9</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/simulate.rs</file>
+  <line>166</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/simulate.rs" />
+  <problem_class id="DuplicatedCode" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Duplicated code fragment</problem_class>
+  <description>Duplicate code: lines 166-176</description>
+  <highlighted_element>let swap_sim: SwapRouteSimulation = SwapRouteSimulation {</highlighted_element>
+  <language>Rust</language>
+  <offset>24</offset>
+  <length>57</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/simulate.rs</file>
+  <line>179</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/simulate.rs" />
+  <problem_class id="DuplicatedCode" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Duplicated code fragment</problem_class>
+  <description>Duplicate code: lines 179-181</description>
+  <highlighted_element>if i == 0 &amp;&amp; !route_simulation.contains_key(&amp;vec![path.id_paths[i]]) {</highlighted_element>
+  <language>Rust</language>
+  <offset>24</offset>
+  <length>70</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/simulate.rs</file>
+  <line>183</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/simulate.rs" />
+  <problem_class id="DuplicatedCode" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Duplicated code fragment</problem_class>
+  <description>Duplicate code: lines 183-194</description>
+  <highlighted_element>if i == 1</highlighted_element>
+  <language>Rust</language>
+  <offset>24</offset>
+  <length>9</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/simulate.rs</file>
+  <line>230</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/simulate.rs" />
+  <problem_class id="DuplicatedCode" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Duplicated code fragment</problem_class>
+  <description>Duplicate code: lines 230-240</description>
+  <highlighted_element>let swap_sim: SwapRouteSimulation = SwapRouteSimulation {</highlighted_element>
+  <language>Rust</language>
+  <offset>24</offset>
+  <length>57</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/simulate.rs</file>
+  <line>243</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/simulate.rs" />
+  <problem_class id="DuplicatedCode" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Duplicated code fragment</problem_class>
+  <description>Duplicate code: lines 243-245</description>
+  <highlighted_element>if i == 0 &amp;&amp; !route_simulation.contains_key(&amp;vec![path.id_paths[i]]) {</highlighted_element>
+  <language>Rust</language>
+  <offset>24</offset>
+  <length>70</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/simulate.rs</file>
+  <line>247</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/simulate.rs" />
+  <problem_class id="DuplicatedCode" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Duplicated code fragment</problem_class>
+  <description>Duplicate code: lines 247-258</description>
+  <highlighted_element>if i == 1</highlighted_element>
+  <language>Rust</language>
+  <offset>24</offset>
+  <length>9</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/simulate.rs</file>
+  <line>340</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/simulate.rs" />
+  <problem_class id="DuplicatedCode" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Duplicated code fragment</problem_class>
+  <description>Duplicate code: lines 340-350</description>
+  <highlighted_element>let swap_sim: SwapRouteSimulation = SwapRouteSimulation {</highlighted_element>
+  <language>Rust</language>
+  <offset>24</offset>
+  <length>57</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/simulate.rs</file>
+  <line>381</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/simulate.rs" />
+  <problem_class id="DuplicatedCode" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Duplicated code fragment</problem_class>
+  <description>Duplicate code: lines 381-391</description>
+  <highlighted_element>let swap_sim: SwapRouteSimulation = SwapRouteSimulation {</highlighted_element>
+  <language>Rust</language>
+  <offset>24</offset>
+  <length>57</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/simulate.rs</file>
+  <line>425</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/simulate.rs" />
+  <problem_class id="DuplicatedCode" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Duplicated code fragment</problem_class>
+  <description>Duplicate code: lines 425-435</description>
+  <highlighted_element>let swap_sim: SwapRouteSimulation = SwapRouteSimulation {</highlighted_element>
+  <language>Rust</language>
+  <offset>24</offset>
+  <length>57</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/common/utils.rs</file>
+  <line>50</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/common/utils.rs" />
+  <problem_class id="DuplicatedCode" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Duplicated code fragment</problem_class>
+  <description>Duplicate code: lines 50-60</description>
+  <highlighted_element>fern::Dispatch::new()</highlighted_element>
+  <language>Rust</language>
+  <offset>22</offset>
+  <length>21</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/common/utils.rs</file>
+  <line>65</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/common/utils.rs" />
+  <problem_class id="DuplicatedCode" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Duplicated code fragment</problem_class>
+  <description>Duplicate code: lines 65-75</description>
+  <highlighted_element>fern::Dispatch::new()</highlighted_element>
+  <language>Rust</language>
+  <offset>24</offset>
+  <length>21</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/meteora.rs</file>
+  <line>72</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/meteora.rs" />
+  <problem_class id="DuplicatedCode" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Duplicated code fragment</problem_class>
+  <description>Duplicate code: lines 72-77</description>
+  <highlighted_element>if dex.pair_to_markets.contains_key(&amp;pair_string.clone()) {</highlighted_element>
+  <language>Rust</language>
+  <offset>12</offset>
+  <length>59</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/meteora.rs</file>
+  <line>146</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/meteora.rs" />
+  <problem_class id="DuplicatedCode" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Duplicated code fragment</problem_class>
+  <description>Duplicate code: lines 146-160</description>
+  <highlighted_element>let accounts = rpc_client</highlighted_element>
+  <language>Rust</language>
+  <offset>4</offset>
+  <length>25</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/meteora.rs</file>
+  <line>286</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/meteora.rs" />
+  <problem_class id="DuplicatedCode" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Duplicated code fragment</problem_class>
+  <description>Duplicate code: lines 286-293</description>
+  <highlighted_element>fn de_rating&lt;'de, D: Deserializer&lt;'de&gt;&gt;(deserializer: D) -&gt; Result&lt;f64, D::Error&gt; {</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>83</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca.rs</file>
+  <line>88</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca.rs" />
+  <problem_class id="DuplicatedCode" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Duplicated code fragment</problem_class>
+  <description>Duplicate code: lines 88-93</description>
+  <highlighted_element>if dex.pair_to_markets.contains_key(&amp;pair_string.clone()) {</highlighted_element>
+  <language>Rust</language>
+  <offset>12</offset>
+  <length>59</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca.rs</file>
+  <line>126</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca.rs" />
+  <problem_class id="DuplicatedCode" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Duplicated code fragment</problem_class>
+  <description>Duplicate code: lines 126-136</description>
+  <highlighted_element>let (_account_subscription_client, account_subscription_receiver) =</highlighted_element>
+  <language>Rust</language>
+  <offset>4</offset>
+  <length>67</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca_whirpools.rs</file>
+  <line>123</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca_whirpools.rs" />
+  <problem_class id="DuplicatedCode" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Duplicated code fragment</problem_class>
+  <description>Duplicate code: lines 123-128</description>
+  <highlighted_element>if dex.pair_to_markets.contains_key(&amp;pair_string.clone()) {</highlighted_element>
+  <language>Rust</language>
+  <offset>12</offset>
+  <length>59</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca_whirpools.rs</file>
+  <line>156</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca_whirpools.rs" />
+  <problem_class id="DuplicatedCode" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Duplicated code fragment</problem_class>
+  <description>Duplicate code: lines 156-170</description>
+  <highlighted_element>let accounts = rpc_client</highlighted_element>
+  <language>Rust</language>
+  <offset>4</offset>
+  <length>25</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca_whirpools.rs</file>
+  <line>213</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca_whirpools.rs" />
+  <problem_class id="DuplicatedCode" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Duplicated code fragment</problem_class>
+  <description>Duplicate code: lines 213-223</description>
+  <highlighted_element>let (__account_subscription_client, account_subscription_receiver) =</highlighted_element>
+  <language>Rust</language>
+  <offset>4</offset>
+  <length>68</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/raydium.rs</file>
+  <line>70</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/raydium.rs" />
+  <problem_class id="DuplicatedCode" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Duplicated code fragment</problem_class>
+  <description>Duplicate code: lines 70-75</description>
+  <highlighted_element>if dex.pair_to_markets.contains_key(&amp;pair_string.clone()) {</highlighted_element>
+  <language>Rust</language>
+  <offset>12</offset>
+  <length>59</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/raydium.rs</file>
+  <line>156</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/raydium.rs" />
+  <problem_class id="DuplicatedCode" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Duplicated code fragment</problem_class>
+  <description>Duplicate code: lines 156-170</description>
+  <highlighted_element>let accounts = rpc_client</highlighted_element>
+  <language>Rust</language>
+  <offset>4</offset>
+  <length>25</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/raydium.rs</file>
+  <line>197</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/raydium.rs" />
+  <problem_class id="DuplicatedCode" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Duplicated code fragment</problem_class>
+  <description>Duplicate code: lines 197-207</description>
+  <highlighted_element>let (__account_subscription_client, account_subscription_receiver) =</highlighted_element>
+  <language>Rust</language>
+  <offset>4</offset>
+  <length>68</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/raydium.rs</file>
+  <line>337</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/raydium.rs" />
+  <problem_class id="DuplicatedCode" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Duplicated code fragment</problem_class>
+  <description>Duplicate code: lines 337-344</description>
+  <highlighted_element>fn de_rating&lt;'de, D: Deserializer&lt;'de&gt;&gt;(deserializer: D) -&gt; Result&lt;f64, D::Error&gt; {</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>83</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/raydium_clmm.rs</file>
+  <line>59</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/raydium_clmm.rs" />
+  <problem_class id="DuplicatedCode" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Duplicated code fragment</problem_class>
+  <description>Duplicate code: lines 59-64</description>
+  <highlighted_element>if dex.pair_to_markets.contains_key(&amp;pair_string.clone()) {</highlighted_element>
+  <language>Rust</language>
+  <offset>12</offset>
+  <length>59</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/raydium_clmm.rs</file>
+  <line>97</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/raydium_clmm.rs" />
+  <problem_class id="DuplicatedCode" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Duplicated code fragment</problem_class>
+  <description>Duplicate code: lines 97-107</description>
+  <highlighted_element>let (_account_subscription_client, account_subscription_receiver) =</highlighted_element>
+  <language>Rust</language>
+  <offset>4</offset>
+  <length>67</length>
+</problem>
+</problems>

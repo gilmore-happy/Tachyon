@@ -97,6 +97,46 @@ pub struct Config {
     pub max_slippage_bps: Option<u16>,                // Default: 100 (1%)
 }
 
+impl Default for Config {
+    fn default() -> Self {
+        Self {
+            rpc_url: "http://localhost:8899".to_string(),
+            websocket_url: "ws://localhost:8900".to_string(),
+            vault_url: None,
+            execution_mode: "Simulate".to_string(),
+            simulation_amount: 1_000_000_000,
+            active_strategies: vec!["Massive".to_string()],
+            massive_strategy_inputs: vec![],
+            path_best_strategy: "BestPath".to_string(),
+            top_n_ultra_paths: Some(5),
+            executor_queue_size: Some(100),
+            fee_multiplier: Some(1.1),
+            fetch_new_pools: Some(true),
+            restrict_sol_usdc: Some(true),
+            output_dir: Some("output".to_string()),
+            statistics_file_path: Some("statistics.json".to_string()),
+            statistics_save_interval_secs: Some(60),
+            data_mode: DataMode::WebSocket("ws://localhost:8900".to_string()),
+            risk_management: RiskConfig {
+                initial_portfolio_value_usd: Some(10000.0),
+                max_daily_drawdown: 0.1,
+                max_trade_size_percentage: 0.05,
+                profit_sanity_check_percentage: 0.2,
+                token_whitelist: vec!["SOL".to_string(), "USDC".to_string()],
+            },
+            compute_unit_limit: Some(400_000),
+            transaction_confirmation_timeout_secs: Some(30),
+            transaction_poll_interval_ms: Some(500),
+            max_send_retries: Some(3),
+            paper_trade_mock_gas_cost: Some(5000),
+            paper_trade_mock_execution_time_ms: Some(100),
+            fee_cache_duration_secs: Some(2),
+            max_queue_size: Some(1000),
+            max_slippage_bps: Some(100),
+        }
+    }
+}
+
 impl Config {
     pub fn load() -> Result<Self, Box<dyn std::error::Error>> {
         let config_str = fs::read_to_string("config.json")?;

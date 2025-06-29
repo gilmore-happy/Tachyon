@@ -422,6 +422,7 @@ mod tests {
             a_to_b: true,
             min_amount_out: 900000,
             sqrt_price_limit: u128::MAX,
+            wallet_pubkey: Pubkey::new_unique(),
         };
         assert!(valid_params.validate().is_ok());
         
@@ -454,6 +455,7 @@ mod tests {
             a_to_b: true,
             min_amount_out: 900000,
             sqrt_price_limit: u128::MAX,
+            wallet_pubkey: Pubkey::new_unique(),
         };
 
         // Note: This test will fail without proper RPC setup and real pool data

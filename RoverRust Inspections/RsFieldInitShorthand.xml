@@ -1,0 +1,26 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca_whirpools.rs</file>
+  <line>133</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca_whirpools.rs" />
+  <problem_class id="RsFieldInitShorthand" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Non-shorthand field initialization</problem_class>
+  <description>Expression can be simplified</description>
+  <highlighted_element>dex: dex</highlighted_element>
+  <language>Rust</language>
+  <offset>12</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/raydium.rs</file>
+  <line>80</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/raydium.rs" />
+  <problem_class id="RsFieldInitShorthand" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Non-shorthand field initialization</problem_class>
+  <description>Expression can be simplified</description>
+  <highlighted_element>dex: dex</highlighted_element>
+  <language>Rust</language>
+  <offset>12</offset>
+  <length>8</length>
+</problem>
+</problems>

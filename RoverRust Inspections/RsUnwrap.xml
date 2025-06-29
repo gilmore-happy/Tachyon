@@ -1,0 +1,122 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca.rs</file>
+  <line>173</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca.rs" />
+  <problem_class id="RsUnwrap" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Unwrap can be replaced with `?`</problem_class>
+  <description>`unwrap()` can be replaced with `?`</description>
+  <highlighted_element>unwrap()</highlighted_element>
+  <language>Rust</language>
+  <offset>52</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca_whirpools.rs</file>
+  <line>233</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca_whirpools.rs" />
+  <problem_class id="RsUnwrap" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Unwrap can be replaced with `?`</problem_class>
+  <description>`unwrap()` can be replaced with `?`</description>
+  <highlighted_element>unwrap()</highlighted_element>
+  <language>Rust</language>
+  <offset>52</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/utils.rs</file>
+  <line>131</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/utils.rs" />
+  <problem_class id="RsUnwrap" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Unwrap can be replaced with `?`</problem_class>
+  <description>`unwrap()` can be replaced with `?`</description>
+  <highlighted_element>unwrap()</highlighted_element>
+  <language>Rust</language>
+  <offset>84</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/utils.rs</file>
+  <line>134</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/utils.rs" />
+  <problem_class id="RsUnwrap" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Unwrap can be replaced with `?`</problem_class>
+  <description>`unwrap()` can be replaced with `?`</description>
+  <highlighted_element>unwrap()</highlighted_element>
+  <language>Rust</language>
+  <offset>86</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/utils.rs</file>
+  <line>137</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/utils.rs" />
+  <problem_class id="RsUnwrap" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Unwrap can be replaced with `?`</problem_class>
+  <description>`unwrap()` can be replaced with `?`</description>
+  <highlighted_element>unwrap()</highlighted_element>
+  <language>Rust</language>
+  <offset>83</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/utils.rs</file>
+  <line>140</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/utils.rs" />
+  <problem_class id="RsUnwrap" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Unwrap can be replaced with `?`</problem_class>
+  <description>`unwrap()` can be replaced with `?`</description>
+  <highlighted_element>unwrap()</highlighted_element>
+  <language>Rust</language>
+  <offset>83</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/utils.rs</file>
+  <line>143</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/utils.rs" />
+  <problem_class id="RsUnwrap" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Unwrap can be replaced with `?`</problem_class>
+  <description>`unwrap()` can be replaced with `?`</description>
+  <highlighted_element>unwrap()</highlighted_element>
+  <language>Rust</language>
+  <offset>89</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/utils.rs</file>
+  <line>146</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/utils.rs" />
+  <problem_class id="RsUnwrap" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Unwrap can be replaced with `?`</problem_class>
+  <description>`unwrap()` can be replaced with `?`</description>
+  <highlighted_element>unwrap()</highlighted_element>
+  <language>Rust</language>
+  <offset>87</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/utils.rs</file>
+  <line>150</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/utils.rs" />
+  <problem_class id="RsUnwrap" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Unwrap can be replaced with `?`</problem_class>
+  <description>`unwrap()` can be replaced with `?`</description>
+  <highlighted_element>unwrap()</highlighted_element>
+  <language>Rust</language>
+  <offset>88</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/utils.rs</file>
+  <line>153</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/utils.rs" />
+  <problem_class id="RsUnwrap" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">Unwrap can be replaced with `?`</problem_class>
+  <description>`unwrap()` can be replaced with `?`</description>
+  <highlighted_element>unwrap()</highlighted_element>
+  <language>Rust</language>
+  <offset>86</offset>
+  <length>8</length>
+</problem>
+</problems>

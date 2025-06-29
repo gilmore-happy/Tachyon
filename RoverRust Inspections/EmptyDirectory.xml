@@ -1,0 +1,11 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/src/telemetry</file>
+  <entry_point TYPE="dir" FQNAME="$PROJECT_DIR$/src/telemetry" />
+  <problem_class id="EmptyDirectory" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Empty directory</problem_class>
+  <hints />
+  <description>Empty directory &lt;code&gt;src/telemetry&lt;/code&gt;</description>
+  <highlighted_element />
+  <language />
+</problem>
+</problems>

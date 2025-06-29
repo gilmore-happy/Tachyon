@@ -1,0 +1,14 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/path_evaluator.rs</file>
+  <line>98</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/path_evaluator.rs" />
+  <problem_class id="RsTraitObligations" severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Type does not implement trait</problem_class>
+  <description>&lt;html&gt;Trait `FromStr` is not implemented for `DexLabel` [&lt;a href='https://doc.rust-lang.org/error-index.html#E0277'&gt;E0277&lt;/a&gt;]&lt;br&gt;&lt;/html&gt;</description>
+  <highlighted_element>parse</highlighted_element>
+  <language>Rust</language>
+  <offset>38</offset>
+  <length>5</length>
+</problem>
+</problems>

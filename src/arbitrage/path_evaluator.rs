@@ -83,4 +83,46 @@ impl SmartPathEvaluator {
             metadata,
         }))
     }
+    
+    /// Evaluate arbitrage potential based on historical success rates and market conditions
+    pub fn evaluate_arbitrage_potential(&self, pair_key: &str, price: f64, source: &str) -> f64 {
+        // Base score starts at 0.5 (neutral)
+        let mut score = 0.5;
+        
+        // Adjust score based on historical token pair success rate
+        if let Some(&success_rate) = self.token_pair_success_rates.get(pair_key) {
+            score += (success_rate - 0.5) * 0.3; // +/- 0.15 based on historical performance
+        }
+        
+        // Adjust score based on DEX source reliability
+        if let Ok(dex_label) = source.parse::<crate::markets::types::DexLabel>() {
+            if let Some(&dex_success_rate) = self.dex_success_rates.get(&dex_label) {
+                score += (dex_success_rate - 0.5) * 0.2; // +/- 0.10 based on DEX performance
+            }
+        }
+        
+        // Adjust score based on price volatility (higher volatility = better arbitrage potential)
+        let price_volatility_bonus = if price > 0.0 {
+            // Calculate volatility based on price deviation from typical ranges
+            let volatility = match pair_key {
+                s if s.contains("SOL") => {
+                    let sol_base = 200.0;
+                    ((price - sol_base).abs() / sol_base).min(0.1) // Cap at 10% deviation
+                },
+                s if s.contains("USDC") => {
+                    let usdc_base = 1.0;
+                    ((price - usdc_base).abs() / usdc_base).min(0.05) // Cap at 5% deviation
+                },
+                _ => 0.01 // Default small bonus for other pairs
+            };
+            volatility * 2.0 // Convert to bonus (max +0.2 for SOL, +0.1 for USDC)
+        } else {
+            0.0
+        };
+        
+        score += price_volatility_bonus;
+        
+        // Ensure score stays within [0.0, 1.0] bounds
+        score.max(0.0).min(1.0)
+    }
 }

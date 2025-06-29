@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SPLITTER_PROPORTION" value="0.6025237" />
+    <option name="ANALYZE_INJECTED_CODE" value="false" />
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
+  <component name="CargoProjects">
+    <cargoProject FILE="$PROJECT_DIR$/Cargo.toml">
+      <package file="$PROJECT_DIR$/programs/lb_clmm">
+        <enabledFeature name="default" />
+      </package>
+      <package file="$PROJECT_DIR$">
+        <enabledFeature name="default" />
+      </package>
+      <package file="$PROJECT_DIR$/programs/raydium_amm">
+        <enabledFeature name="default" />
+      </package>
+    </cargoProject>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d16ff8ef-f687-4ba7-946e-788d19905eb0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/CLAUDE.md" beforeDir="false" afterPath="$PROJECT_DIR$/CLAUDE.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PROJECT_STATUS.md" beforeDir="false" afterPath="$PROJECT_DIR$/PROJECT_STATUS.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benches/abstraction_overhead_benchmarks.rs" beforeDir="false" afterPath="$PROJECT_DIR$/benches/abstraction_overhead_benchmarks.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benches/arbitrage_benchmarks.rs" beforeDir="false" afterPath="$PROJECT_DIR$/benches/arbitrage_benchmarks.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benches/execution_benchmarks.rs" beforeDir="false" afterPath="$PROJECT_DIR$/benches/execution_benchmarks.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benches/market_data_benchmarks.rs" beforeDir="false" afterPath="$PROJECT_DIR$/benches/market_data_benchmarks.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benches/rpc_performance_benchmarks.rs" beforeDir="false" afterPath="$PROJECT_DIR$/benches/rpc_performance_benchmarks.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/test_real_data.rs" beforeDir="false" afterPath="$PROJECT_DIR$/examples/test_real_data.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/test_rpc_failover.rs" beforeDir="false" afterPath="$PROJECT_DIR$/examples/test_rpc_failover.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/test_slot_aware_execution.rs" beforeDir="false" afterPath="$PROJECT_DIR$/examples/test_slot_aware_execution.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logging_config.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logic" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/arbitrage.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/arbitrage/calc_arb.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/arbitrage/calc_arb.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/arbitrage/config.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/arbitrage/config.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/arbitrage/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/arbitrage/mod.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/arbitrage/path_evaluator.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/arbitrage/path_evaluator.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/arbitrage/path_statistics.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/arbitrage/path_statistics.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/arbitrage/simulate.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/arbitrage/simulate.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/arbitrage/strategies.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/arbitrage/strategies.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/arbitrage/streams.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/arbitrage/streams.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/arbitrage/types.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/arbitrage/types.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/config.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/config.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/debug.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/debug.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/performance.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/performance.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/rpc_manager.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/rpc_manager.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/utils.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/utils.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/market_stream.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/market_stream.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/execution/executor.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/execution/executor.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/execution/paper_trading.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/execution/paper_trading.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/execution/risk_engine.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/execution/risk_engine.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fees/priority_fees.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/fees/priority_fees.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/markets/errors.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/markets/errors.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/markets/lockless_cache.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/markets/meteora.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/markets/meteora.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/markets/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/markets/mod.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/markets/orca.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/markets/orca.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/markets/orca_whirpools.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/markets/orca_whirpools.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/markets/pools.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/markets/pools.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/markets/raydium.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/markets/raydium.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/markets/raydium_clmm.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/markets/raydium_clmm.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/markets/real_time_pools.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/markets/real_time_pools.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/markets/types.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/markets/types.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/markets/utils.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/markets/utils.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/telemetry.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/telemetry.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/transactions/create_transaction.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/transactions/create_transaction.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/transactions/meteoradlmm_swap.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/transactions/meteoradlmm_swap.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/transactions/orca_whirpools_swap.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/transactions/orca_whirpools_swap.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/transactions/raydium_swap.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/transactions/raydium_swap.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/transactions/utils.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/transactions/utils.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_apis_simple.sh" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="nHFIharE" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2z3j3ElwX0tkEldQiqliZz6dTsY" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.rust.reset.selective.auto.import": "true",
+    "com.intellij.codeInspection.ui.actions.InspectionResultsExportActionProvider.location": "\\\\wsl.localhost\\Ubuntu\\home\\galt\\Tachyon\\RoverRust Inspections",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "//wsl.localhost/Ubuntu/home/galt/Tachyon",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "org.rust.cargo.project.model.PROJECT_DISCOVERY": "true",
+    "org.rust.cargo.project.model.impl.CargoExternalSystemProjectAware.subscribe.first.balloon": "",
+    "org.rust.first.attach.projects": "true",
+    "run.code.analysis.last.selected.profile": "aDeep Scan",
+    "settings.editor.selected.configurable": "Errors",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RsExternalLinterProjectSettings">
+    <option name="tool" value="Clippy" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Unnamed" type="ShConfigurationType" nameIsGenerated="true">
+      <option name="SCRIPT_TEXT" value="  cargo clippy --all-targets --all-features -- -D warnings   cargo test --no-run   cargo check --all-targets" />
+      <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
+      <option name="SCRIPT_PATH" value="" />
+      <option name="SCRIPT_OPTIONS" value="" />
+      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
+      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
+      <option name="INTERPRETER_PATH" value="wsl.exe --distribution Ubuntu" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="EXECUTE_IN_TERMINAL" value="true" />
+      <option name="EXECUTE_SCRIPT_FILE" value="false" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="ShConfigurationType">
+      <option name="SCRIPT_TEXT" value="  cargo clippy --all-targets --all-features -- -D warnings   cargo test --no-run   cargo check --all-targets" />
+      <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
+      <option name="SCRIPT_PATH" value="" />
+      <option name="SCRIPT_OPTIONS" value="" />
+      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
+      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
+      <option name="INTERPRETER_PATH" value="wsl.exe --distribution Ubuntu" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="EXECUTE_IN_TERMINAL" value="true" />
+      <option name="EXECUTE_SCRIPT_FILE" value="false" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="RustProjectSettings">
+    <option name="toolchainHomeDirectory" value="$PROJECT_DIR$/../.cargo/bin" />
+  </component>
+  <component name="RustfmtProjectSettings">
+    <option name="additionalArguments" value="--all-targets --all-features -- -W clippy::all -W clippy::pedantic" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d16ff8ef-f687-4ba7-946e-788d19905eb0" name="Changes" comment="" />
+      <created>1750966450483</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1750966450483</updated>
+      <workItem from="1750966452066" duration="640000" />
+      <workItem from="1751019486130" duration="2374000" />
+      <workItem from="1751052924009" duration="253000" />
+      <workItem from="1751053242105" duration="2357000" />
+      <workItem from="1751107499444" duration="557000" />
+      <workItem from="1751108076782" duration="513000" />
+      <workItem from="1751108597132" duration="993000" />
+      <workItem from="1751135865195" duration="3122000" />
+      <workItem from="1751143044651" duration="671000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

@@ -1,0 +1,182 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/simulate.rs</file>
+  <line>295</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/simulate.rs" />
+  <problem_class id="RsUnnecessaryReturn" severity="ERROR" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unnecessary return</problem_class>
+  <description>Unnecessary `return` statement</description>
+  <highlighted_element>return</highlighted_element>
+  <language>Rust</language>
+  <offset>4</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/simulate.rs</file>
+  <line>468</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/simulate.rs" />
+  <problem_class id="RsUnnecessaryReturn" severity="ERROR" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unnecessary return</problem_class>
+  <description>Unnecessary `return` statement</description>
+  <highlighted_element>return</highlighted_element>
+  <language>Rust</language>
+  <offset>4</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/meteora.rs</file>
+  <line>271</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/meteora.rs" />
+  <problem_class id="RsUnnecessaryReturn" severity="ERROR" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unnecessary return</problem_class>
+  <description>Unnecessary `return` statement</description>
+  <highlighted_element>return</highlighted_element>
+  <language>Rust</language>
+  <offset>8</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca_whirpools.rs</file>
+  <line>188</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca_whirpools.rs" />
+  <problem_class id="RsUnnecessaryReturn" severity="ERROR" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unnecessary return</problem_class>
+  <description>Unnecessary `return` statement</description>
+  <highlighted_element>return</highlighted_element>
+  <language>Rust</language>
+  <offset>4</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/raydium.rs</file>
+  <line>191</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/raydium.rs" />
+  <problem_class id="RsUnnecessaryReturn" severity="ERROR" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unnecessary return</problem_class>
+  <description>Unnecessary `return` statement</description>
+  <highlighted_element>return</highlighted_element>
+  <language>Rust</language>
+  <offset>4</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/strategies/pools.rs</file>
+  <line>83</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/strategies/pools.rs" />
+  <problem_class id="RsUnnecessaryReturn" severity="ERROR" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unnecessary return</problem_class>
+  <description>Unnecessary `return` statement</description>
+  <highlighted_element>return</highlighted_element>
+  <language>Rust</language>
+  <offset>4</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>847</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="RsUnnecessaryReturn" severity="ERROR" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unnecessary return</problem_class>
+  <description>Unnecessary `return` statement</description>
+  <highlighted_element>return</highlighted_element>
+  <language>Rust</language>
+  <offset>4</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>943</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="RsUnnecessaryReturn" severity="ERROR" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unnecessary return</problem_class>
+  <description>Unnecessary `return` statement</description>
+  <highlighted_element>return</highlighted_element>
+  <language>Rust</language>
+  <offset>8</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>949</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="RsUnnecessaryReturn" severity="ERROR" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unnecessary return</problem_class>
+  <description>Unnecessary `return` statement</description>
+  <highlighted_element>return</highlighted_element>
+  <language>Rust</language>
+  <offset>8</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/meteoradlmm_swap.rs</file>
+  <line>142</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/meteoradlmm_swap.rs" />
+  <problem_class id="RsUnnecessaryReturn" severity="ERROR" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unnecessary return</problem_class>
+  <description>Unnecessary `return` statement</description>
+  <highlighted_element>return</highlighted_element>
+  <language>Rust</language>
+  <offset>4</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/meteoradlmm_swap.rs</file>
+  <line>161</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/meteoradlmm_swap.rs" />
+  <problem_class id="RsUnnecessaryReturn" severity="ERROR" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unnecessary return</problem_class>
+  <description>Unnecessary `return` statement</description>
+  <highlighted_element>return</highlighted_element>
+  <language>Rust</language>
+  <offset>4</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/meteoradlmm_swap.rs</file>
+  <line>173</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/meteoradlmm_swap.rs" />
+  <problem_class id="RsUnnecessaryReturn" severity="ERROR" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unnecessary return</problem_class>
+  <description>Unnecessary `return` statement</description>
+  <highlighted_element>return</highlighted_element>
+  <language>Rust</language>
+  <offset>4</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/orca_whirpools_swap.rs</file>
+  <line>181</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/orca_whirpools_swap.rs" />
+  <problem_class id="RsUnnecessaryReturn" severity="ERROR" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unnecessary return</problem_class>
+  <description>Unnecessary `return` statement</description>
+  <highlighted_element>return</highlighted_element>
+  <language>Rust</language>
+  <offset>4</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/orca_whirpools_swap.rs</file>
+  <line>311</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/orca_whirpools_swap.rs" />
+  <problem_class id="RsUnnecessaryReturn" severity="ERROR" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unnecessary return</problem_class>
+  <description>Unnecessary `return` statement</description>
+  <highlighted_element>return</highlighted_element>
+  <language>Rust</language>
+  <offset>4</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/raydium_swap.rs</file>
+  <line>123</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/raydium_swap.rs" />
+  <problem_class id="RsUnnecessaryReturn" severity="ERROR" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unnecessary return</problem_class>
+  <description>Unnecessary `return` statement</description>
+  <highlighted_element>return</highlighted_element>
+  <language>Rust</language>
+  <offset>4</offset>
+  <length>6</length>
+</problem>
+</problems>

@@ -10,7 +10,6 @@ use crate::markets::{
     orca_whirpools::simulate_route_orca_whirpools,
     raydium::simulate_route_raydium,
     types::{DexLabel, Market},
-    errors::MarketSimulationError, // Added
 };
 
 pub async fn simulate_path(

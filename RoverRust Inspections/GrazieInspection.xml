@@ -1,0 +1,170 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs</file>
+  <line>409</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs" />
+  <problem_class id="GrazieInspection" severity="GRAMMAR_ERROR" attribute_key="GRAMMAR_ERROR">Grammar</problem_class>
+  <description>This phrase is duplicated. You should probably use the API only once.</description>
+  <highlighted_element>the API</highlighted_element>
+  <language>Rust</language>
+  <offset>72</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs</file>
+  <line>410</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs" />
+  <problem_class id="GrazieInspection" severity="GRAMMAR_ERROR" attribute_key="GRAMMAR_ERROR">Grammar</problem_class>
+  <description>This phrase is duplicated. You should probably use the API only once.</description>
+  <highlighted_element>The API</highlighted_element>
+  <language>Rust</language>
+  <offset>11</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/simulate.rs</file>
+  <line>409</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/simulate.rs" />
+  <problem_class id="GrazieInspection" severity="GRAMMAR_ERROR" attribute_key="GRAMMAR_ERROR">Grammar</problem_class>
+  <description>Unpaired symbol: '&quot;' seems to be missing</description>
+  <highlighted_element>&quot;</highlighted_element>
+  <language>Rust</language>
+  <offset>28</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/simulate.rs</file>
+  <line>409</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/simulate.rs" />
+  <problem_class id="GrazieInspection" severity="GRAMMAR_ERROR" attribute_key="GRAMMAR_ERROR">Grammar</problem_class>
+  <description>Possible typo: you repeated a word</description>
+  <highlighted_element>⚠️⚠️</highlighted_element>
+  <language>Rust</language>
+  <offset>30</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/simulate.rs</file>
+  <line>453</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/simulate.rs" />
+  <problem_class id="GrazieInspection" severity="GRAMMAR_ERROR" attribute_key="GRAMMAR_ERROR">Grammar</problem_class>
+  <description>Possible spelling mistake found.</description>
+  <highlighted_element>Id</highlighted_element>
+  <language>Rust</language>
+  <offset>29</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/common/rpc_manager.rs</file>
+  <line>111</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/common/rpc_manager.rs" />
+  <problem_class id="GrazieInspection" severity="GRAMMAR_ERROR" attribute_key="GRAMMAR_ERROR">Grammar</problem_class>
+  <description>Did you mean to back up?</description>
+  <highlighted_element>to backup</highlighted_element>
+  <language>Rust</language>
+  <offset>20</offset>
+  <length>9</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/meteora.rs</file>
+  <line>186</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/meteora.rs" />
+  <problem_class id="GrazieInspection" severity="GRAMMAR_ERROR" attribute_key="GRAMMAR_ERROR">Grammar</problem_class>
+  <description>The personal pronoun I should be uppercase.</description>
+  <highlighted_element>i</highlighted_element>
+  <language>Rust</language>
+  <offset>40</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca_whirpools.rs</file>
+  <line>253</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca_whirpools.rs" />
+  <problem_class id="GrazieInspection" severity="GRAMMAR_ERROR" attribute_key="GRAMMAR_ERROR">Grammar</problem_class>
+  <description>The personal pronoun I should be uppercase.</description>
+  <highlighted_element>i</highlighted_element>
+  <language>Rust</language>
+  <offset>44</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/raydium.rs</file>
+  <line>230</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/raydium.rs" />
+  <problem_class id="GrazieInspection" severity="GRAMMAR_ERROR" attribute_key="GRAMMAR_ERROR">Grammar</problem_class>
+  <description>The personal pronoun I should be uppercase.</description>
+  <highlighted_element>i</highlighted_element>
+  <language>Rust</language>
+  <offset>40</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/raydium_clmm.rs</file>
+  <line>132</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/raydium_clmm.rs" />
+  <problem_class id="GrazieInspection" severity="GRAMMAR_ERROR" attribute_key="GRAMMAR_ERROR">Grammar</problem_class>
+  <description>The personal pronoun I should be uppercase.</description>
+  <highlighted_element>i</highlighted_element>
+  <language>Rust</language>
+  <offset>47</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>996</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="GrazieInspection" severity="GRAMMAR_ERROR" attribute_key="GRAMMAR_ERROR">Grammar</problem_class>
+  <description>Did you mean is?</description>
+  <highlighted_element>if</highlighted_element>
+  <language>Rust</language>
+  <offset>63</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/orca_whirpools_swap.rs</file>
+  <line>208</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/orca_whirpools_swap.rs" />
+  <problem_class id="GrazieInspection" severity="GRAMMAR_ERROR" attribute_key="GRAMMAR_ERROR">Grammar</problem_class>
+  <description>Unpaired symbol: '&quot;' seems to be missing</description>
+  <highlighted_element>&quot;</highlighted_element>
+  <language>Rust</language>
+  <offset>39</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/orca_whirpools_swap.rs</file>
+  <line>263</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/orca_whirpools_swap.rs" />
+  <problem_class id="GrazieInspection" severity="GRAMMAR_ERROR" attribute_key="GRAMMAR_ERROR">Grammar</problem_class>
+  <description>Two consecutive dots</description>
+  <highlighted_element>..</highlighted_element>
+  <language>Rust</language>
+  <offset>17</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/orca_whirpools_swap.rs</file>
+  <line>277</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/orca_whirpools_swap.rs" />
+  <problem_class id="GrazieInspection" severity="GRAMMAR_ERROR" attribute_key="GRAMMAR_ERROR">Grammar</problem_class>
+  <description>Unpaired symbol: '{' seems to be missing</description>
+  <highlighted_element>}</highlighted_element>
+  <language>Rust</language>
+  <offset>3</offset>
+  <length>1</length>
+</problem>
+</problems>

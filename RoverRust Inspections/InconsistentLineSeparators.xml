@@ -1,0 +1,590 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>//! src/arbitrage/calc_arb.rs //! SAFE arbitrage calculation engine - focuses on simple cross-DEX ar...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>24745</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/config.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/config.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>//! src/arbitrage/config.rs //! Arbitrage-specific configuration - extracted from calc_arb.rs use s...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>6814</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/mod.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/mod.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>pub mod calc_arb; pub mod config; pub mod path_evaluator; pub mod path_statistics; pub mod simulate;...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>506</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/path_evaluator.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/path_evaluator.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>//! src/arbitrage/path_evaluator.rs use crate::arbitrage::types::{ArbOpportunity, SwapPathSelected}...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>5525</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/path_statistics.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/path_statistics.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>//! src/arbitrage/path_statistics.rs // // This module provides a high-throughput, self-tuning feedb...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>7977</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/simulate.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/simulate.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>use std::collections::HashMap; use log::error; use log::info; use rust_socketio::asynchronous::Clie...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>21182</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>//! src/arbitrage/strategies.rs - Updated for bounded channel &amp; TokenInfos price_usd use crate::arb...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>25389</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/streams.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/streams.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>//! src/arbitrage/streams.rs //! Real-time arbitrage opportunity streams with enhanced error handlin...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>9840</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/common/constants.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/common/constants.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>pub static PROJECT_NAME: &amp;str = &quot;MEV_Bot_Solana&quot;; pub fn get_env(key: &amp;str) -&gt; String { std::en...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>1905</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/common/debug.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/common/debug.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>use tokio::fs::File; // Changed use tokio::io::{AsyncReadExt, AsyncSeekExt, BufReader, SeekFrom}; //...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>702</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/common/maths.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/common/maths.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>use rust_decimal::prelude::*; use rust_decimal::Decimal; use rust_decimal::MathematicalOps; use rust...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>1096</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/common/mod.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/common/mod.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>pub mod config; pub mod constants; pub mod debug; pub mod maths; pub mod performance; pub mod rpc_ma...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>122</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/common/rpc_manager.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/common/rpc_manager.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>//! High-Performance RPC Manager for Arbitrage - Speed over Complexity //! //! For arbitrage bots, ...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>15232</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/common/types.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/common/types.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>use serde::{Deserialize, Serialize}; use crate::arbitrage::types::TokenInArb; #[derive(Debug, Clon...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>322</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/common/utils.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/common/utils.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>use anyhow::Result; use borsh::BorshDeserialize; use core::mem; use fern::colors::{Color, ColoredLev...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>5501</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/data/graphs.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/data/graphs.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>// use piston_window::{EventLoop, PistonWindow, WindowSettings}; // use plotters::prelude::*; // use...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>2880</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/data/market_stream.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/data/market_stream.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>//! src/data/market_stream.rs use crate::common::config::{Config, DataMode}; use anyhow::Result; us...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>18292</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/data/mod.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/data/mod.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>pub mod graphs; pub mod market_stream;</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>39</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>//! src/execution/executor.rs - FIXED VERSION //! This implements actual transaction execution logic...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>35827</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/mod.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/mod.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>pub mod executor; pub mod paper_trading; pub mod risk_engine;</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>62</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/paper_trading.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/paper_trading.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>use anyhow::Result; use chrono::{DateTime, Utc}; use log::{info, warn}; // Removed unused import: ra...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>12870</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/fees/fee_cache.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/fees/fee_cache.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>use anyhow::Result; use log::{error, info, warn}; use solana_client::nonblocking::rpc_client::RpcCli...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>5073</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/fees/fee_strategies.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/fees/fee_strategies.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>use crate::fees::fee_cache::CachedFeeData; use log::debug; #[derive(Debug, Clone, Copy, PartialEq)]...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>7322</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/fees/mod.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/fees/mod.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>pub mod fee_cache; pub mod fee_strategies; pub mod priority_fees; pub use fee_cache::FeeCache; pub ...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>229</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/fees/priority_fees.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/fees/priority_fees.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>use crate::common::constants::Env; use crate::fees::{ fee_cache::FeeCache, fee_strategies::{...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>5832</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/lib.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/lib.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>pub mod arbitrage; pub mod common; pub mod data; pub mod execution; pub mod fees; pub mod markets; p...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>4692</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/main.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/main.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>//! src/main.rs use anyhow::Result; use moka::future::Cache; use solana_sdk::signature::{Keypair, ...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>10427</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/errors.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/errors.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>// src/markets/errors.rs use thiserror::Error; #[derive(Error, Debug)] pub enum MarketSimulationErr...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>1990</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/lockless_cache.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/lockless_cache.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>//! src/markets/lockless_cache.rs // // This module provides a high-performance, thread-safe cache f...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>4481</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/meteora.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/meteora.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>use crate::arbitrage::types::{Route, TokenInfos}; use crate::common::constants::Env; use crate::comm...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>18524</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/mod.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/mod.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>pub mod errors; pub mod lockless_cache; pub mod meteora; pub mod orca; pub mod orca_whirpools; pub m...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>204</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>use crate::common::constants::Env; use crate::common::utils::{from_pubkey, from_str}; use crate::mar...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>12813</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca_whirpools.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca_whirpools.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>use crate::arbitrage::types::{Route, TokenInfos}; use crate::common::constants::Env; use crate::comm...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>21865</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/raydium.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/raydium.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>use crate::arbitrage::types::{Route, TokenInfos}; use crate::common::constants::Env; use crate::comm...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>20741</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/raydium_clmm.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/raydium_clmm.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>use crate::markets::types::{Dex, DexLabel, Market, PoolItem}; use crate::markets::utils::to_pair_str...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>9850</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/real_time_pools.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/real_time_pools.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>//! src/markets/real_time_pools.rs //! Real-time pool data via logsSubscribe - MUCH better than cach...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>15224</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/types.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/types.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>use crate::markets::utils::to_pair_string; use serde::{Deserialize, Serialize}; use std::collections...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>3313</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/utils.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/utils.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>pub fn to_pair_string(mint_a: String, mint_b: String) -&gt; String { if mint_a &lt; mint_b { f...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>194</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/strategies/mod.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/strategies/mod.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>pub mod pools;</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>15</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/strategies/pools.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/strategies/pools.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>use crate::{ arbitrage::types::TokenInArb, common::constants::Env, markets::{ me...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>3437</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>use anchor_spl::token::spl_token; use anyhow::Result; // Removed unused import: itertools::Itertools...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>45545</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/markets/idl/lb_clmm.json</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/markets/idl/lb_clmm.json" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>{ &quot;version&quot;: &quot;0.6.0&quot;, &quot;name&quot;: &quot;lb_clmm&quot;, &quot;constants&quot;: [ { &quot;name&quot;: &quot;BASIS_P...</highlighted_element>
+  <language>JSON</language>
+  <offset>0</offset>
+  <length>111126</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/markets/idl/raydium_amm.json</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/markets/idl/raydium_amm.json" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>{ &quot;version&quot;: &quot;0.3.0&quot;, &quot;name&quot;: &quot;raydium_amm&quot;, &quot;instructions&quot;: [ { &quot;name&quot;: &quot;...</highlighted_element>
+  <language>JSON</language>
+  <offset>0</offset>
+  <length>52733</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/meteoradlmm_swap.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/meteoradlmm_swap.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>// //Taken here: https://github.com/MeteoraAg/dlmm-sdk/blob/main/cli/src/instructions/swap.rs use a...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>6658</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/mod.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/mod.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>pub mod create_transaction; pub mod meteoradlmm_swap; pub mod orca_whirpools_swap; pub mod raydium_c...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>147</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/orca_whirpools_swap.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/orca_whirpools_swap.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>// //Taken here: https://github.com/MeteoraAg/dlmm-sdk/blob/main/cli/src/instructions/swap.rs use a...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>11394</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>//! Raydium CLMM Swap Implementation //! Based on official Raydium CLMM SDK patterns and program sou...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>18027</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/raydium_swap.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/raydium_swap.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>//Taken here: https://github.com/MeteoraAg/dlmm-sdk/blob/main/cli/src/instructions/swap.rs use anch...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>4410</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/utils.rs</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/utils.rs" />
+  <problem_class id="InconsistentLineSeparators" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inconsistent line separators</problem_class>
+  <description>Line separators in the current file (\n) differ from the project defaults (\r\n)</description>
+  <highlighted_element>use anyhow::{format_err, Result}; use log::{error, info}; use safe_transmute::{ to_bytes::{trans...</highlighted_element>
+  <language>Rust</language>
+  <offset>0</offset>
+  <length>6586</length>
+</problem>
+</problems>

@@ -1,0 +1,218 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/path_statistics.rs</file>
+  <line>102</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/path_statistics.rs" />
+  <problem_class id="RsUnnecessaryQualifications" severity="ERROR" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unnecessary path prefix</problem_class>
+  <description>Path prefix not necessary</description>
+  <highlighted_element>std::</highlighted_element>
+  <language>Rust</language>
+  <offset>67</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/path_statistics.rs</file>
+  <line>112</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/path_statistics.rs" />
+  <problem_class id="RsUnnecessaryQualifications" severity="ERROR" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unnecessary path prefix</problem_class>
+  <description>Path prefix not necessary</description>
+  <highlighted_element>std::</highlighted_element>
+  <language>Rust</language>
+  <offset>64</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/path_statistics.rs</file>
+  <line>217</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/path_statistics.rs" />
+  <problem_class id="RsUnnecessaryQualifications" severity="ERROR" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unnecessary path prefix</problem_class>
+  <description>Path prefix not necessary</description>
+  <highlighted_element>std::</highlighted_element>
+  <language>Rust</language>
+  <offset>53</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/types.rs</file>
+  <line>152</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/types.rs" />
+  <problem_class id="RsUnnecessaryQualifications" severity="ERROR" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unnecessary path prefix</problem_class>
+  <description>Path prefix not necessary</description>
+  <highlighted_element>crate::markets::types::</highlighted_element>
+  <language>Rust</language>
+  <offset>19</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/common/utils.rs</file>
+  <line>46</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/common/utils.rs" />
+  <problem_class id="RsUnnecessaryQualifications" severity="ERROR" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unnecessary path prefix</problem_class>
+  <description>Path prefix not necessary</description>
+  <highlighted_element>log::</highlighted_element>
+  <language>Rust</language>
+  <offset>15</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/common/utils.rs</file>
+  <line>62</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/common/utils.rs" />
+  <problem_class id="RsUnnecessaryQualifications" severity="ERROR" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unnecessary path prefix</problem_class>
+  <description>Path prefix not necessary</description>
+  <highlighted_element>log::</highlighted_element>
+  <language>Rust</language>
+  <offset>15</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/common/utils.rs</file>
+  <line>77</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/common/utils.rs" />
+  <problem_class id="RsUnnecessaryQualifications" severity="ERROR" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unnecessary path prefix</problem_class>
+  <description>Path prefix not necessary</description>
+  <highlighted_element>log::</highlighted_element>
+  <language>Rust</language>
+  <offset>15</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/common/utils.rs</file>
+  <line>123</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/common/utils.rs" />
+  <problem_class id="RsUnnecessaryQualifications" severity="ERROR" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unnecessary path prefix</problem_class>
+  <description>Path prefix not necessary</description>
+  <highlighted_element>mem::</highlighted_element>
+  <language>Rust</language>
+  <offset>27</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/data/market_stream.rs</file>
+  <line>290</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/data/market_stream.rs" />
+  <problem_class id="RsUnnecessaryQualifications" severity="ERROR" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unnecessary path prefix</problem_class>
+  <description>Path prefix not necessary</description>
+  <highlighted_element>std::time::</highlighted_element>
+  <language>Rust</language>
+  <offset>27</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/main.rs</file>
+  <line>107</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/main.rs" />
+  <problem_class id="RsUnnecessaryQualifications" severity="ERROR" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unnecessary path prefix</problem_class>
+  <description>Path prefix not necessary</description>
+  <highlighted_element>crate::</highlighted_element>
+  <language>Rust</language>
+  <offset>17</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/meteora.rs</file>
+  <line>88</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/meteora.rs" />
+  <problem_class id="RsUnnecessaryQualifications" severity="ERROR" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unnecessary path prefix</problem_class>
+  <description>Path prefix not necessary</description>
+  <highlighted_element>std::</highlighted_element>
+  <language>Rust</language>
+  <offset>56</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca_whirpools.rs</file>
+  <line>140</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca_whirpools.rs" />
+  <problem_class id="RsUnnecessaryQualifications" severity="ERROR" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unnecessary path prefix</problem_class>
+  <description>Path prefix not necessary</description>
+  <highlighted_element>solana_client::nonblocking::rpc_client::</highlighted_element>
+  <language>Rust</language>
+  <offset>17</offset>
+  <length>40</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca_whirpools.rs</file>
+  <line>191</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca_whirpools.rs" />
+  <problem_class id="RsUnnecessaryQualifications" severity="ERROR" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unnecessary path prefix</problem_class>
+  <description>Path prefix not necessary</description>
+  <highlighted_element>std::</highlighted_element>
+  <language>Rust</language>
+  <offset>63</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/raydium.rs</file>
+  <line>102</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/raydium.rs" />
+  <problem_class id="RsUnnecessaryQualifications" severity="ERROR" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unnecessary path prefix</problem_class>
+  <description>Path prefix not necessary</description>
+  <highlighted_element>std::</highlighted_element>
+  <language>Rust</language>
+  <offset>56</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/raydium_clmm.rs</file>
+  <line>75</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/raydium_clmm.rs" />
+  <problem_class id="RsUnnecessaryQualifications" severity="ERROR" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unnecessary path prefix</problem_class>
+  <description>Path prefix not necessary</description>
+  <highlighted_element>std::</highlighted_element>
+  <language>Rust</language>
+  <offset>61</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>825</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="RsUnnecessaryQualifications" severity="ERROR" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unnecessary path prefix</problem_class>
+  <description>Path prefix not necessary</description>
+  <highlighted_element>crate::transactions::orca_whirpools_swap::</highlighted_element>
+  <language>Rust</language>
+  <offset>34</offset>
+  <length>42</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>834</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="RsUnnecessaryQualifications" severity="ERROR" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unnecessary path prefix</problem_class>
+  <description>Path prefix not necessary</description>
+  <highlighted_element>crate::transactions::orca_whirpools_swap::</highlighted_element>
+  <language>Rust</language>
+  <offset>35</offset>
+  <length>42</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/utils.rs</file>
+  <line>100</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/utils.rs" />
+  <problem_class id="RsUnnecessaryQualifications" severity="ERROR" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unnecessary path prefix</problem_class>
+  <description>Path prefix not necessary</description>
+  <highlighted_element>solana_client::nonblocking::rpc_client::</highlighted_element>
+  <language>Rust</language>
+  <offset>16</offset>
+  <length>40</length>
+</problem>
+</problems>

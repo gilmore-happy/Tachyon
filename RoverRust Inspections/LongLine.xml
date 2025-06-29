@@ -1,0 +1,3722 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs</file>
+  <line>64</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>{</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs</file>
+  <line>77</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>wait {</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs</file>
+  <line>113</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>it? {</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs</file>
+  <line>170</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>await? {</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs</file>
+  <line>173</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>;</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs</file>
+  <line>177</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>await? {</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs</file>
+  <line>180</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>;</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs</file>
+  <line>260</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>0_000_000.0) as u64;</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs</file>
+  <line>269</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>as i64,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs</file>
+  <line>336</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>));</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/config.rs</file>
+  <line>82</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/config.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>_ratio * ALPHA;</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>15</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/mod.rs</file>
+  <line>11</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/mod.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ity};</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/path_evaluator.rs</file>
+  <line>23</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/path_evaluator.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>{</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/path_evaluator.rs</file>
+  <line>33</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/path_evaluator.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>te: f64) {</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>10</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/path_evaluator.rs</file>
+  <line>68</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/path_evaluator.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>zero if initial amount is tied to profit</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>41</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/path_evaluator.rs</file>
+  <line>69</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/path_evaluator.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>000.0) as u16</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>13</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/path_evaluator.rs</file>
+  <line>74</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/path_evaluator.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>PathEvaluator&quot;.to_string() },</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>29</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/path_statistics.rs</file>
+  <line>102</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/path_statistics.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>{</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/path_statistics.rs</file>
+  <line>161</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/path_statistics.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>out } = outcome.result {</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>24</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/path_statistics.rs</file>
+  <line>163</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/path_statistics.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>unt_out as f64 * 100.0</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/path_statistics.rs</file>
+  <line>174</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/path_statistics.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ge_pct);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/path_statistics.rs</file>
+  <line>207</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/path_statistics.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ir_stats.get_success_rate());</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>29</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/simulate.rs</file>
+  <line>67</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/simulate.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>[i]]) {</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/simulate.rs</file>
+  <line>113</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/simulate.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ng</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/simulate.rs</file>
+  <line>141</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/simulate.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>, ERROR: {:?}&quot;,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>15</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/simulate.rs</file>
+  <line>174</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/simulate.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ng</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/simulate.rs</file>
+  <line>201</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/simulate.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>{:?}&quot;,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/simulate.rs</file>
+  <line>238</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/simulate.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ng</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/simulate.rs</file>
+  <line>265</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/simulate.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>{:?}&quot;,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/simulate.rs</file>
+  <line>348</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/simulate.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ng</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/simulate.rs</file>
+  <line>357</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/simulate.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ress: {:?}, ERROR: {:?}&quot;,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>25</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/simulate.rs</file>
+  <line>389</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/simulate.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ng</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/simulate.rs</file>
+  <line>398</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/simulate.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>?}, ERROR: {:?}&quot;,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/simulate.rs</file>
+  <line>433</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/simulate.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ng</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/simulate.rs</file>
+  <line>442</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/simulate.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>?}, ERROR: {:?}&quot;,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>4</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ute};</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>67</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>aluator).await {</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>75</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>d</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>78</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>t event processor&quot;);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>79</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>thod</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>82</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>&quot;);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>130</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ion_plan</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>166</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>portunity&quot;);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>167</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>od</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>217</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>_profit'</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>245</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>gy&quot;);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>264</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>thSelected&gt;&gt; {</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>294</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>)</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>304</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>.token);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>305</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>.token);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>364</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>::Ordering::Equal)</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>18</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>373</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>::cmp::Ordering::Equal));</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>25</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>386</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>xpected_profit_usd);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>393</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>pportunity&gt; {</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>13</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>409</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>n</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>410</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ols</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>436</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>;</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>452</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>m pool</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>453</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&quot; }.to_string(),</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>60</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>454</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>&quot;EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&quot; }.to_string(),</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>61</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>466</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>of price deviation as profit estimate</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>37</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>486</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>eviations</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>9</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/streams.rs</file>
+  <line>136</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/streams.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>hMap::new();</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/streams.rs</file>
+  <line>149</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/streams.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ols[j]).await? {</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/streams.rs</file>
+  <line>164</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/streams.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>unity&gt;&gt; {</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>9</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/streams.rs</file>
+  <line>193</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/streams.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>t_lamports as i64,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>18</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/types.rs</file>
+  <line>124</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/types.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ck if path is used as key</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>25</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/types.rs</file>
+  <line>131</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/types.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ck</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/types.rs</file>
+  <line>139</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/types.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>tly</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/common/performance.rs</file>
+  <line>118</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/common/performance.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>/ 1_000_000.0,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/common/performance.rs</file>
+  <line>120</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/common/performance.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>/ 1_000_000.0,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/common/performance.rs</file>
+  <line>122</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/common/performance.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>576.0,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/common/performance.rs</file>
+  <line>123</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/common/performance.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>0,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/common/performance.rs</file>
+  <line>125</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/common/performance.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>000.0,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/common/performance.rs</file>
+  <line>126</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/common/performance.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>1_000_000_000.0,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/common/rpc_manager.rs</file>
+  <line>245</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/common/rpc_manager.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>na timing</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>9</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/common/rpc_manager.rs</file>
+  <line>252</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/common/rpc_manager.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>64).sum();</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>10</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/data/market_stream.rs</file>
+  <line>76</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/data/market_stream.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ngstenite::MaybeTlsStream&lt;tokio::net::TcpStream&gt;&gt;&gt; {</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>52</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/data/market_stream.rs</file>
+  <line>109</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/data/market_stream.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>tream&gt;&gt;,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/data/market_stream.rs</file>
+  <line>194</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/data/market_stream.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>{</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/data/market_stream.rs</file>
+  <line>198</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/data/market_stream.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ener.&quot;);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/data/market_stream.rs</file>
+  <line>203</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/data/market_stream.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>&quot;);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/data/market_stream.rs</file>
+  <line>214</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/data/market_stream.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>lue),</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/data/market_stream.rs</file>
+  <line>219</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/data/market_stream.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>listener.&quot;);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/data/market_stream.rs</file>
+  <line>238</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/data/market_stream.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>rap_or(&quot;unknown&quot;));</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>19</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/data/market_stream.rs</file>
+  <line>307</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/data/market_stream.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ion&quot;);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/data/market_stream.rs</file>
+  <line>328</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/data/market_stream.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>));</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/data/market_stream.rs</file>
+  <line>360</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/data/market_stream.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>e));</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>4</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>eded for execution_plan</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>89</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>r, solana_quic_client::QuicConfig&gt;&gt;,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>36</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>114</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>));</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>172</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>e)),</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>260</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>r logging after move</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>267</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>profit value</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>13</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>272</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>n &gt;= max_queue_size &gt; 0)</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>24</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>273</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>_queue_size &gt;= 1</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>274</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>add.</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>281</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>r than worst (profit: {}). Replaced.&quot;,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>38</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>282</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ame as max_queue_size</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>21</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>288</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>}) as it's not better than the worst in queue (worst profit: {}).&quot;,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>67</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>307</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>));</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>330</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>elaxed);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>331</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>}&quot;,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>332</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>n_time_ms);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>336</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>;</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>357</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>367</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>;</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>371</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>{}&quot;, e))</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>9</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>390</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>pt + 1, sig);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>13</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>394</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>n attempt {}.&quot;, attempt + 1);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>29</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>399</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>&quot;.to_string()),</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>15</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>409</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>trying in 100ms...&quot;,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>413</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>).&quot;, max_retries);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>18</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>417</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>max_retries)),</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>429</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>trieve signature</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>433</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ing()),</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>441</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>r(30));</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>442</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>(500));</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>460</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ture status: {}&quot;, e))</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>21</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>495</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>s);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>514</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>th or 0</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>523</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>tion</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>524</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ximation</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>528</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>?;</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>554</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>for simulation: {}&quot;, e))</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>24</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>558</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>or.</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>569</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>action: {}&quot;, e))</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>596</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>&gt; {</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>603</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>t: {}&quot;, opportunity.path.id_paths, opportunity.expected_profit_lamports);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>73</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>609</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>Path_ids: {:?}&quot;,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>621</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>slippage_bps, opportunity.path.id_paths);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>41</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>634</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>teora's swap_for_y</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>18</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>648</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ydium's concept</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>15</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>680</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ndex + 1, e);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>13</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>681</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>: {}&quot;, e));</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>688</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ed</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>702</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>uration.as_millis());</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>21</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>706</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>params</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>708</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>leg.dex, index + 1);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>721</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>?}&quot;,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/executor.rs</file>
+  <line>734</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/executor.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ig.rs`):</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/paper_trading.rs</file>
+  <line>7</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/paper_trading.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>, removed BufReader</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>19</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/paper_trading.rs</file>
+  <line>79</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/paper_trading.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>sts check</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>9</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/risk_engine.rs</file>
+  <line>40</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/risk_engine.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>. Current daily loss: {:.2} USD.&quot;,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>34</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/risk_engine.rs</file>
+  <line>51</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/risk_engine.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>t::new();</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>9</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/risk_engine.rs</file>
+  <line>72</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/risk_engine.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>sol_price_usd;</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/risk_engine.rs</file>
+  <line>73</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/risk_engine.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>entage;</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/execution/risk_engine.rs</file>
+  <line>75</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/execution/risk_engine.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>&quot;, profit_usd);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>15</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/fees/fee_strategies.rs</file>
+  <line>110</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/fees/fee_strategies.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>L)&quot;,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/fees/fee_strategies.rs</file>
+  <line>244</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/fees/fee_strategies.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ofit</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/lib.rs</file>
+  <line>48</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/lib.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>l: String::from(&quot;AMC&quot;), decimals: 6},</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>37</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/main.rs</file>
+  <line>21</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/main.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>imports</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/main.rs</file>
+  <line>46</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/main.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>)?);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/main.rs</file>
+  <line>67</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/main.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ch_add</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/main.rs</file>
+  <line>82</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/main.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ion_secs in Config</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>18</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/main.rs</file>
+  <line>115</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/main.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ode);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/main.rs</file>
+  <line>179</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/main.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>e))?;</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/main.rs</file>
+  <line>182</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/main.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>));</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/main.rs</file>
+  <line>189</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/main.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>)?;</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/main.rs</file>
+  <line>193</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/main.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>))?;</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/main.rs</file>
+  <line>196</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/main.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>r_path, e));</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/main.rs</file>
+  <line>209</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/main.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/main.rs</file>
+  <line>228</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/main.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ue&quot;</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/main.rs</file>
+  <line>231</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/main.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>))?;</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/main.rs</file>
+  <line>236</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/main.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>secret at {}&quot;, secret_path))?;</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>30</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/meteora.rs</file>
+  <line>5</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/meteora.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ror</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/meteora.rs</file>
+  <line>22</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/meteora.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ed tokio::io::BufWriter</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/meteora.rs</file>
+  <line>97</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/meteora.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>to tokio::fs::File and await</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>29</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/meteora.rs</file>
+  <line>99</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/meteora.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>it</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/meteora.rs</file>
+  <line>196</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/meteora.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>lem // METEORA&quot;)).expect(&quot;Account data not fit bytes length&quot;);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>62</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/meteora.rs</file>
+  <line>259</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/meteora.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>{}. Falling back to estimated_amount_out.&quot;, route.id, route.pool_address);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>74</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/meteora.rs</file>
+  <line>272</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/meteora.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>{</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/meteora.rs</file>
+  <line>396</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/meteora.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>///////////////////////////////////////////////////////////</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>59</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/meteora.rs</file>
+  <line>397</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/meteora.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>///////////////////////////////////////////////////////////</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>59</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/meteora.rs</file>
+  <line>398</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/meteora.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>///////////////////////////////////////////////////////////</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>59</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca.rs</file>
+  <line>35</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>le&quot;); // Changed to await</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>25</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca.rs</file>
+  <line>53</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>to await</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca.rs</file>
+  <line>111</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>tokio::fs::File and await</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>26</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca.rs</file>
+  <line>142</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>pp</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca.rs</file>
+  <line>143</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>be long-lived.</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>15</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca.rs</file>
+  <line>145</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>okio::spawn_blocking</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca.rs</file>
+  <line>147</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>:</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca.rs</file>
+  <line>149</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>d onto a dedicated thread.</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>26</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca.rs</file>
+  <line>151</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ing.</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca.rs</file>
+  <line>153</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>be better.</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca.rs</file>
+  <line>154</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>e needed.</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>9</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca.rs</file>
+  <line>157</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>async channel.</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>15</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca.rs</file>
+  <line>159</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>LOCKING.</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca.rs</file>
+  <line>161</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>s a tokio mpsc,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>15</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca_whirpools.rs</file>
+  <line>77</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca_whirpools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>pvaB56dP2NQ&quot;).unwrap();</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca_whirpools.rs</file>
+  <line>94</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca_whirpools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>00 as f64;</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>10</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca_whirpools.rs</file>
+  <line>267</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca_whirpools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>mals={}&amp;tokenOutSymbol={}&amp;tickSpacing={}&amp;amountIn={}&quot;,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>54</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca_whirpools.rs</file>
+  <line>280</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca_whirpools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>mals={}&amp;tokenOutSymbol={}&amp;tickSpacing={}&amp;amountIn={}&quot;,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>54</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca_whirpools.rs</file>
+  <line>335</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca_whirpools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>Falling back to estimated_amount_out.&quot;, route.id, route.pool_address);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>71</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca_whirpools.rs</file>
+  <line>348</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca_whirpools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>{ // Ensure correct SimulationError type</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>41</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca_whirpools.rs</file>
+  <line>362</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca_whirpools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>:::::::::::::::::::::::::::::::</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>31</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca_whirpools.rs</file>
+  <line>363</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca_whirpools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>:::::::::::::::::::::::::::::::</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>31</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca_whirpools.rs</file>
+  <line>364</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca_whirpools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>:::::::::::::::::::::::::::::::</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>31</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca_whirpools.rs</file>
+  <line>433</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca_whirpools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>:::::::::::::::::::::::::::::::</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>31</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca_whirpools.rs</file>
+  <line>434</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca_whirpools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>:::::::::::::::::::::::::::::::</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>31</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca_whirpools.rs</file>
+  <line>435</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca_whirpools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>:::::::::::::::::::::::::::::::</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>31</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/pools.rs</file>
+  <line>112</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/pools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>{</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/pools.rs</file>
+  <line>115</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/pools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>desc&amp;pageSize=100&amp;page=1&quot;)</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>26</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/pools.rs</file>
+  <line>130</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/pools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>, Some(amount_a), Some(amount_b)) = (</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>37</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/pools.rs</file>
+  <line>146</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/pools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>b)) {</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/pools.rs</file>
+  <line>157</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/pools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>} | Reserves: A={:.2}, B={:.0}&quot;,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>33</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/pools.rs</file>
+  <line>158</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/pools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>&quot;???&quot;),</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/pools.rs</file>
+  <line>159</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/pools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>&quot;???&quot;),</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/pools.rs</file>
+  <line>213</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/pools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>{</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/pools.rs</file>
+  <line>236</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/pools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>pageBps=50&quot;,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/pools.rs</file>
+  <line>244</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/pools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>se::&lt;u64&gt;().ok()),</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>18</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/pools.rs</file>
+  <line>245</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/pools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>rse::&lt;u64&gt;().ok()),</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>19</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/pools.rs</file>
+  <line>250</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/pools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>e multiplier</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/pools.rs</file>
+  <line>258</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/pools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>e * 100.0).abs();</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/pools.rs</file>
+  <line>260</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/pools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>${:.0}, impact={:.2}%&quot;,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/pools.rs</file>
+  <line>267</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/pools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>en, response.status());</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/pools.rs</file>
+  <line>270</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/pools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/raydium.rs</file>
+  <line>139</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/raydium.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>Vec&lt;(Pubkey, Market)&gt; {</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/raydium.rs</file>
+  <line>248</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/raydium.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>imalsOut={}&amp;symbolTokenOut={}&quot;,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>31</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/raydium.rs</file>
+  <line>260</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/raydium.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>imalsOut={}&amp;symbolTokenOut={}&quot;,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>31</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/raydium.rs</file>
+  <line>310</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/raydium.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>{}. Falling back to estimated_amount_out.&quot;, route.id, route.pool_address);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>74</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/raydium.rs</file>
+  <line>323</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/raydium.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>{</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/raydium_clmm.rs</file>
+  <line>82</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/raydium_clmm.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>d to await</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>10</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/raydium_clmm.rs</file>
+  <line>131</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/raydium_clmm.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>os: HashMap&lt;String, TokenInfos&gt;) -&gt; String {</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>44</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/raydium_clmm.rs</file>
+  <line>146</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/raydium_clmm.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>4);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/raydium_clmm.rs</file>
+  <line>154</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/raydium_clmm.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>tIn={}&quot;,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/real_time_pools.rs</file>
+  <line>103</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/real_time_pools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>lt&lt;()&gt; {</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/real_time_pools.rs</file>
+  <line>188</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/real_time_pools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>{</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/real_time_pools.rs</file>
+  <line>203</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/real_time_pools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>e);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/real_time_pools.rs</file>
+  <line>213</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/real_time_pools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ackoff</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/real_time_pools.rs</file>
+  <line>268</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/real_time_pools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>TDt1v&quot;), // SOL/USDC</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/real_time_pools.rs</file>
+  <line>269</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/real_time_pools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>nwNYB&quot;), // SOL/USDT</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/real_time_pools.rs</file>
+  <line>270</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/real_time_pools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>enwNYB&quot;), // USDC/USDT</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/real_time_pools.rs</file>
+  <line>290</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/real_time_pools.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>aydium</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/types.rs</file>
+  <line>6</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/types.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>play</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>11</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>plex</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>107</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ent</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>115</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>CU limit</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>163</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ess_for_market indicated one should exist.&quot;, market_addr);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>58</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>229</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>await</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>258</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>await</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>287</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ding.&quot;);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>360</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ons yet</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>374</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>{</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>376</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>,</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>439</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ent</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>536</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ult</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>538</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>e env var or default</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>557</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ged to await</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>582</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>_lut).await // Changed to await</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>31</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>649</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>t {</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>734</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>d adjustment based on Raydium's API for which token is A/B</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>58</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>761</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>{</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>762</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>rap(),</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>769</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>tion</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>773</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ap_params).await {</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>18</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>778</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ructions.len());</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>822</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>tr()).unwrap();</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>15</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>825</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ols {</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>834</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>s_instructions(swap_params).await;</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>34</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>843</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>;</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>860</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ed clone</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>891</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>e error</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>929</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ot found&quot;); // Payer not needed for read</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>40</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>936</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>- 5</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>1060</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ity</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/markets/idl/lb_clmm.json</file>
+  <line>2524</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/markets/idl/lb_clmm.json" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 120 columns)</description>
+  <highlighted_element>pre-activation slot is calculated as `activation_slot - pre_activation_slot_duration`.&quot;</highlighted_element>
+  <language>JSON</language>
+  <offset>120</offset>
+  <length>87</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/markets/idl/lb_clmm.json</file>
+  <line>2545</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/markets/idl/lb_clmm.json" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 120 columns)</description>
+  <highlighted_element>dress&quot;</highlighted_element>
+  <language>JSON</language>
+  <offset>120</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/markets/idl/lb_clmm.json</file>
+  <line>2552</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/markets/idl/lb_clmm.json" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 120 columns)</description>
+  <highlighted_element>FOR TOMBSTONE WHEN REUSE !!&quot;</highlighted_element>
+  <language>JSON</language>
+  <offset>120</offset>
+  <length>28</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/markets/idl/lb_clmm.json</file>
+  <line>2564</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/markets/idl/lb_clmm.json" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 120 columns)</description>
+  <highlighted_element>r.&quot;</highlighted_element>
+  <language>JSON</language>
+  <offset>120</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/markets/idl/lb_clmm.json</file>
+  <line>2641</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/markets/idl/lb_clmm.json" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 120 columns)</description>
+  <highlighted_element>pt.&quot;</highlighted_element>
+  <language>JSON</language>
+  <offset>120</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/markets/idl/lb_clmm.json</file>
+  <line>2762</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/markets/idl/lb_clmm.json" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 120 columns)</description>
+  <highlighted_element>pt.&quot;</highlighted_element>
+  <language>JSON</language>
+  <offset>120</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/markets/idl/lb_clmm.json</file>
+  <line>2960</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/markets/idl/lb_clmm.json" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 120 columns)</description>
+  <highlighted_element>e = protocol_share * total_swap_fee&quot;</highlighted_element>
+  <language>JSON</language>
+  <offset>120</offset>
+  <length>36</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/markets/idl/lb_clmm.json</file>
+  <line>3255</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/markets/idl/lb_clmm.json" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 120 columns)</description>
+  <highlighted_element>.&quot;</highlighted_element>
+  <language>JSON</language>
+  <offset>120</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/markets/idl/lb_clmm.json</file>
+  <line>3262</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/markets/idl/lb_clmm.json" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 120 columns)</description>
+  <highlighted_element>.&quot;</highlighted_element>
+  <language>JSON</language>
+  <offset>120</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/markets/idl/lb_clmm.json</file>
+  <line>3405</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/markets/idl/lb_clmm.json" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 120 columns)</description>
+  <highlighted_element>e = protocol_share * total_swap_fee&quot;</highlighted_element>
+  <language>JSON</language>
+  <offset>120</offset>
+  <length>36</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/markets/idl/lb_clmm.json</file>
+  <line>3436</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/markets/idl/lb_clmm.json" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 120 columns)</description>
+  <highlighted_element>e = protocol_share * total_swap_fee&quot;</highlighted_element>
+  <language>JSON</language>
+  <offset>120</offset>
+  <length>36</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/markets/idl/lb_clmm.json</file>
+  <line>3602</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/markets/idl/lb_clmm.json" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 120 columns)</description>
+  <highlighted_element>lated for next reward time window.&quot;</highlighted_element>
+  <language>JSON</language>
+  <offset>120</offset>
+  <length>35</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/markets/idl/lb_clmm.json</file>
+  <line>3705</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/markets/idl/lb_clmm.json" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 120 columns)</description>
+  <highlighted_element>e = protocol_share * total_swap_fee&quot;</highlighted_element>
+  <language>JSON</language>
+  <offset>120</offset>
+  <length>36</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/markets/idl/lb_clmm.json</file>
+  <line>3735</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/markets/idl/lb_clmm.json" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 120 columns)</description>
+  <highlighted_element>er period taken into consideration), reference bin ID is the active bin of last swap.&quot;,</highlighted_element>
+  <language>JSON</language>
+  <offset>120</offset>
+  <length>87</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/markets/idl/lb_clmm.json</file>
+  <line>3907</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/markets/idl/lb_clmm.json" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 120 columns)</description>
+  <highlighted_element>&quot;</highlighted_element>
+  <language>JSON</language>
+  <offset>120</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/markets/idl/whirlpool.json</file>
+  <line>1</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/markets/idl/whirlpool.json" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 120 columns)</description>
+  <highlighted_element>ue,&quot;isSigner&quot;:true},{&quot;name&quot;:&quot;funder&quot;,&quot;isMut&quot;:true,&quot;isSigner&quot;:true},{&quot;name&quot;:&quot;systemProgram&quot;,&quot;isMut&quot;:f...</highlighted_element>
+  <language>JSON</language>
+  <offset>120</offset>
+  <length>23010</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/meteoradlmm_swap.rs</file>
+  <line>54</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/meteoradlmm_swap.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>; // Changed to await</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>21</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/meteoradlmm_swap.rs</file>
+  <line>118</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/meteoradlmm_swap.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>),</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/meteoradlmm_swap.rs</file>
+  <line>145</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/meteoradlmm_swap.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>////</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/meteoradlmm_swap.rs</file>
+  <line>146</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/meteoradlmm_swap.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>////</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/meteoradlmm_swap.rs</file>
+  <line>147</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/meteoradlmm_swap.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>////</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/orca_whirpools_swap.rs</file>
+  <line>53</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/orca_whirpools_swap.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>(); // Changed to await</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/orca_whirpools_swap.rs</file>
+  <line>184</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/orca_whirpools_swap.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>////</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/orca_whirpools_swap.rs</file>
+  <line>185</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/orca_whirpools_swap.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>////</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/orca_whirpools_swap.rs</file>
+  <line>186</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/orca_whirpools_swap.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>////</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/orca_whirpools_swap.rs</file>
+  <line>226</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/orca_whirpools_swap.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>quest;</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/orca_whirpools_swap.rs</file>
+  <line>264</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/orca_whirpools_swap.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>i32, offset);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/orca_whirpools_swap.rs</file>
+  <line>298</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/orca_whirpools_swap.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>-&gt; (Pubkey, u8) {</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs</file>
+  <line>168</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>atus)));</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs</file>
+  <line>173</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>cing)));</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs</file>
+  <line>183</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>ck_current)));</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs</file>
+  <line>208</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>&quot;, result)));</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>13</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs</file>
+  <line>240</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>acing)?;</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs</file>
+  <line>301</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>)?;</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs</file>
+  <line>333</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>se);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs</file>
+  <line>335</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>, false);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>9</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs</file>
+  <line>336</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>e); // REAL wallet pubkey!</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>26</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs</file>
+  <line>337</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>alse);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs</file>
+  <line>338</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>false);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs</file>
+  <line>344</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>n_id, false);</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>13</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs</file>
+  <line>362</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>_mint),</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/raydium_swap.rs</file>
+  <line>32</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/raydium_swap.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>&gt; { // Changed to async</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/raydium_swap.rs</file>
+  <line>52</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/raydium_swap.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>/ Changed to await</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>18</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/raydium_swap.rs</file>
+  <line>68</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/raydium_swap.rs" />
+  <problem_class id="LongLine" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Line is longer than allowed by code style</problem_class>
+  <description>Line is longer than allowed by code style (&gt; 100 columns)</description>
+  <highlighted_element>p(); // Changed to await</highlighted_element>
+  <language>Rust</language>
+  <offset>100</offset>
+  <length>24</length>
+</problem>
+</problems>

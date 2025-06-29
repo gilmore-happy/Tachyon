@@ -1,12 +1,14 @@
 //! src/arbitrage/strategies.rs - Updated for bounded channel & TokenInfos price_usd
 
+use rayon::prelude::*;
+
 use crate::arbitrage::path_evaluator::SmartPathEvaluator;
 use crate::arbitrage::types::{ArbOpportunity, SwapPath, SwapPathSelected, TokenInArb, TokenInfos, Route};
 use crate::common::config::{Config, STRATEGY_MASSIVE, STRATEGY_BEST_PATH};
 use crate::data::market_stream::MarketEvent;
 use crate::execution::risk_engine::RiskEngine;
 use crate::markets::pools::{Pool, PoolRegistry};
-use crate::telemetry::Metrics; // Assuming this is Arc<Metrics> from telemetry.rs
+use crate::telemetry::Metrics;
 use anyhow::Result;
 use log::{error, warn, debug};
 use moka::future::Cache;
@@ -262,32 +264,46 @@ impl StrategyOrchestrator {
     
     async fn find_arbitrage_paths(&self, tokens: &[TokenInArb], pools: &[Pool]) -> Result<Vec<SwapPathSelected>> {
         if tokens.len() < 2 { return Ok(vec![]); }
-        let mut paths = Vec::new();
         
-        for i in 0..tokens.len() {
-            for j in i+1..tokens.len() {
-                let token_a = &tokens[i];
-                let token_b = &tokens[j];
+        // Use parallel processing to analyze all token pairs simultaneously
+        let token_pairs: Vec<(usize, usize)> = (0..tokens.len())
+            .flat_map(|i| ((i+1)..tokens.len()).map(move |j| (i, j)))
+            .collect();
+        
+        // Parallel processing of token pairs for maximum HFT performance
+        let mut paths: Vec<SwapPathSelected> = token_pairs
+            .par_iter()
+            .filter_map(|(i, j)| {
+                let token_a = &tokens[*i];
+                let token_b = &tokens[*j];
                 
                 // Find all pools that connect these tokens
                 let connecting_pools: Vec<&Pool> = pools.iter()
                     .filter(|pool| {
-                        (pool.token_a == token_a.token && pool.token_b == token_b.token) || 
-                        (pool.token_a == token_b.token && pool.token_b == token_a.token)
+                        (pool.token_a.as_str() == token_a.token.as_str() && pool.token_b.as_str() == token_b.token.as_str()) || 
+                        (pool.token_a.as_str() == token_b.token.as_str() && pool.token_b.as_str() == token_a.token.as_str())
                     })
                     .collect();
                     
                 // Real arbitrage path finding: need at least 2 pools for cross-DEX arb
                 if connecting_pools.len() >= 2 {
-                    // Create arbitrage path between different DEXs
-                    for k in 0..connecting_pools.len() {
-                        for l in (k+1)..connecting_pools.len() {
-                            let pool_1 = connecting_pools[k];
-                            let pool_2 = connecting_pools[l];
-                            
+                    // Process all pool combinations in parallel
+                    let pool_combinations: Vec<(&Pool, &Pool)> = connecting_pools
+                        .iter()
+                        .enumerate()
+                        .flat_map(|(k, pool_1)| {
+                            connecting_pools.iter().skip(k + 1).map(move |pool_2| (*pool_1, *pool_2))
+                        })
+                        .collect();
+                    
+                    // Parallel evaluation of arbitrage opportunities
+                    let profitable_paths: Vec<SwapPathSelected> = pool_combinations
+                        .par_iter()
+                        .enumerate()
+                        .filter_map(|(combo_idx, (pool_1, pool_2))| {
                             // Calculate potential profit from price difference
-                            let price_1 = self.calculate_pool_price(pool_1, &token_a.token, &token_b.token);
-                            let price_2 = self.calculate_pool_price(pool_2, &token_a.token, &token_b.token);
+                            let price_1 = calculate_pool_price_sync(pool_1, &token_a.token, &token_b.token);
+                            let price_2 = calculate_pool_price_sync(pool_2, &token_a.token, &token_b.token);
                             
                             let price_diff = (price_2 - price_1).abs();
                             let price_avg = (price_1 + price_2) / 2.0;
@@ -298,22 +314,61 @@ impl StrategyOrchestrator {
                                 
                                 // Only include profitable paths (>$15 minimum profit)
                                 if estimated_profit > 15.0 {
-                                    paths.push(SwapPathSelected {
+                                    // Extract DEX type from pool ID
+                                    let dex_1 = extract_dex_from_pool_id(&pool_1.id);
+                                    let dex_2 = extract_dex_from_pool_id(&pool_2.id);
+                                    
+                                    // Create routes for both pools
+                                    let route_1 = Route {
+                                        id: (combo_idx * 2) as u32,
+                                        dex: dex_1.clone(),
+                                        pool_address: pool_1.id.clone(),
+                                        token_in: token_a.token.clone(),
+                                        token_out: token_b.token.clone(),
+                                        token_0to1: pool_1.token_a == token_a.token,
+                                    };
+                                    
+                                    let route_2 = Route {
+                                        id: (combo_idx * 2 + 1) as u32,
+                                        dex: dex_2.clone(),
+                                        pool_address: pool_2.id.clone(),
+                                        token_in: token_b.token.clone(),
+                                        token_out: token_a.token.clone(),
+                                        token_0to1: pool_2.token_a == token_b.token,
+                                    };
+                                    
+                                    return Some(SwapPathSelected {
                                         path: SwapPath { 
-                                            id_paths: vec![k as u32, l as u32], 
+                                            id_paths: vec![route_1.id, route_2.id], 
                                             hops: 2, 
-                                            paths: vec![] 
+                                            paths: vec![route_1, route_2] 
                                         },
                                         expected_profit_usd: estimated_profit,
-                                        markets: vec![],
+                                        markets: vec![
+                                            crate::arbitrage::types::Market {
+                                                id: pool_1.id.clone(),
+                                                dex_label: dex_1,
+                                            },
+                                            crate::arbitrage::types::Market {
+                                                id: pool_2.id.clone(),
+                                                dex_label: dex_2,
+                                            }
+                                        ],
                                     });
                                 }
                             }
-                        }
-                    }
+                            None
+                        })
+                        .collect();
+                    
+                    return Some(profitable_paths.into_iter().max_by(|a, b| 
+                        a.expected_profit_usd.partial_cmp(&b.expected_profit_usd).unwrap_or(std::cmp::Ordering::Equal)
+                    ));
                 }
-            }
-        }
+                None
+            })
+            .flatten()
+            .collect();
         
         // Sort by profit potential (descending)
         paths.sort_by(|a, b| b.expected_profit_usd.partial_cmp(&a.expected_profit_usd).unwrap_or(std::cmp::Ordering::Equal));
@@ -325,33 +380,8 @@ impl StrategyOrchestrator {
     }
     
     fn calculate_pool_price(&self, pool: &Pool, token_a: &str, token_b: &str) -> f64 {
-        // Calculate effective exchange rate for this pool
-        let sqrt_liquidity = pool.liquidity.sqrt();
-        
-        // Simulate realistic reserves based on token types
-        let (reserve_a, reserve_b) = if token_a.contains("So11111") || token_b.contains("So11111") {
-            // SOL pair - use realistic SOL/USD ratios
-            let sol_reserve = sqrt_liquidity / 200.0;
-            let other_reserve = sqrt_liquidity;
-            
-            if token_a.contains("So11111") {
-                (sol_reserve, other_reserve)
-            } else {
-                (other_reserve, sol_reserve)
-            }
-        } else {
-            // Equal value split for other pairs
-            (sqrt_liquidity, sqrt_liquidity)
-        };
-        
-        // Price = reserve_b / reserve_a
-        if reserve_a > 0.0 {
-            reserve_b / reserve_a
-        } else {
-            0.0
-        }
+        calculate_pool_price_sync(pool, token_a, token_b)
     }
-    
     async fn validate_path_tokens(&self, path: &SwapPathSelected) -> bool {
         if path.expected_profit_usd < 0.0 {
             warn!("Path has negative expected_profit_usd ({}) during token validation step.", path.expected_profit_usd);
@@ -362,9 +392,7 @@ impl StrategyOrchestrator {
     }
     
     async fn process_market_event(event: MarketEvent, evaluator: &SmartPathEvaluator) -> Option<ArbOpportunity> {
-        // REAL market event processing - no more placeholders!
-        // This processes actual market events to detect arbitrage opportunities
-        
+        // REAL market event processing using SmartPathEvaluator
         info!("🎯 Processing REAL MarketEvent for {}: price {} from {}", 
               event.token_pair, event.price, event.source);
         
@@ -393,9 +421,24 @@ impl StrategyOrchestrator {
             return None; // Only process major pairs for now
         }
         
-        // Calculate if this price represents a potential arbitrage opportunity
-        // In a full implementation, we'd compare against other DEX prices
-        let price_impact_threshold = 0.005; // 0.5%
+        // Use SmartPathEvaluator to assess arbitrage potential
+        let price_impact_threshold = 0.005; // 0.5% minimum for arbitrage consideration
+        
+        // Get historical data and success rates from evaluator
+        let pair_key = format!("{}-{}", token_a, token_b);
+        let evaluator_score = evaluator.evaluate_arbitrage_potential(
+            &pair_key,
+            event.price,
+            &event.source
+        );
+        
+        // Only proceed if evaluator indicates good opportunity
+        if evaluator_score < 0.6 {
+            debug!("💭 Evaluator score too low ({:.2}) for {}, skipping", evaluator_score, pair_key);
+            return None;
+        }
+        
+        // Calculate price deviation for opportunity assessment
         let base_price = if token_a == "SOL" { 200.0 } else { 1.0 }; // SOL ~$200, USDC ~$1
         let price_deviation = (event.price - base_price).abs() / base_price;
         
@@ -449,5 +492,54 @@ impl StrategyOrchestrator {
                 max_latency_ms: 200, // Fast execution required for market events
             },
         })
+    }
+}
+
+/// Sync version of pool price calculation for parallel processing
+fn calculate_pool_price_sync(pool: &Pool, token_a: &str, token_b: &str) -> f64 {
+    // Calculate effective exchange rate for this pool
+    let sqrt_liquidity = pool.liquidity.sqrt();
+    
+    // Simulate realistic reserves based on token types
+    let (reserve_a, reserve_b) = if token_a.contains("So11111") || token_b.contains("So11111") {
+        // SOL pair - use realistic SOL/USD ratios
+        let sol_reserve = sqrt_liquidity / 200.0;
+        let other_reserve = sqrt_liquidity;
+        
+        if token_a.contains("So11111") {
+            (sol_reserve, other_reserve)
+        } else {
+            (other_reserve, sol_reserve)
+        }
+    } else {
+        // Equal value split for other pairs
+        (sqrt_liquidity, sqrt_liquidity)
+    };
+    
+    // Price = reserve_b / reserve_a
+    if reserve_a > 0.0 {
+        reserve_b / reserve_a
+    } else {
+        0.0
+    }
+}
+
+/// Extract DEX type from pool ID for parallel processing
+fn extract_dex_from_pool_id(pool_id: &str) -> crate::markets::types::DexLabel {
+    use crate::markets::types::DexLabel;
+    
+    if pool_id.starts_with("raydium_") {
+        DexLabel::Raydium
+    } else if pool_id.starts_with("orca_") {
+        DexLabel::Orca
+    } else if pool_id.starts_with("meteora_") {
+        DexLabel::Meteora
+    } else if pool_id.starts_with("whirlpool_") {
+        DexLabel::OrcaWhirlpools
+    } else if pool_id.starts_with("raydium_clmm_") {
+        DexLabel::RaydiumClmm
+    } else {
+        // Default to Raydium for unknown pool types
+        DexLabel::Raydium
     }
 }

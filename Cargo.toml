@@ -9,6 +9,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+rayon = "1.10.0"
 lb_clmm = { path = "./programs/lb_clmm" }
 raydium_amm = { path = "./programs/raydium_amm" }
 url = "2.3.1"

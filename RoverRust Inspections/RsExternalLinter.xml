@@ -1,0 +1,223 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs</file>
+  <line>286</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs" />
+  <problem_class id="RsExternalLinter" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">External linter</problem_class>
+  <hints />
+  <description>Unused variable: `sqrt_liquidity`</description>
+  <highlighted_element>sqrt_liquidity</highlighted_element>
+  <language>Rust</language>
+  <offset>12</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs</file>
+  <line>643</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/calc_arb.rs" />
+  <problem_class id="RsExternalLinter" severity="ERROR" attribute_key="WRONG_REFERENCES_ATTRIBUTES">External linter</problem_class>
+  <hints />
+  <description>Temporary value dropped while borrowed</description>
+  <highlighted_element>groups.iter().next().unwrap()</highlighted_element>
+  <language>Rust</language>
+  <offset>25</offset>
+  <length>29</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/path_evaluator.rs</file>
+  <line>98</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/path_evaluator.rs" />
+  <problem_class id="RsExternalLinter" severity="ERROR" attribute_key="WRONG_REFERENCES_ATTRIBUTES">External linter</problem_class>
+  <hints />
+  <description>The trait bound `markets::types::DexLabel: std::str::FromStr` is not satisfied</description>
+  <highlighted_element>parse</highlighted_element>
+  <language>Rust</language>
+  <offset>38</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/simulate.rs</file>
+  <line>13</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/simulate.rs" />
+  <problem_class id="RsExternalLinter" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">External linter</problem_class>
+  <hints />
+  <description>Unused import: `errors::MarketSimulationError`</description>
+  <highlighted_element>errors::MarketSimulationError</highlighted_element>
+  <language>Rust</language>
+  <offset>4</offset>
+  <length>29</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>13</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="RsExternalLinter" severity="ERROR" attribute_key="WRONG_REFERENCES_ATTRIBUTES">External linter</problem_class>
+  <hints />
+  <description>Failed to resolve: use of undeclared crate or module `rayon`</description>
+  <highlighted_element>rayon</highlighted_element>
+  <language>Rust</language>
+  <offset>4</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>274</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="RsExternalLinter" severity="ERROR" attribute_key="WRONG_REFERENCES_ATTRIBUTES">External linter</problem_class>
+  <hints />
+  <description>No method named `par_iter` found for struct `std::vec::Vec&lt;(usize, usize)&gt;` in the current scope</description>
+  <highlighted_element>par_iter</highlighted_element>
+  <language>Rust</language>
+  <offset>13</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>300</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="RsExternalLinter" severity="ERROR" attribute_key="WRONG_REFERENCES_ATTRIBUTES">External linter</problem_class>
+  <hints />
+  <description>No method named `par_iter` found for struct `std::vec::Vec&lt;(&amp;markets::pools::Pool, &amp;markets::pools::Pool)&gt;` in the current scope</description>
+  <highlighted_element>par_iter</highlighted_element>
+  <language>Rust</language>
+  <offset>25</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/streams.rs</file>
+  <line>236</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/streams.rs" />
+  <problem_class id="RsExternalLinter" severity="ERROR" attribute_key="WRONG_REFERENCES_ATTRIBUTES">External linter</problem_class>
+  <hints />
+  <description>No function or associated item named `default` found for struct `common::config::Config` in the current scope</description>
+  <highlighted_element>default</highlighted_element>
+  <language>Rust</language>
+  <offset>38</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/fees/fee_cache.rs</file>
+  <line>151</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/fees/fee_cache.rs" />
+  <problem_class id="RsExternalLinter" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">External linter</problem_class>
+  <hints />
+  <description>Unused import: `super::*`</description>
+  <highlighted_element>super::*</highlighted_element>
+  <language>Rust</language>
+  <offset>8</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/fees/priority_fees.rs</file>
+  <line>10</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/fees/priority_fees.rs" />
+  <problem_class id="RsExternalLinter" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">External linter</problem_class>
+  <hints />
+  <description>Unused import: `warn`</description>
+  <highlighted_element>warn</highlighted_element>
+  <language>Rust</language>
+  <offset>16</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/fees/priority_fees.rs</file>
+  <line>195</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/fees/priority_fees.rs" />
+  <problem_class id="RsExternalLinter" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">External linter</problem_class>
+  <hints />
+  <description>Unused import: `super::*`</description>
+  <highlighted_element>super::*</highlighted_element>
+  <language>Rust</language>
+  <offset>8</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/lib.rs</file>
+  <line>13</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/lib.rs" />
+  <problem_class id="RsExternalLinter" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">External linter</problem_class>
+  <hints />
+  <description>Unused import: `super::*`</description>
+  <highlighted_element>super::*</highlighted_element>
+  <language>Rust</language>
+  <offset>8</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/orca_whirpools.rs</file>
+  <line>133</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/orca_whirpools.rs" />
+  <problem_class id="RsExternalLinter" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">External linter</problem_class>
+  <hints />
+  <description>Redundant field names in struct initialization</description>
+  <highlighted_element>dex: dex</highlighted_element>
+  <language>Rust</language>
+  <offset>12</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/markets/raydium.rs</file>
+  <line>80</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/markets/raydium.rs" />
+  <problem_class id="RsExternalLinter" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">External linter</problem_class>
+  <hints />
+  <description>Redundant field names in struct initialization</description>
+  <highlighted_element>dex: dex</highlighted_element>
+  <language>Rust</language>
+  <offset>12</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs</file>
+  <line>10</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs" />
+  <problem_class id="RsExternalLinter" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">External linter</problem_class>
+  <hints />
+  <description>Unused import: `BorshSerialize`</description>
+  <highlighted_element>BorshSerialize</highlighted_element>
+  <language>Rust</language>
+  <offset>30</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs</file>
+  <line>417</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs" />
+  <problem_class id="RsExternalLinter" severity="ERROR" attribute_key="WRONG_REFERENCES_ATTRIBUTES">External linter</problem_class>
+  <hints />
+  <description>Missing field `wallet_pubkey` in initializer of `transactions::raydium_clmm_swap::SwapParametersRaydiumClmm`</description>
+  <highlighted_element>SwapParametersRaydiumClmm</highlighted_element>
+  <language>Rust</language>
+  <offset>27</offset>
+  <length>25</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs</file>
+  <line>449</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs" />
+  <problem_class id="RsExternalLinter" severity="ERROR" attribute_key="WRONG_REFERENCES_ATTRIBUTES">External linter</problem_class>
+  <hints />
+  <description>Missing field `wallet_pubkey` in initializer of `transactions::raydium_clmm_swap::SwapParametersRaydiumClmm`</description>
+  <highlighted_element>SwapParametersRaydiumClmm</highlighted_element>
+  <language>Rust</language>
+  <offset>21</offset>
+  <length>25</length>
+</problem>
+</problems>

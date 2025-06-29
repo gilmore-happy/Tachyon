@@ -1,0 +1,26 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs</file>
+  <line>417</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs" />
+  <problem_class id="RsInvalidFieldsInStructLiteral" severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Invalid fields in struct</problem_class>
+  <description>&lt;html&gt;Missing field in `SwapParametersRaydiumClmm` initializer: `wallet_pubkey` [&lt;a href='https://doc.rust-lang.org/error-index.html#E0063'&gt;E0063&lt;/a&gt;]&lt;br&gt;&lt;/html&gt;</description>
+  <highlighted_element>SwapParametersRaydiumClmm</highlighted_element>
+  <language>Rust</language>
+  <offset>27</offset>
+  <length>25</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs</file>
+  <line>449</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs" />
+  <problem_class id="RsInvalidFieldsInStructLiteral" severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Invalid fields in struct</problem_class>
+  <description>&lt;html&gt;Missing field in `SwapParametersRaydiumClmm` initializer: `wallet_pubkey` [&lt;a href='https://doc.rust-lang.org/error-index.html#E0063'&gt;E0063&lt;/a&gt;]&lt;br&gt;&lt;/html&gt;</description>
+  <highlighted_element>SwapParametersRaydiumClmm</highlighted_element>
+  <language>Rust</language>
+  <offset>21</offset>
+  <length>25</length>
+</problem>
+</problems>

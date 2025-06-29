@@ -283,7 +283,7 @@ impl SimpleArbitrageCalculator {
         // Enhanced with real-time RPC calls for accurate pricing
         
         // Use real pool liquidity data - no more placeholders!
-        let sqrt_liquidity = pool.liquidity.sqrt();
+        let _sqrt_liquidity = pool.liquidity.sqrt();
         
         // Calculate REAL reserves from on-chain pool state
         // We'll use the actual liquidity data from DEX APIs instead of estimates

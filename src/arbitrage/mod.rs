@@ -8,9 +8,9 @@ pub mod strategies;
 pub mod types;
 
 // Re-export main types for convenience
-pub use calc_arb::{ArbitragePool, ArbitrageStats, SimpleArbitrageCalculator, SimpleArbitrageOpportunity};
-pub use config::{ArbitrageConfig, ArbitrageError, PairId, PositionSizer};
-pub use types::{ArbOpportunity, SwapPath, TokenInArb};
+pub use calc_arb::ArbitragePool;
+pub use config::{ArbitrageConfig, PairId};
+pub use types::SwapPath;
 
 // For backwards compatibility if needed
 pub type ArbitragePath = SwapPath;

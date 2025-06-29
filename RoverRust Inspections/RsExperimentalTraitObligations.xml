@@ -1,0 +1,122 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>264</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="RsExperimentalTraitObligations" severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Type does not implement trait (experimental)</problem_class>
+  <description>&lt;html&gt;Trait `Iterator` is not implemented for `Iter&amp;lt;(&amp;amp;Pool, &amp;amp;Pool)&amp;gt;` [&lt;a href='https://doc.rust-lang.org/error-index.html#E0277'&gt;E0277&lt;/a&gt;]&lt;br&gt;&lt;/html&gt;</description>
+  <highlighted_element>async fn find_arbitrage_paths(&amp;self, tokens: &amp;[TokenInArb], pools: &amp;[Pool]) -&gt; Result&lt;Vec&lt;SwapPathSe...</highlighted_element>
+  <language>Rust</language>
+  <offset>4</offset>
+  <length>6343</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>264</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="RsExperimentalTraitObligations" severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Type does not implement trait (experimental)</problem_class>
+  <description>&lt;html&gt;Trait `Iterator` is not implemented for `Iter&amp;lt;(&amp;amp;Pool, &amp;amp;Pool)&amp;gt;` [&lt;a href='https://doc.rust-lang.org/error-index.html#E0277'&gt;E0277&lt;/a&gt;]&lt;br&gt;&lt;/html&gt;</description>
+  <highlighted_element>async fn find_arbitrage_paths(&amp;self, tokens: &amp;[TokenInArb], pools: &amp;[Pool]) -&gt; Result&lt;Vec&lt;SwapPathSe...</highlighted_element>
+  <language>Rust</language>
+  <offset>4</offset>
+  <length>6343</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>264</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="RsExperimentalTraitObligations" severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Type does not implement trait (experimental)</problem_class>
+  <description>&lt;html&gt;Trait `Iterator` is not implemented for `Iter&amp;lt;(usize, usize)&amp;gt;` [&lt;a href='https://doc.rust-lang.org/error-index.html#E0277'&gt;E0277&lt;/a&gt;]&lt;br&gt;&lt;/html&gt;</description>
+  <highlighted_element>async fn find_arbitrage_paths(&amp;self, tokens: &amp;[TokenInArb], pools: &amp;[Pool]) -&gt; Result&lt;Vec&lt;SwapPathSe...</highlighted_element>
+  <language>Rust</language>
+  <offset>4</offset>
+  <length>6343</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>264</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="RsExperimentalTraitObligations" severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Type does not implement trait (experimental)</problem_class>
+  <description>&lt;html&gt;Trait `Iterator` is not implemented for `Iter&amp;lt;(usize, usize)&amp;gt;` [&lt;a href='https://doc.rust-lang.org/error-index.html#E0277'&gt;E0277&lt;/a&gt;]&lt;br&gt;&lt;/html&gt;</description>
+  <highlighted_element>async fn find_arbitrage_paths(&amp;self, tokens: &amp;[TokenInArb], pools: &amp;[Pool]) -&gt; Result&lt;Vec&lt;SwapPathSe...</highlighted_element>
+  <language>Rust</language>
+  <offset>4</offset>
+  <length>6343</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>282</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="RsExperimentalTraitObligations" severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Type does not implement trait (experimental)</problem_class>
+  <description>&lt;html&gt;Binary operation `==` cannot be applied to type `String` [&lt;a href='https://doc.rust-lang.org/error-index.html#E0369'&gt;E0369&lt;/a&gt;]&lt;br&gt;&lt;/html&gt;</description>
+  <highlighted_element>==</highlighted_element>
+  <language>Rust</language>
+  <offset>38</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>282</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="RsExperimentalTraitObligations" severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Type does not implement trait (experimental)</problem_class>
+  <description>&lt;html&gt;Binary operation `==` cannot be applied to type `String` [&lt;a href='https://doc.rust-lang.org/error-index.html#E0369'&gt;E0369&lt;/a&gt;]&lt;br&gt;&lt;/html&gt;</description>
+  <highlighted_element>==</highlighted_element>
+  <language>Rust</language>
+  <offset>71</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>283</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="RsExperimentalTraitObligations" severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Type does not implement trait (experimental)</problem_class>
+  <description>&lt;html&gt;Binary operation `==` cannot be applied to type `String` [&lt;a href='https://doc.rust-lang.org/error-index.html#E0369'&gt;E0369&lt;/a&gt;]&lt;br&gt;&lt;/html&gt;</description>
+  <highlighted_element>==</highlighted_element>
+  <language>Rust</language>
+  <offset>38</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>283</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="RsExperimentalTraitObligations" severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Type does not implement trait (experimental)</problem_class>
+  <description>&lt;html&gt;Binary operation `==` cannot be applied to type `String` [&lt;a href='https://doc.rust-lang.org/error-index.html#E0369'&gt;E0369&lt;/a&gt;]&lt;br&gt;&lt;/html&gt;</description>
+  <highlighted_element>==</highlighted_element>
+  <language>Rust</language>
+  <offset>71</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>327</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="RsExperimentalTraitObligations" severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Type does not implement trait (experimental)</problem_class>
+  <description>&lt;html&gt;Binary operation `==` cannot be applied to type `String` [&lt;a href='https://doc.rust-lang.org/error-index.html#E0369'&gt;E0369&lt;/a&gt;]&lt;br&gt;&lt;/html&gt;</description>
+  <highlighted_element>==</highlighted_element>
+  <language>Rust</language>
+  <offset>67</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/arbitrage/strategies.rs</file>
+  <line>336</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/arbitrage/strategies.rs" />
+  <problem_class id="RsExperimentalTraitObligations" severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Type does not implement trait (experimental)</problem_class>
+  <description>&lt;html&gt;Binary operation `==` cannot be applied to type `String` [&lt;a href='https://doc.rust-lang.org/error-index.html#E0369'&gt;E0369&lt;/a&gt;]&lt;br&gt;&lt;/html&gt;</description>
+  <highlighted_element>==</highlighted_element>
+  <language>Rust</language>
+  <offset>67</offset>
+  <length>2</length>
+</problem>
+</problems>

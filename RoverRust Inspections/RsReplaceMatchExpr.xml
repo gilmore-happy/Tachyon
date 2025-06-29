@@ -1,0 +1,26 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>64</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="RsReplaceMatchExpr" severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Match expression can be replaced with a method call</problem_class>
+  <description>Match expression can be replaced with a method call</description>
+  <highlighted_element>match service.get_priority_fee(profit_lamports).await { Ok(fee) =&gt; fee, ...</highlighted_element>
+  <language>Rust</language>
+  <offset>12</offset>
+  <length>268</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs</file>
+  <line>375</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/raydium_clmm_swap.rs" />
+  <problem_class id="RsReplaceMatchExpr" severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Match expression can be replaced with a method call</problem_class>
+  <description>Match expression can be replaced with a method call</description>
+  <highlighted_element>match construct_raydium_clmm_instructions(params).await { Ok(instructions) =&gt; instructions, ...</highlighted_element>
+  <language>Rust</language>
+  <offset>4</offset>
+  <length>236</length>
+</problem>
+</problems>

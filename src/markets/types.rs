@@ -12,6 +12,23 @@ pub enum DexLabel {
     Meteora,
 }
 
+use std::str::FromStr;
+
+impl FromStr for DexLabel {
+    type Err = ();
+
+    fn from_str(input: &str) -> Result<Self, Self::Err> {
+        match input {
+            "Orca" => Ok(DexLabel::Orca),
+            "Orca (Whirlpools)" => Ok(DexLabel::OrcaWhirlpools),
+            "Raydium" => Ok(DexLabel::Raydium),
+            "Raydium CLMM" => Ok(DexLabel::RaydiumClmm),
+            "Meteora" => Ok(DexLabel::Meteora),
+            _ => Err(()),
+        }
+    }
+}
+
 impl DexLabel {
     pub fn str(&self) -> String {
         match self {

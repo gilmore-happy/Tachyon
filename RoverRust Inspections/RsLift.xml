@@ -1,0 +1,14 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/src/transactions/create_transaction.rs</file>
+  <line>937</line>
+  <module>Tachyon</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/src/transactions/create_transaction.rs" />
+  <problem_class id="RsLift" severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">`return` can be lifted</problem_class>
+  <description>The `return` keyword can be lifted out of `if`</description>
+  <highlighted_element>if</highlighted_element>
+  <language>Rust</language>
+  <offset>4</offset>
+  <length>2</length>
+</problem>
+</problems>
