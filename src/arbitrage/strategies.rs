@@ -54,18 +54,25 @@ impl StrategyOrchestrator {
         let market_metrics = self.metrics.clone(); // Arc clone
         let exec_tx = self.exec_tx.clone(); // Sender clone
         let risk_engine = self.risk_engine.clone();
-        let evaluator = SmartPathEvaluator::new();
-        
+        let evaluator = self.evaluator.clone(); // Clone evaluator if it's to be moved; or pass by ref if task allows
+        let pool_registry_clone = self.pool_registry.clone(); // Clone Arc for the task
+
         let (_, dummy_rx) = mpsc::channel(1);
         let mut market_rx = std::mem::replace(&mut self.market_rx, dummy_rx);
         
         let market_events_handle = tokio::spawn(
             async move {
+                // `evaluator` and `pool_registry_clone` are moved into this async block
                 while let Some(event) = market_rx.recv().await {
                     market_metrics.inc_opportunities_discovered(); // Use helper method
                     debug!("Received market event: {:?}", event);
                     
-                    if let Some(opportunity) = StrategyOrchestrator::process_market_event(event, &evaluator).await {
+                    // Call the modified process_market_event, passing the cloned pool_registry
+                    if let Some(opportunity) = StrategyOrchestrator::process_market_event(
+                        event,
+                        &evaluator, // evaluator is now owned by this task
+                        pool_registry_clone.clone(), // Pass Arc<PoolRegistry>
+                    ).await {
                         match risk_engine.should_execute(&opportunity).await {
                             Ok(true) => {
                                 info!("✅ Risk check passed for opportunity: {} lamports profit", 
@@ -262,126 +269,138 @@ impl StrategyOrchestrator {
         Ok(())
     }
     
-    async fn find_arbitrage_paths(&self, tokens: &[TokenInArb], pools: &[Pool]) -> Result<Vec<SwapPathSelected>> {
-        if tokens.len() < 2 { return Ok(vec![]); }
-        
-        // Use parallel processing to analyze all token pairs simultaneously
-        let token_pairs: Vec<(usize, usize)> = (0..tokens.len())
-            .flat_map(|i| ((i+1)..tokens.len()).map(move |j| (i, j)))
-            .collect();
-        
-        // Parallel processing of token pairs for maximum HFT performance
-        let mut paths: Vec<SwapPathSelected> = token_pairs
-            .par_iter()
-            .filter_map(|(i, j)| {
-                let token_a = &tokens[*i];
-                let token_b = &tokens[*j];
-                
-                // Find all pools that connect these tokens
-                let connecting_pools: Vec<&Pool> = pools.iter()
-                    .filter(|pool| {
-                        (pool.token_a.as_str() == token_a.token.as_str() && pool.token_b.as_str() == token_b.token.as_str()) || 
-                        (pool.token_a.as_str() == token_b.token.as_str() && pool.token_b.as_str() == token_a.token.as_str())
-                    })
-                    .collect();
-                    
-                // Real arbitrage path finding: need at least 2 pools for cross-DEX arb
-                if connecting_pools.len() >= 2 {
-                    // Process all pool combinations in parallel
-                    let pool_combinations: Vec<(&Pool, &Pool)> = connecting_pools
-                        .iter()
-                        .enumerate()
-                        .flat_map(|(k, pool_1)| {
-                            connecting_pools.iter().skip(k + 1).map(move |pool_2| (*pool_1, *pool_2))
+    async fn find_arbitrage_paths(&self, tokens_slice: &[TokenInArb], pools_slice: &[Pool]) -> Result<Vec<SwapPathSelected>> {
+        if tokens_slice.len() < 2 { return Ok(vec![]); }
+
+        // Clone data to be moved into spawn_blocking
+        let tokens: Vec<TokenInArb> = tokens_slice.to_vec();
+        let pools: Vec<Pool> = pools_slice.to_vec();
+
+        let mut paths = tokio::task::spawn_blocking(move || {
+            // Use parallel processing to analyze all token pairs simultaneously
+            let token_pairs: Vec<(usize, usize)> = (0..tokens.len())
+                .flat_map(|i| ((i + 1)..tokens.len()).map(move |j| (i, j)))
+                .collect();
+
+            // Parallel processing of token pairs for maximum HFT performance
+            let computed_paths: Vec<SwapPathSelected> = token_pairs
+                .par_iter()
+                .filter_map(|(i, j)| {
+                    let token_a = &tokens[*i];
+                    let token_b = &tokens[*j];
+
+                    // Find all pools that connect these tokens
+                    // Note: Inside spawn_blocking, we use the owned `pools` Vec.
+                    let connecting_pools: Vec<&Pool> = pools.iter()
+                        .filter(|pool| {
+                            (pool.token_a.as_str() == token_a.token.as_str() && pool.token_b.as_str() == token_b.token.as_str()) ||
+                            (pool.token_a.as_str() == token_b.token.as_str() && pool.token_b.as_str() == token_a.token.as_str())
                         })
                         .collect();
-                    
-                    // Parallel evaluation of arbitrage opportunities
-                    let profitable_paths: Vec<SwapPathSelected> = pool_combinations
-                        .par_iter()
-                        .enumerate()
-                        .filter_map(|(combo_idx, (pool_1, pool_2))| {
-                            // Calculate potential profit from price difference
-                            let price_1 = calculate_pool_price_sync(pool_1, &token_a.token, &token_b.token);
-                            let price_2 = calculate_pool_price_sync(pool_2, &token_a.token, &token_b.token);
-                            
-                            let price_diff = (price_2 - price_1).abs();
-                            let price_avg = (price_1 + price_2) / 2.0;
-                            
-                            if price_avg > 0.0 {
-                                let profit_ratio = price_diff / price_avg;
-                                let estimated_profit = profit_ratio * 1000.0; // $1000 base trade
-                                
-                                // Only include profitable paths (>$15 minimum profit)
-                                if estimated_profit > 15.0 {
-                                    // Extract DEX type from pool ID
-                                    let dex_1 = extract_dex_from_pool_id(&pool_1.id);
-                                    let dex_2 = extract_dex_from_pool_id(&pool_2.id);
-                                    
-                                    // Create routes for both pools
-                                    let route_1 = Route {
-                                        id: (combo_idx * 2) as u32,
-                                        dex: dex_1.clone(),
-                                        pool_address: pool_1.id.clone(),
-                                        token_in: token_a.token.clone(),
-                                        token_out: token_b.token.clone(),
-                                        token_0to1: pool_1.token_a == token_a.token,
-                                    };
-                                    
-                                    let route_2 = Route {
-                                        id: (combo_idx * 2 + 1) as u32,
-                                        dex: dex_2.clone(),
-                                        pool_address: pool_2.id.clone(),
-                                        token_in: token_b.token.clone(),
-                                        token_out: token_a.token.clone(),
-                                        token_0to1: pool_2.token_a == token_b.token,
-                                    };
-                                    
-                                    return Some(SwapPathSelected {
-                                        path: SwapPath { 
-                                            id_paths: vec![route_1.id, route_2.id], 
-                                            hops: 2, 
-                                            paths: vec![route_1, route_2] 
-                                        },
-                                        expected_profit_usd: estimated_profit,
-                                        markets: vec![
-                                            crate::arbitrage::types::Market {
-                                                id: pool_1.id.clone(),
-                                                dex_label: dex_1,
+
+                    // Real arbitrage path finding: need at least 2 pools for cross-DEX arb
+                    if connecting_pools.len() >= 2 {
+                        // Process all pool combinations in parallel
+                        // Clone connecting_pools for nested par_iter if necessary, or ensure its lifetime is respected.
+                        // Since connecting_pools is derived from `pools` which is owned by this closure,
+                        // and `pool_combinations` uses references to its elements, this should be fine.
+                        let pool_combinations: Vec<(&Pool, &Pool)> = connecting_pools
+                            .iter()
+                            .enumerate()
+                            .flat_map(|(k, pool_1)| {
+                                connecting_pools.iter().skip(k + 1).map(move |pool_2| (*pool_1, *pool_2))
+                            })
+                            .collect();
+
+                        // Parallel evaluation of arbitrage opportunities
+                        let profitable_paths: Vec<SwapPathSelected> = pool_combinations
+                            .par_iter()
+                            .enumerate()
+                            .filter_map(|(combo_idx, (pool_1, pool_2))| {
+                                // Calculate potential profit from price difference
+                                let price_1 = calculate_pool_price_sync(pool_1, &token_a.token, &token_b.token);
+                                let price_2 = calculate_pool_price_sync(pool_2, &token_a.token, &token_b.token);
+
+                                let price_diff = (price_2 - price_1).abs();
+                                let price_avg = (price_1 + price_2) / 2.0;
+
+                                if price_avg > 0.0 {
+                                    let profit_ratio = price_diff / price_avg;
+                                    let estimated_profit = profit_ratio * 1000.0; // $1000 base trade
+
+                                    // Only include profitable paths (>$15 minimum profit)
+                                    if estimated_profit > 15.0 {
+                                        // Extract DEX type from pool ID
+                                        let dex_1 = extract_dex_from_pool_id(&pool_1.id);
+                                        let dex_2 = extract_dex_from_pool_id(&pool_2.id);
+
+                                        // Create routes for both pools
+                                        let route_1 = Route {
+                                            id: (combo_idx * 2) as u32,
+                                            dex: dex_1.clone(),
+                                            pool_address: pool_1.id.clone(),
+                                            token_in: token_a.token.clone(),
+                                            token_out: token_b.token.clone(),
+                                            token_0to1: pool_1.token_a == token_a.token,
+                                        };
+
+                                        let route_2 = Route {
+                                            id: (combo_idx * 2 + 1) as u32,
+                                            dex: dex_2.clone(),
+                                            pool_address: pool_2.id.clone(),
+                                            token_in: token_b.token.clone(),
+                                            token_out: token_a.token.clone(),
+                                            token_0to1: pool_2.token_a == token_b.token,
+                                        };
+
+                                        return Some(SwapPathSelected {
+                                            path: SwapPath {
+                                                id_paths: vec![route_1.id, route_2.id],
+                                                hops: 2,
+                                                paths: vec![route_1, route_2]
                                             },
-                                            crate::arbitrage::types::Market {
-                                                id: pool_2.id.clone(),
-                                                dex_label: dex_2,
-                                            }
-                                        ],
-                                    });
+                                            expected_profit_usd: estimated_profit,
+                                            markets: vec![
+                                                crate::arbitrage::types::Market {
+                                                    id: pool_1.id.clone(),
+                                                    dex_label: dex_1,
+                                                },
+                                                crate::arbitrage::types::Market {
+                                                    id: pool_2.id.clone(),
+                                                    dex_label: dex_2,
+                                                }
+                                            ],
+                                        });
+                                    }
                                 }
-                            }
-                            None
-                        })
-                        .collect();
-                    
-                    return Some(profitable_paths.into_iter().max_by(|a, b| 
-                        a.expected_profit_usd.partial_cmp(&b.expected_profit_usd).unwrap_or(std::cmp::Ordering::Equal)
-                    ));
-                }
-                None
-            })
-            .flatten()
-            .collect();
-        
+                                None
+                            })
+                            .collect();
+
+                        // Find the best path among the combinations for this token_a, token_b pair
+                        return profitable_paths.into_iter().max_by(|a, b|
+                            a.expected_profit_usd.partial_cmp(&b.expected_profit_usd).unwrap_or(std::cmp::Ordering::Equal)
+                        );
+                    }
+                    None
+                })
+                // .flatten() // Not needed if filter_map directly returns Option<SwapPathSelected> for the best path of a pair
+                .collect();
+            computed_paths
+        }).await?; // .await the JoinHandle from spawn_blocking
+
         // Sort by profit potential (descending)
         paths.sort_by(|a, b| b.expected_profit_usd.partial_cmp(&a.expected_profit_usd).unwrap_or(std::cmp::Ordering::Equal));
-        
+
         // Limit to top paths to avoid overwhelming the executor
         paths.truncate(10);
-        
+
         Ok(paths)
     }
-    
-    fn calculate_pool_price(&self, pool: &Pool, token_a: &str, token_b: &str) -> f64 {
-        calculate_pool_price_sync(pool, token_a, token_b)
-    }
+
+    // Removed unused self.calculate_pool_price method.
+    // calculate_pool_price_sync is used directly within the spawn_blocking closure.
+
     async fn validate_path_tokens(&self, path: &SwapPathSelected) -> bool {
         if path.expected_profit_usd < 0.0 {
             warn!("Path has negative expected_profit_usd ({}) during token validation step.", path.expected_profit_usd);
@@ -391,9 +410,13 @@ impl StrategyOrchestrator {
         true
     }
     
-    async fn process_market_event(event: MarketEvent, evaluator: &SmartPathEvaluator) -> Option<ArbOpportunity> {
+    async fn process_market_event(
+        event: MarketEvent,
+        evaluator: &SmartPathEvaluator,
+        pool_registry: Arc<PoolRegistry> // Added pool_registry argument
+    ) -> Option<ArbOpportunity> {
         // REAL market event processing using SmartPathEvaluator
-        info!("🎯 Processing REAL MarketEvent for {}: price {} from {}", 
+        info!("🎯 Processing REAL MarketEvent for {}: price {} from {} using pool registry",
               event.token_pair, event.price, event.source);
         
         // Parse the token pair to extract individual tokens

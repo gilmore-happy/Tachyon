@@ -382,43 +382,65 @@ impl TransactionExecutor {
         let max_retries = self.config.max_send_retries.unwrap_or(3);
 
         for attempt in 0..max_retries {
-            if self.tpu_client.send_transaction(&transaction) {
-                // If send_transaction returns true, the transaction was accepted by the TPU.
-                // The signature is part of the transaction object itself.
-                if let Some(sig) = transaction.signatures.first() {
-                    actual_transaction_signature = Some(*sig);
-                    info!("Transaction sent to TPU successfully on attempt {}, signature: {}", attempt + 1, sig);
-                    break; 
-                } else {
-                    // This should not happen for a properly signed transaction
-                    error!("TPU accepted transaction, but no signature found in transaction object on attempt {}.", attempt + 1);
-                    if attempt >= max_retries - 1 {
+            // Clone necessary data for spawn_blocking
+            let tpu_client_clone = self.tpu_client.clone();
+            let transaction_clone = transaction.clone(); // Transaction needs to be Clone
+
+            let send_result = tokio::task::spawn_blocking(move || {
+                tpu_client_clone.send_transaction(&transaction_clone)
+            }).await;
+
+            match send_result {
+                Ok(true) => { // Successfully sent to TPU
+                    if let Some(sig) = transaction.signatures.first() { // Use original transaction for signature
+                        actual_transaction_signature = Some(*sig);
+                        info!("Transaction sent to TPU successfully on attempt {}, signature: {}", attempt + 1, sig);
+                        break;
+                    } else {
+                        error!("TPU accepted transaction, but no signature found in transaction object on attempt {}.", attempt + 1);
+                        if attempt >= max_retries - 1 {
+                            return Ok(ExecutionResult {
+                                success: false,
+                                signature: None,
+                                error: Some("TPU accepted transaction, but failed to retrieve signature.".to_string()),
+                                profit_lamports: 0,
+                                gas_cost: priority_fee,
+                                execution_time_ms: measurement_start.elapsed().as_millis() as u64,
+                            });
+                        }
+                    }
+                }
+                Ok(false) => { // TPU did not accept the transaction
+                    if attempt < max_retries - 1 {
+                        warn!("Attempt {}/{} to send transaction via TPU failed (TPU did not accept). Retrying in 100ms...",
+                              attempt + 1, max_retries);
+                        sleep(Duration::from_millis(100)).await;
+                    } else {
+                        error!("Failed to send transaction via TPU after {} attempts (TPU did not accept).", max_retries);
                         return Ok(ExecutionResult {
                             success: false,
                             signature: None,
-                            error: Some("TPU accepted transaction, but failed to retrieve signature.".to_string()),
+                            error: Some(format!("Failed to send transaction via TPU after {} attempts", max_retries)),
                             profit_lamports: 0,
                             gas_cost: priority_fee,
                             execution_time_ms: measurement_start.elapsed().as_millis() as u64,
                         });
                     }
                 }
-            } else {
-                // send_transaction returned false, meaning TPU did not accept it.
-                if attempt < max_retries - 1 {
-                    warn!("Attempt {}/{} to send transaction via TPU failed (TPU did not accept). Retrying in 100ms...",
-                          attempt + 1, max_retries);
-                    sleep(Duration::from_millis(100)).await;
-                } else {
-                    error!("Failed to send transaction via TPU after {} attempts (TPU did not accept).", max_retries);
-                    return Ok(ExecutionResult { 
-                        success: false,
-                        signature: None,
-                        error: Some(format!("Failed to send transaction via TPU after {} attempts", max_retries)),
-                        profit_lamports: 0,
-                        gas_cost: priority_fee, 
-                        execution_time_ms: measurement_start.elapsed().as_millis() as u64,
-                    });
+                Err(e) => { // Error from spawn_blocking (e.g., panic in the blocking task)
+                    error!("Error during spawn_blocking for TPU send_transaction on attempt {}: {}", attempt + 1, e);
+                    if attempt >= max_retries - 1 {
+                        return Ok(ExecutionResult {
+                            success: false,
+                            signature: None,
+                            error: Some(format!("Error in spawn_blocking for TPU send: {}", e)),
+                            profit_lamports: 0,
+                            gas_cost: priority_fee,
+                            execution_time_ms: measurement_start.elapsed().as_millis() as u64,
+                        });
+                    }
+                     warn!("Retrying TPU send after spawn_blocking error on attempt {}...", attempt + 1);
+                    sleep(Duration::from_millis(100)).await; // Wait before retrying
                 }
             }
         }
