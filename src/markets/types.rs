@@ -12,6 +12,14 @@ pub enum DexLabel {
     Meteora,
 }
 
+/// Market identifier for unified DEX interface
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum MarketId {
+    Orca,
+    Raydium,
+    Meteora,
+}
+
 use std::str::FromStr;
 
 impl FromStr for DexLabel {

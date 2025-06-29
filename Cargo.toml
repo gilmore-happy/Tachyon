@@ -48,6 +48,9 @@ exitfailure = "0.5.1"
 solana-sdk = { version = "1.18.14" }
 solana-client = { version = "1.18.14" }
 solana-quic-client = { version = "1.18.15" } # Match solana-client version from clippy output
+orca_whirlpools_client = "1.0.2" # Official Orca Whirlpools Client SDK
+orca_whirlpools_core = "1.0.2" # Official Orca Whirlpools Core SDK
+rustc-hash = "1.1.0" # High-performance hash maps for HFT
 solana-program = "1.18.10"
 thiserror = "1.0.58"
 hex = "0.4.3"
