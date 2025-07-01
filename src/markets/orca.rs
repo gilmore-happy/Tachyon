@@ -2,7 +2,7 @@ use crate::common::constants::Env;
 use crate::common::utils::{from_pubkey, from_str};
 use crate::markets::types::{Dex, DexLabel, Market, PoolItem};
 use crate::markets::utils::to_pair_string;
-use anyhow::Result;
+use anyhow::{Result, Context};
 use log::info;
 use reqwest::get;
 use serde::{Deserialize, Serialize};
@@ -25,79 +25,87 @@ pub struct OrcaDex {
     pub pools: Vec<PoolItem>,
 }
 impl OrcaDex {
-    pub async fn new(mut dex: Dex) -> Self { // Changed to async
+    pub async fn new(mut dex: Dex) -> Result<Self> {
         let env = Env::new();
         let rpc_client = RpcClient::new(env.rpc_url);
 
         let mut pools_vec = Vec::new();
 
-        let data =
-            fs::read_to_string("src/markets/cache/orca-markets.json").await.expect("Error reading file"); // Changed to await
-        let json_value: HashMap<String, Pool> = serde_json::from_str(&data).unwrap();
-
-        // println!("JSON Pools: {:?}", json_value);
+        let data = fs::read_to_string("src/markets/cache/orca-markets.json")
+            .await
+            .context("Failed to read orca-markets.json cache file")?;
+        let json_value: HashMap<String, Pool> =
+            serde_json::from_str(&data).context("Failed to parse orca-markets.json")?;
 
         let mut pubkeys_vec: Vec<Pubkey> = Vec::new();
 
-        for (_key, pool) in json_value.clone() {
-            let pubkey = from_str(pool.pool_account.as_str()).unwrap();
+        // Iterate over values directly to avoid cloning the whole HashMap
+        for pool in json_value.values() {
+            let pubkey = from_str(pool.pool_account.as_str())
+                .map_err(|e| anyhow::anyhow!("Failed to parse pool_account string to Pubkey: {}", e))?;
             pubkeys_vec.push(pubkey);
         }
 
         let mut results_pools = Vec::new();
 
-        for i in (0..pubkeys_vec.len()).step_by(100) {
-            let max_length = std::cmp::min(i + 100, pubkeys_vec.len());
-            let batch = &pubkeys_vec[i..max_length];
+        for chunk in pubkeys_vec.chunks(100) {
+            let batch_results = rpc_client
+                .get_multiple_accounts(chunk)
+                .await
+                .context("Failed to get multiple accounts from RPC")?;
 
-            let batch_results = rpc_client.get_multiple_accounts(&batch).await.unwrap(); // Changed to await
-            for j in batch_results {
-                let account = j.unwrap();
-                let data = unpack_from_slice(&account.data.into_boxed_slice());
-                results_pools.push(data.unwrap());
+            for account_option in batch_results {
+                let account = account_option.context("Failed to get account, RPC returned None")?; // Or handle as skippable
+                let token_swap_data = unpack_from_slice(&account.data.into_boxed_slice())?;
+                results_pools.push(token_swap_data);
             }
         }
 
-        for pool in &results_pools {
-            let fee = (pool.trade_fee_numerator as f64 / pool.trade_fee_denominator as f64)
-                * 10000 as f64;
-
-            let item: PoolItem = PoolItem {
-                mint_a: from_pubkey(pool.mint_a),
-                mint_b: from_pubkey(pool.mint_b),
-                vault_a: from_pubkey(pool.token_account_a),
-                vault_b: from_pubkey(pool.token_account_b),
-                trade_fee_rate: fee as u128,
+        for pool_data in &results_pools {
+            let fee_rate_float = if pool_data.trade_fee_denominator != 0 {
+                (pool_data.trade_fee_numerator as f64 / pool_data.trade_fee_denominator as f64) * 10000.0 // Assuming fee is in basis points
+            } else {
+                0.0 // Avoid division by zero
             };
 
+            let item: PoolItem = PoolItem {
+                mint_a: from_pubkey(pool_data.mint_a),
+                mint_b: from_pubkey(pool_data.mint_b),
+                vault_a: from_pubkey(pool_data.token_account_a),
+                vault_b: from_pubkey(pool_data.token_account_b),
+                trade_fee_rate: fee_rate_float as u128, // Consider if u128 is appropriate for basis points
+            };
             pools_vec.push(item);
 
             let market: Market = Market {
-                token_mint_a: from_pubkey(pool.mint_a),
-                token_vault_a: from_pubkey(pool.token_account_a),
-                token_mint_b: from_pubkey(pool.mint_b),
-                token_vault_b: from_pubkey(pool.token_account_b),
-                fee: fee as u64,
+                token_mint_a: from_pubkey(pool_data.mint_a),
+                token_vault_a: from_pubkey(pool_data.token_account_a),
+                token_mint_b: from_pubkey(pool_data.mint_b),
+                token_vault_b: from_pubkey(pool_data.token_account_b),
+                fee: fee_rate_float as u64, // Store fee in consistent unit (e.g. basis points)
                 dex_label: DexLabel::Orca,
-                id: from_pubkey(pool.token_pool),
-                account_data: None,
-                liquidity: None,
+                id: from_pubkey(pool_data.token_pool),
+                account_data: None, // Explicitly None, as per original logic for new()
+                liquidity: None,    // Explicitly None
             };
 
-            let pair_string = to_pair_string(from_pubkey(pool.mint_a), from_pubkey(pool.mint_b));
-            if dex.pair_to_markets.contains_key(&pair_string.clone()) {
-                let vec_market = dex.pair_to_markets.get_mut(&pair_string).unwrap();
-                vec_market.push(market);
-            } else {
-                dex.pair_to_markets.insert(pair_string, vec![market]);
-            }
+            let pair_string = to_pair_string(
+                from_pubkey(pool_data.mint_a),
+                from_pubkey(pool_data.mint_b),
+            );
+
+            // Use entry API for cleaner insertion/update
+            dex.pair_to_markets
+                .entry(pair_string)
+                .or_default()
+                .push(market);
         }
 
-        info!("Orca: {} pools founded", &results_pools.len());
-        Self {
+        info!("Orca: {} pools founded", results_pools.len());
+        Ok(Self {
             dex,
             pools: pools_vec,
-        }
+        })
     }
 }
 
@@ -163,17 +171,36 @@ pub async fn stream_orca(account: Pubkey) -> Result<()> {
 
         match account_subscription_receiver.recv() { // THIS IS STILL BLOCKING
             Ok(response) => {
-                // To process data without blocking other async tasks, consider:
-                // tokio::spawn(async move { process_data(data_bytes).await });
-                let data = response.value.data;
-                let bytes_slice = UiAccountData::decode(&data).unwrap();
-                // println!("account subscription data response: {:?}", data);
-                let account_data = unpack_from_slice(bytes_slice.as_slice());
-                println!("Orca Pool updated: {:?}", account);
-                println!("Data: {:?}", account_data.unwrap());
+                let ui_account_data = response.value.data;
+                match UiAccountData::decode(&ui_account_data) {
+                    Ok(bytes_slice) => {
+                        match unpack_from_slice(bytes_slice.as_slice()) {
+                            Ok(account_data) => {
+                                // Successfully decoded and unpacked
+                                println!("Orca Pool updated: {:?}", account);
+                                println!("Data: {:?}", account_data);
+                            }
+                            Err(e) => {
+                                // Error unpacking the data
+                                eprintln!(
+                                    "Error unpacking Orca pool data for account {:?}: {:?}. Raw data: {:?}",
+                                    account, e, bytes_slice
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        // Error decoding UiAccountData
+                        eprintln!(
+                            "Error decoding UiAccountData for Orca pool {:?}: {:?}. Original data: {:?}",
+                            account, e, ui_account_data
+                        );
+                    }
+                }
             }
             Err(e) => {
-                println!("account subscription error: {:?}", e);
+                // Error receiving from subscription
+                eprintln!("Orca account subscription error for {:?}: {:?}", account, e);
                 break;
             }
         }
@@ -243,45 +270,50 @@ pub struct TokenSwapLayout {
 }
 
 fn unpack_from_slice(src: &[u8]) -> Result<TokenSwapLayout, ProgramError> {
+    // Helper closure to convert slice to array and then to Pubkey
+    let to_pubkey = |slice: &[u8]| -> Result<Pubkey, ProgramError> {
+        slice
+            .try_into()
+            .map(Pubkey::new_from_array)
+            .map_err(|_| ProgramError::InvalidAccountData) // Map SliceTryFromError to ProgramError
+    };
+
+    // Helper closure to convert slice to array and then to u64
+    let to_u64 = |slice: &[u8]| -> Result<u64, ProgramError> {
+        slice
+            .try_into()
+            .map(u64::from_le_bytes)
+            .map_err(|_| ProgramError::InvalidAccountData) // Map SliceTryFromError to ProgramError
+    };
+
+    // Ensure src is long enough for the fixed-size parts
+    if src.len() < 292 + 32 { // 292 for fields before curve_parameters, 32 for curve_parameters
+        return Err(ProgramError::InvalidAccountData);
+    }
+
     let version = src[0];
     let is_initialized = src[1] != 0;
     let bump_seed = src[2];
-    let pool_token_program_id =
-        Pubkey::new_from_array(<[u8; 32]>::try_from(&src[3..35]).expect("Orca pools bad unpack"));
-    let token_account_a =
-        Pubkey::new_from_array(<[u8; 32]>::try_from(&src[35..67]).expect("Orca pools bad unpack"));
-    let token_account_b =
-        Pubkey::new_from_array(<[u8; 32]>::try_from(&src[67..99]).expect("Orca pools bad unpack"));
-    let token_pool =
-        Pubkey::new_from_array(<[u8; 32]>::try_from(&src[99..131]).expect("Orca pools bad unpack"));
-    let mint_a = Pubkey::new_from_array(
-        <[u8; 32]>::try_from(&src[131..163]).expect("Orca pools bad unpack"),
-    );
-    let mint_b = Pubkey::new_from_array(
-        <[u8; 32]>::try_from(&src[163..195]).expect("Orca pools bad unpack"),
-    );
-    let fee_account = Pubkey::new_from_array(
-        <[u8; 32]>::try_from(&src[195..227]).expect("Orca pools bad unpack"),
-    );
-    let trade_fee_numerator =
-        u64::from_le_bytes(<[u8; 8]>::try_from(&src[227..235]).expect("Orca pools bad unpack"));
-    let trade_fee_denominator =
-        u64::from_le_bytes(<[u8; 8]>::try_from(&src[235..243]).expect("Orca pools bad unpack"));
-    let owner_trade_fee_numerator =
-        u64::from_le_bytes(<[u8; 8]>::try_from(&src[243..251]).expect("Orca pools bad unpack"));
-    let owner_trade_fee_denominator =
-        u64::from_le_bytes(<[u8; 8]>::try_from(&src[251..259]).expect("Orca pools bad unpack"));
-    let owner_withdraw_fee_numerator =
-        u64::from_le_bytes(<[u8; 8]>::try_from(&src[259..267]).expect("Orca pools bad unpack"));
-    let owner_withdraw_fee_denominator =
-        u64::from_le_bytes(<[u8; 8]>::try_from(&src[267..275]).expect("Orca pools bad unpack"));
-    let host_fee_numerator =
-        u64::from_le_bytes(<[u8; 8]>::try_from(&src[275..283]).expect("Orca pools bad unpack"));
-    let host_fee_denominator =
-        u64::from_le_bytes(<[u8; 8]>::try_from(&src[283..291]).expect("Orca pools bad unpack"));
+    let pool_token_program_id = to_pubkey(&src[3..35])?;
+    let token_account_a = to_pubkey(&src[35..67])?;
+    let token_account_b = to_pubkey(&src[67..99])?;
+    let token_pool = to_pubkey(&src[99..131])?;
+    let mint_a = to_pubkey(&src[131..163])?;
+    let mint_b = to_pubkey(&src[163..195])?;
+    let fee_account = to_pubkey(&src[195..227])?;
+
+    let trade_fee_numerator = to_u64(&src[227..235])?;
+    let trade_fee_denominator = to_u64(&src[235..243])?;
+    let owner_trade_fee_numerator = to_u64(&src[243..251])?;
+    let owner_trade_fee_denominator = to_u64(&src[251..259])?;
+    let owner_withdraw_fee_numerator = to_u64(&src[259..267])?;
+    let owner_withdraw_fee_denominator = to_u64(&src[267..275])?;
+    let host_fee_numerator = to_u64(&src[275..283])?;
+    let host_fee_denominator = to_u64(&src[283..291])?;
+
     let curve_type = src[291];
     let mut curve_parameters = [0u8; 32];
-    curve_parameters.copy_from_slice(&src[292..]);
+    curve_parameters.copy_from_slice(&src[292..292+32]); // Ensure correct slicing for curve_parameters
 
     Ok(TokenSwapLayout {
         version,
